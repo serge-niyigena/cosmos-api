@@ -16,10 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EItemType implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
-
-    @Column(name = "item_type_desc")
-    private String description;
+	private static final long serialVersionUID = 1L; 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +25,7 @@ public class EItemType implements Serializable{
 
     @Column(name = "item_type_name")
     private String name;
-    
-    @Column(name = "item_selection_type")
-    private String iSelectionType;
 
+    @Column(name = "item_type_desc")
+    private String description;
 }

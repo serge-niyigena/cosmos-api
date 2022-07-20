@@ -60,5 +60,8 @@ public class EProject {
 	    
 	    @Column(name = "project_wet", nullable = false)
 	    private LocalDateTime projectWET;
+	    
+	    @Column(name = "project_items_selection_type", nullable = false)
+	    private String projectItemSelectionType;
 	
 }

@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cosmos.dtos.general.PageDTO;
-import com.cosmos.dtos.project.RoomItemDTO;
-import com.cosmos.models.project.ERoomItem;
+import com.cosmos.dtos.project.FloorItemDTO;
+import com.cosmos.models.project.EFloorItem;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
-import com.cosmos.services.project.IRoomItem;
+import com.cosmos.services.project.IFloorItem;
 
 import io.swagger.annotations.Api;
 
 @RestController
 @Api("Room items Endpoints")
-public class CRoomItem {
+public class CFloorItem {
 	
 	@Autowired
-	private IRoomItem sRoomItem;
+	private IFloorItem sFloorItem;
 
-    @GetMapping(path = "/room/item", produces = "application/json")
+    @GetMapping(path = "/floor/item", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);
@@ -41,33 +41,33 @@ public class CRoomItem {
         List<String> allowableFields = new ArrayList<String>(
                 Arrays.asList("name","status.id", "RoomProjectFloor.id"));
 
-        Page<ERoomItem> roomItemPage = sRoomItem.getPaginatedList(pageDTO, allowableFields);
+        Page<EFloorItem> floorItemPage = sFloorItem.getPaginatedList(pageDTO, allowableFields);
         
         return ResponseEntity
                 .ok()
-                .body(new SuccessPaginatedResponse(200, "Successfully fetched room items list", 
-                		roomItemPage, RoomItemDTO.class, ERoomItem.class));
+                .body(new SuccessPaginatedResponse(200, "Successfully fetched floor items list", 
+                		floorItemPage, FloorItemDTO.class, EFloorItem.class));
     }
     
-    @PostMapping(path = "/room/item", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> createRoomItem(@RequestBody RoomItemDTO projectDTO) 
+    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> createFloorItem(@RequestBody FloorItemDTO projectDTO) 
             throws URISyntaxException {
 
-        ERoomItem projFloor = sRoomItem.create(projectDTO);
+        EFloorItem projFloor = sFloorItem.create(projectDTO);
 
         return ResponseEntity
-            .created(new URI("/room/item" + projFloor.getId()))
-            .body(new SuccessResponse(201, "Successfully created room item", new RoomItemDTO(projFloor)));
+            .created(new URI("/floor/item" + projFloor.getId()))
+            .body(new SuccessResponse(201, "Successfully created floor item", new FloorItemDTO(projFloor)));
     }
 
-    @GetMapping(path = "room/item/{id}", produces = "application/json")
-    public ResponseEntity<SuccessResponse> getRoomItemById(@PathVariable Integer id) {
+    @GetMapping(path = "floor/item/{id}", produces = "application/json")
+    public ResponseEntity<SuccessResponse> getFloorItemById(@PathVariable Integer id) {
 
-        ERoomItem project = sRoomItem.getById(id,true);
+        EFloorItem project = sFloorItem.getById(id,true);
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched room item", new RoomItemDTO(project)));
+            .body(new SuccessResponse(200, "Successfully fetched floor item", new FloorItemDTO(project)));
     }
 
 }

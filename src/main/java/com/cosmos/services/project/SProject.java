@@ -81,7 +81,7 @@ public class SProject implements IProject {
 			project.setProjectStatus(pStat);
 			project.setProjectOrgnanization(pOrg);
 			project.setProjCategory(pCat);
-			
+			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
 			return save(project);
 		}
 		

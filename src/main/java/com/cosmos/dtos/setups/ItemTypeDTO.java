@@ -16,12 +16,11 @@ public class ItemTypeDTO {
 	
 	private String name;
 	private String desc;
-	private String ItemSelectionType;
 	
 	public ItemTypeDTO(EItemType eItemType) {
+		setId(eItemType.getId());
 		setName(eItemType.getName());
 		setDesc(eItemType.getDescription());
-		setItemSelectionType(eItemType.getISelectionType());
 	}
 
 }

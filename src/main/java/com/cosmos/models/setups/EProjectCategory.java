@@ -16,9 +16,6 @@ public class EProjectCategory implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	  	@Column(name = "project_category_desc")
-	    private String description;
-
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(nullable = false, updatable = false, name = "project_category_id")
@@ -26,5 +23,9 @@ public class EProjectCategory implements Serializable{
 
 	    @Column(name = "project_category_name")
 	    private String name;
+	    
+	    @Column(name = "project_category_desc")
+	    private String description;
+
 	
 }

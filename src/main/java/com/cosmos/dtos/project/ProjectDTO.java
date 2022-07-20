@@ -38,6 +38,7 @@ public class ProjectDTO {
 	    
 	    private LocalDateTime projWef;
 	    private LocalDateTime projWet;
+	    private String projectItemSelectionType;
 	    
 	    @JsonProperty(access = Access.WRITE_ONLY)
 	    private Integer organizationId;
@@ -59,6 +60,7 @@ public class ProjectDTO {
 	    	setProjectCategory(new ProjectCategoryDTO(eProject.getProjCategory()));
 	    	setProjWef(eProject.getProjectWEF());
 	    	setProjWet(eProject.getProjectWET());
+	    	setProjectItemSelectionType(eProject.getProjectItemSelectionType());
 	    	
 	    }
 	

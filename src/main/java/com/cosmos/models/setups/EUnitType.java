@@ -18,13 +18,14 @@ public class EUnitType implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "unit_desc")
-    private String description;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false, name = "unit_id")
     private Integer id;
+    
+    @Column(name = "unit_desc")
+    private String description;
 
     @Column(name = "unit_name")
     private String name;
