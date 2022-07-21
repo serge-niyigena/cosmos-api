@@ -17,7 +17,7 @@ import com.cosmos.services.items.IItem;
 import com.cosmos.services.statuses.IUsageStatus;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
-import com.cosmos.utils.globalFunctions;
+import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SFloorItem implements IFloorItem {
@@ -39,7 +39,7 @@ public class SFloorItem implements IFloorItem {
 	 private SpecFactory specFactory;
 	 
 	 @Autowired
-	 private globalFunctions globalFunction;
+	 private GlobalFunctions globalFunction;
 	 
 	    @Override
 	    public Page<EFloorItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "user_types")
 @Data
 @NoArgsConstructor
-public class EUserTypes implements Serializable {
+public class EUserType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.cosmos.dtos.general.PageDTO;
 
 @Component
-public class globalFunctions {
+public class GlobalFunctions {
 	
 	public PageRequest getPageRequest(PageDTO pageDTO) {
 		return PageRequest.of(pageDTO.getPageNumber(), pageDTO.getPageSize(),

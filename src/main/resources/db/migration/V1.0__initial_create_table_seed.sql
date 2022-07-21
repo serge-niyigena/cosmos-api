@@ -21,11 +21,11 @@ CREATE TABLE IF NOT EXISTS users (
     "user_id" SERIAL PRIMARY KEY ,
     "user_password" VARCHAR(120) NOT NULL,
     "user_fullname" VARCHAR(50) NOT NULL,
-    "user_mobile" VARCHAR(50) NOT NULL UNIQUE,
+    "user_mobile" VARCHAR(50) NULL UNIQUE,
     "user_email" VARCHAR(30) NULL UNIQUE,
     "user_type" SMALLINT NOT NULL REFERENCES user_types("user_type_id") ON DELETE SET NULL,
-    "user_active" VARCHAR(1) DEFAULT 'N',
-    "user_reset" VARCHAR(30) DEFAULT 'N');
+    "user_active" VARCHAR(3) DEFAULT 'N',
+    "user_reset" VARCHAR(3) DEFAULT 'N');
 
     -- Create project_category table
 CREATE TABLE IF NOT EXISTS project_category (
@@ -115,22 +115,23 @@ CREATE TABLE IF NOT EXISTS project_floors (
       --create damaged_items table
     CREATE TABLE IF NOT EXISTS damaged_items(
     "damaged_id" SERIAL PRIMARY KEY,
-    "damaged_date DATE NOT NULL"  ,
-    "damaged_desc" varchar(200),
-    "damaged_floor_item_id" REFERENCES project_floor_item("floor_item_id") ON DELETE SET NULL,
+    "damaged_date" DATE NOT NULL  ,
+    "damaged_desc" varchar(200) NOT NULL,
+    "damaged_floor_item_id" SMALLINT REFERENCES project_floor_item("floor_item_id") ON DELETE SET NULL,
+    "damaged_quantity" SMALLINT NOT NULL
     );
     
     --create groups table
     CREATE TABLE IF NOT EXISTS groups (
   "group_id" SERIAL  PRIMARY KEY,
   "group_name" varchar(50) NOT NULL,
-  "group_des" varchar(50) NOT NULL);
+  "group_desc" varchar(50) NOT NULL);
   
   --create table user_groups
   CREATE TABLE IF NOT EXISTS group_users (
   "group_user_id" SERIAL PRIMARY KEY,
-  "group_user_group_id" REFERENCES groups("group_id") ON DELETE CASCADE,
-  "group_user_user_id" REFERENCES users("user_id") ON DELETE CASCADE;
+  "group_user_group_id" SMALLINT REFERENCES groups("group_id") ON DELETE CASCADE,
+  "group_user_user_id" SMALLINT REFERENCES users("user_id") ON DELETE CASCADE;
 );
 
 --create table roles
@@ -143,10 +144,15 @@ CREATE TABLE IF NOT EXISTS roles (
 --create table role groups
 CREATE TABLE IF NOT EXISTS role_groups(
 "role_group_id" SERIAL PRIMARY KEY,
-"role_group_group_id" REFERENCES groups("group_id"),
-"role_group_role_id" REFERENCES roles("role_id")
+"role_group_group_id" SMALLINT REFERENCES groups("group_id"),
+"role_group_role_id" SMALLINT REFERENCES roles("role_id")
 );
 
+--creat table project_users
+CREATE TABLE IF NOT EXISTS PROJECT_USERS(
+"project_user_id" SERIAL PRIMARY KEY,
+"project_user_project_id" SMALLINT REFERENCES project("project_id") ON DELETE CASCADE,
+"project_user_user_id" SMALLINT REFERENCES users("user_id") ON DELETE CASCADE);
 
   
 

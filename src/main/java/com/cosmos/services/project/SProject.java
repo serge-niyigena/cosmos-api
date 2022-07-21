@@ -21,7 +21,7 @@ import com.cosmos.services.org.IOrganization;
 import com.cosmos.services.statuses.IProjectStatus;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
-import com.cosmos.utils.globalFunctions;
+import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SProject implements IProject {
@@ -42,7 +42,7 @@ public class SProject implements IProject {
 	 private SpecFactory specFactory;
 	 
 	 @Autowired
-	 private globalFunctions globalFunction;
+	 private GlobalFunctions globalFunction;
 	 
 	    @Override
 	    public Page<EProject> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {

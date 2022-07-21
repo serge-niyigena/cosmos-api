@@ -30,9 +30,6 @@ public class EItem {
 	    @Column(name = "item_desc", nullable = false)
 	    private String desc;
 	    
-	    @Column(name = "item_make", nullable = true)
-	    private String make;
-	    
 	    
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "item_item_category_id", referencedColumnName = "item_category_id")

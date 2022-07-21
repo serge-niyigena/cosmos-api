@@ -16,7 +16,7 @@ import com.cosmos.models.project.EFloorRoom;
 import com.cosmos.repositories.FloorRoomDAO;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
-import com.cosmos.utils.globalFunctions;
+import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SFloorRoom implements IFloorRoom {
@@ -32,7 +32,7 @@ public class SFloorRoom implements IFloorRoom {
 	 private SpecFactory specFactory;
 	 
 	 @Autowired
-	 private globalFunctions globalFunction;
+	 private GlobalFunctions globalFunction;
 	 
 	    @Override
 	    public Page<EFloorRoom> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {

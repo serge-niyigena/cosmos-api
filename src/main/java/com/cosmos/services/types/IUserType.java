@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import com.cosmos.dtos.setups.UserTypeDTO;
-import com.cosmos.models.setups.EUserTypes;
+import com.cosmos.models.setups.EUserType;
 
 
 public interface IUserType {
 
-	EUserTypes create(UserTypeDTO userTypeDTO);
+	EUserType create(UserTypeDTO userTypeDTO);
 	
-    List<EUserTypes> getAll();
+    List<EUserType> getAll();
 
-    Optional<EUserTypes> getById(Integer userTypeId);
+    Optional<EUserType> getById(Integer userTypeId);
 
-    EUserTypes getById(Integer userTypeId, Boolean throwException);
+    EUserType getById(Integer userTypeId, Boolean throwException);
 	
 }

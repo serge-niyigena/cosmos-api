@@ -1,4 +1,4 @@
-package com.cosmos.controllers.types;
+package com.cosmos.controllers.setups;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.exceptions.NotFoundException;
-import com.cosmos.models.setups.EUserTypes;
+import com.cosmos.models.setups.EUserType;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.types.IUserType;
 
@@ -32,7 +32,7 @@ public class CUserType {
     public ResponseEntity<SuccessResponse> createUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
-        EUserTypes prop = sUserType.create(userTypeDTO);
+        EUserType prop = sUserType.create(userTypeDTO);
 
         return ResponseEntity
             .created(new URI("/user/type" + prop.getId()))
@@ -42,7 +42,7 @@ public class CUserType {
     @GetMapping(path = "/user/type/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getUserTypeById(@PathVariable Integer id) {
 
-        Optional<EUserTypes> userType = sUserType.getById(id);
+        Optional<EUserType> userType = sUserType.getById(id);
         if (!userType.isPresent()) {
             throw new NotFoundException("type with specified id not found", "userTypeId");
         }
@@ -55,7 +55,7 @@ public class CUserType {
     @GetMapping(path = "/user/type", produces = "application/json")
     public ResponseEntity<SuccessResponse> getAllUserTypees() {
 
-        List<EUserTypes> userType = sUserType.getAll();
+        List<EUserType> userType = sUserType.getAll();
         
 
         return ResponseEntity

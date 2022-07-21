@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.exceptions.InvalidInputException;
-import com.cosmos.models.setups.EUserTypes;
+import com.cosmos.models.setups.EUserType;
 import com.cosmos.repositories.UserTypeDAO;
 
 
@@ -19,18 +19,18 @@ public class SUserType implements IUserType{
 
 
 	    @Override
-	    public List<EUserTypes> getAll() {
+	    public List<EUserType> getAll() {
 	        return userTypeDAO.findAll();
 	    }
 
 	    @Override
-	    public Optional<EUserTypes> getById(Integer userTypeId) {
+	    public Optional<EUserType> getById(Integer userTypeId) {
 	        return userTypeDAO.findById(userTypeId);
 	    }
 
 	    @Override
-	    public EUserTypes getById(Integer userTypeId, Boolean throwException) {
-	        Optional<EUserTypes> userType = userTypeDAO.findById(userTypeId);
+	    public EUserType getById(Integer userTypeId, Boolean throwException) {
+	        Optional<EUserType> userType = userTypeDAO.findById(userTypeId);
 	        if (!userType.isPresent() && throwException) {
 	            throw new InvalidInputException("property type with given id not found", "userTypeId");
 	        }
@@ -38,9 +38,9 @@ public class SUserType implements IUserType{
 	    }
 	  
 		@Override
-		public EUserTypes create(UserTypeDTO uTypeDTO) {
+		public EUserType create(UserTypeDTO uTypeDTO) {
 			
-			EUserTypes propType = new EUserTypes();
+			EUserType propType = new EUserType();
 			
 			propType.setDescription(uTypeDTO.getDesc());
 			propType.setName(uTypeDTO.getName());
@@ -48,7 +48,7 @@ public class SUserType implements IUserType{
 			return propType;
 		}
 		
-		public void save(EUserTypes eUserType) {
+		public void save(EUserType eUserType) {
 			userTypeDAO.save(eUserType);
 		}
 

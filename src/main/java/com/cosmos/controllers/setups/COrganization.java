@@ -1,4 +1,4 @@
-package com.cosmos.controllers.organization;
+package com.cosmos.controllers.setups;
 
 import java.net.URI;
 import java.net.URISyntaxException;

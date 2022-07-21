@@ -1,6 +1,6 @@
 package com.cosmos.dtos.setups;
 
-import com.cosmos.models.setups.EUserType;
+import com.cosmos.models.setups.ERole;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
@@ -9,18 +9,19 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserTypeDTO {
+public class RoleDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-	private int id;
+	private Integer roleId;
 	
-	private String name;
-	private String desc;
+	private String roleName;
 	
-	public UserTypeDTO(EUserType eUserType) {
-		setId(eUserType.getId());
-		setName(eUserType.getName());
-		setDesc(eUserType.getDescription());
+	private String roleDesc;
+	
+	public RoleDTO(ERole eRole) {
+		setRoleId(eRole.getId());
+		setRoleName(eRole.getName());
+		setRoleDesc(eRole.getDesc());
 	}
 
 }

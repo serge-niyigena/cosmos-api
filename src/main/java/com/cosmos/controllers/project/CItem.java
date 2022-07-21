@@ -1,4 +1,4 @@
-package com.cosmos.controllers.items;
+package com.cosmos.controllers.project;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;

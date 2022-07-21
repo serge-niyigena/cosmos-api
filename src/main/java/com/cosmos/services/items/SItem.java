@@ -20,7 +20,7 @@ import com.cosmos.services.types.IItemType;
 import com.cosmos.services.types.IUnitType;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
-import com.cosmos.utils.globalFunctions;
+import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SItem implements IItem {
@@ -38,7 +38,7 @@ public class SItem implements IItem {
 	 private IUnitType sUnitType;
 	 
 	 @Autowired
-	 private globalFunctions globalFunction;
+	 private GlobalFunctions globalFunction;
 	 
 	 @Autowired
 	 private SpecFactory specFactory;
@@ -71,7 +71,6 @@ public class SItem implements IItem {
 			
 			item.setDesc(itemDTO.getDesc());
 			item.setName(itemDTO.getName());
-			item.setMake(itemDTO.getMake());;
 			item.setItemCategory(iCat);
 			item.setItemType(iType);
 			item.setItemUnitType(uType);
