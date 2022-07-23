@@ -53,12 +53,10 @@ public class SRole implements IRole{
 			ERole role = new ERole();
 			role.setName(roleDTO.getRoleName());
 			role.setDesc(roleDTO.getRoleDesc());
-			return save(role);
+			return roleDAO.save(role);
 		}
 		
-		public ERole save(ERole eRole) {
-			return roleDAO.save(eRole);
-		}
+	
 
 		  @SuppressWarnings("unchecked")
 		    public Specification<ERole> buildFilterSpec(String searchQuery, List<String> allowedFields) {
@@ -81,6 +79,24 @@ public class SRole implements IRole{
 				 throw new InvalidInputException("Role with given id not found", "projectId");
 		        }  
 		     return role.get();
+		}
+
+
+		@Override
+		public ERole update(RoleDTO roleDTO) {
+			
+			ERole role = getById(roleDTO.getRoleId(), true);
+			role.setName(roleDTO.getRoleName());
+			role.setDesc(roleDTO.getRoleDesc());
+			
+			return roleDAO.save(role);
+			
+		}
+
+
+		@Override
+		public void delete(RoleDTO roleDTO) {
+			roleDAO.delete(getById(roleDTO.getRoleId(), true));
 		}
 
 }

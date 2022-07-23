@@ -82,12 +82,41 @@ public class SProject implements IProject {
 			project.setProjectOrgnanization(pOrg);
 			project.setProjCategory(pCat);
 			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
-			return save(project);
+			
+		    return projectDAO.save(project);
 		}
 		
-		public EProject save(EProject eProject) {
-			return projectDAO.save(eProject);
+		@Override
+		public EProject update(ProjectDTO projectDTO) {
+			
+			EProject project = getById(projectDTO.getId(), true);
+			
+			EProjectCategory pCat= sProjectCategory.getById(projectDTO.getCategoryId(),true);
+			EProjectStatus pStat= sProjectStatus.getById(projectDTO.getStatusId(), true);
+			EOrganization pOrg= sOrganization.getById(projectDTO.getOrganizationId(), true);
+			
+			project.setDesc(projectDTO.getDesc());
+			project.setName(projectDTO.getName());
+			project.setProjectWEF(projectDTO.getProjWef());
+			project.setProjectWET(projectDTO.getProjWet());
+			project.setReference(projectDTO.getReference());
+			project.setProjCreationDate(LocalDateTime.now());
+			project.setProjectStatus(pStat);
+			project.setProjectOrgnanization(pOrg);
+			project.setProjCategory(pCat);
+			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
+			
+			return projectDAO.save(project);
 		}
+		
+		@Override
+		public void delete(ProjectDTO projectDTO) {
+			
+			EProject project = getById(projectDTO.getId(), true);
+			
+			projectDAO.delete(project);
+		}
+		
 
 		  @SuppressWarnings("unchecked")
 		    public Specification<EProject> buildFilterSpec(String searchQuery, List<String> allowedFields) {

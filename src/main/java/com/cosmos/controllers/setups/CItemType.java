@@ -1,19 +1,27 @@
 package com.cosmos.controllers.setups;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.ItemTypeDTO;
 import com.cosmos.exceptions.NotFoundException;
 import com.cosmos.models.setups.EItemType;
+import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.types.IItemType;
 
@@ -33,6 +41,29 @@ public class CItemType {
             .created(new URI("/item/type" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created type", new ItemTypeDTO(prop)));
     }
+    
+
+    @PostMapping(path = "/item/type", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
+            throws URISyntaxException {
+
+        EItemType prop = sItemType.update(itemTypeDTO);
+
+        return ResponseEntity
+            .created(new URI("/item/type" + prop.getId()))
+            .body(new SuccessResponse(201, "Successfully updated type", new ItemTypeDTO(prop)));
+    }
+    
+    @PostMapping(path = "/item/type", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
+            throws URISyntaxException {
+
+      sItemType.delete(itemTypeDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted type",itemTypeDTO));
+    }
 
     @GetMapping(path = "/item/type/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getItemTypeById(@PathVariable Integer id) {
@@ -47,15 +78,21 @@ public class CItemType {
             .body(new SuccessResponse(200, "Successfully fetched itemType", new ItemTypeDTO(itemType.get())));
     }
     
-    @GetMapping(path = "/item/type", produces = "application/json")
-    public ResponseEntity<SuccessResponse> getAllItemTypees() {
+    @GetMapping(path = "/item/types", produces = "application/json")
+    public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
+    		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        PageDTO pageDTO = new PageDTO(params);
 
-        List<EItemType> itemType = sItemType.getAll();
+        List<String> allowableFields = new ArrayList<String>(
+                Arrays.asList("name","status.id", "projCategory.id"));
+
+        Page<EItemType> itemType = sItemType.getPaginatedList(pageDTO,allowableFields);
         
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched itemType", itemType));
+            .body(new SuccessPaginatedResponse(200, "Successfully fetched itemType",
+            		itemType,ItemTypeDTO.class,EItemType.class));
     }
 	
 }

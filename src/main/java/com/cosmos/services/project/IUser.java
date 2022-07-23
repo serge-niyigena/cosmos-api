@@ -9,10 +9,16 @@ import com.cosmos.models.setups.EUser;
 public interface IUser {
 
     EUser create(UserDTO userDTO);
+    
+    EUser update(UserDTO userDTO);
+    
+    void delete(UserDTO userDTO);
 	
     Page<EUser> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
     
     Optional<EUser> getById(Integer userId);
+    
+    Optional<EUser> getByMobileOrEmail(String contact);
 
     EUser getById(Integer userId,Boolean throwException);
 	

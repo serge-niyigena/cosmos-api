@@ -11,10 +11,14 @@ public interface IProjectStatus {
 
 	EProjectStatus create(ProjectStatusDTO projectStatusDTO);
 	
+	EProjectStatus update(ProjectStatusDTO projectStatusDTO);
+	
     List<EProjectStatus> getAll();
 
     Optional<EProjectStatus> getById(Integer projectStatusId);
 
     EProjectStatus getById(Integer projectStatusId, Boolean throwException);
+    
+    void delete(ProjectStatusDTO projStatusDTO);
 	
 }

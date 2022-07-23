@@ -9,10 +9,14 @@ import com.cosmos.models.project.EDamagedItem;
 
 public interface IDamagedItem {
 	
-	  EDamagedItem create(DamagedItemDTO projectFloorDTO);
+	   EDamagedItem create(DamagedItemDTO projectFloorDTO);
+	   
+	   EDamagedItem update(DamagedItemDTO projectFloorDTO);
+	   
+	   void delete(DamagedItemDTO projectFloorDTO);
 		
-	    Page<EDamagedItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
+	   Page<EDamagedItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
-	    EDamagedItem getById(Integer projectFloorStatusId,Boolean throwException);
+	   EDamagedItem getById(Integer projectFloorStatusId,Boolean throwException);
 
 }

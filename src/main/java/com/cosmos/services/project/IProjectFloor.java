@@ -11,6 +11,10 @@ public interface IProjectFloor{
 
 	EProjectFloor create(ProjectFloorDTO projectFloorDTO);
 	
+	EProjectFloor update(ProjectFloorDTO projectFloorDTO);
+	
+	void delete(ProjectFloorDTO projectFloorDTO);
+	
     Page<EProjectFloor> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     EProjectFloor getById(Integer projectFloorStatusId, Boolean throwException);

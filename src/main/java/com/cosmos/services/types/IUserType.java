@@ -11,6 +11,10 @@ public interface IUserType {
 
 	EUserType create(UserTypeDTO userTypeDTO);
 	
+	EUserType update(UserTypeDTO userTypeDTO);
+	
+	void delete(UserTypeDTO userTypeDTO);
+	
     List<EUserType> getAll();
 
     Optional<EUserType> getById(Integer userTypeId);

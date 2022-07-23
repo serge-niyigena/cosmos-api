@@ -38,20 +38,33 @@ public class SProjectCategory implements IProjectCategory{
 	    }
 	  
 		@Override
-		public EProjectCategory create(ProjectCategoryDTO uStatusDTO) {
+		public EProjectCategory create(ProjectCategoryDTO projCategoryDTO) {
 			
 			EProjectCategory projCategory = new EProjectCategory();
 			
-			projCategory.setDescription(uStatusDTO.getDesc());
-			projCategory.setName(uStatusDTO.getName());
-			save(projCategory);
-			return projCategory;
+			projCategory.setDescription(projCategoryDTO.getDesc());
+			projCategory.setName(projCategoryDTO.getName());
+			
+			return projectCategoryDAO.save(projCategory);
 		}
 		
-		public void save(EProjectCategory ePropType) {
-			projectCategoryDAO.save(ePropType);
+		@Override
+		public EProjectCategory update(ProjectCategoryDTO projCategoryDTO) {
+			
+			EProjectCategory projCategory = getById(projCategoryDTO.getId(), true);
+			
+			projCategory.setDescription(projCategoryDTO.getDesc());
+			projCategory.setName(projCategoryDTO.getName());
+			
+			return projectCategoryDAO.save(projCategory);
 		}
-
 		
+		@Override
+		public void delete(ProjectCategoryDTO projCategoryDTO) {
+			
+			EProjectCategory projCategory = getById(projCategoryDTO.getId(), true);
+			
+			projectCategoryDAO.delete(projCategory);;
+		}
 
 }

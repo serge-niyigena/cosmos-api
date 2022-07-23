@@ -40,18 +40,31 @@ public class SProjectStatus implements IProjectStatus{
 		@Override
 		public EProjectStatus create(ProjectStatusDTO uStatusDTO) {
 			
-			EProjectStatus propType = new EProjectStatus();
+			EProjectStatus projStatus = new EProjectStatus();
 			
-			propType.setDescription(uStatusDTO.getDesc());
-			propType.setName(uStatusDTO.getName());
-			save(propType);
-			return propType;
+			projStatus.setDescription(uStatusDTO.getDesc());
+			projStatus.setName(uStatusDTO.getName());
+		
+			return projectStatusDAO.save(projStatus);
 		}
 		
-		public void save(EProjectStatus ePStatus) {
-			projectStatusDAO.save(ePStatus);
+		@Override
+		public EProjectStatus update(ProjectStatusDTO uStatusDTO) {
+			
+			EProjectStatus projStatus = getById(uStatusDTO.getId(), true);
+			
+			projStatus.setDescription(uStatusDTO.getDesc());
+			projStatus.setName(uStatusDTO.getName());
+		
+			return projectStatusDAO.save(projStatus);
 		}
 
+		
+		@Override
+		public void delete(ProjectStatusDTO projStatusDTO) {
+			
+			projectStatusDAO.delete(getById(projStatusDTO.getId(),true));
+		}
 		
 
 }

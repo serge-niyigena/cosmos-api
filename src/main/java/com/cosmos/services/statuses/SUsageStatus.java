@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cosmos.dtos.setups.UsageStatusDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.setups.EUsageStatus;
@@ -40,18 +39,33 @@ public class SUsageStatus implements IUsageStatus{
 		@Override
 		public EUsageStatus create(UsageStatusDTO uStatusDTO) {
 			
-			EUsageStatus propType = new EUsageStatus();
+			EUsageStatus usageStatus = new EUsageStatus();
 			
-			propType.setDescription(uStatusDTO.getDesc());
-			propType.setName(uStatusDTO.getName());
-			save(propType);
-			return propType;
+			usageStatus.setDescription(uStatusDTO.getDesc());
+			usageStatus.setName(uStatusDTO.getName());
+			
+			return usageStatusDAO.save(usageStatus);
 		}
 		
-		public void save(EUsageStatus ePropType) {
-			usageStatusDAO.save(ePropType);
+
+		@Override
+		public EUsageStatus update( UsageStatusDTO uStatusDTO) {
+			
+			EUsageStatus usageStatus = getById(uStatusDTO.getId(), true);
+			
+			usageStatus.setDescription(uStatusDTO.getDesc());
+			usageStatus.setName(uStatusDTO.getName());
+		
+			return usageStatusDAO.save(usageStatus);
 		}
 
 		
+		@Override
+		public void delete(UsageStatusDTO usageStatusDTO) {
+			
+			usageStatusDAO.delete(getById(usageStatusDTO.getId(), true));
+		}
+		
+
 
 }

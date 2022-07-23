@@ -64,13 +64,11 @@ public class SRoleGroup implements IRoleGroup{
 			
 			roleGroup.setEGroup(group);
 			roleGroup.setERoles(setRoles(roleGroupDTO.getRoleGroupRolesId()));
-			return save(roleGroup);
+			
+			return roleGroupDAO.save(roleGroup);
 		}
 		
-		public ERoleGroup save(ERoleGroup eRoleGroup) {
-			return roleGroupDAO.save(eRoleGroup);
-		}
-
+		
 		  @SuppressWarnings("unchecked")
 		    public Specification<ERoleGroup> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 
@@ -103,6 +101,26 @@ public class SRoleGroup implements IRoleGroup{
 			}
 			
 			return rolesList;
+		}
+
+
+		@Override
+		public ERoleGroup update(RoleGroupDTO roleGroupDTO) {
+			
+			ERoleGroup roleGroup = getById(roleGroupDTO.getRoleGroupId(), true);
+			
+			EGroup group = sGroup.getById(roleGroupDTO.getRoleGroupGroupId(), true);
+			
+			roleGroup.setEGroup(group);
+			roleGroup.setERoles(setRoles(roleGroupDTO.getRoleGroupRolesId()));
+			
+			return roleGroupDAO.save(roleGroup);
+			
+		}
+
+		@Override
+		public void delete(RoleGroupDTO roleGroupDTO) {
+			roleGroupDAO.delete(getById(roleGroupDTO.getRoleGroupId(), true));	
 		}
 
 

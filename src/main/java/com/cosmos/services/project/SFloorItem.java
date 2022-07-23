@@ -76,13 +76,38 @@ public class SFloorItem implements IFloorItem {
 			floorItem.setFloorItemItem(item);
 			floorItem.setFloorItemStatus(usageStatus);
 			
-			return save(floorItem);
+			return floorItemDAO.save(floorItem);
 		}
 		
-		public EFloorItem save(EFloorItem eFloorItem) {
-			return floorItemDAO.save(eFloorItem);
+		@Override
+		public EFloorItem update(FloorItemDTO floorItemDTO) {
+			
+			EFloorItem floorItem = getById(floorItemDTO.getId(), true);
+		
+			EProjectFloor fRoom= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
+			EItem item=  sItem.getById(floorItemDTO.getFloorItemItemId(),true);
+			EUsageStatus usageStatus= sUsageStatus.getById(floorItemDTO.getFloorItemStatusId(), true);
+			
+			floorItem.setFloorItemMaximumQuantity(floorItemDTO.getFloorItemMaximumQuantity());
+			floorItem.setFloorItemNormalQuantity(floorItemDTO.getFloorItemNormalQuantity());
+			floorItem.setFloorItemUsedQuantity(floorItemDTO.getFloorItemUsedQuantity());
+			floorItem.setFloorItemStatusReport(floorItemDTO.getFloorItemStatusReport());
+			floorItem.setFloorItemProjectFloor(fRoom);
+			floorItem.setFloorItemItem(item);
+			floorItem.setFloorItemStatus(usageStatus);
+			
+			return floorItemDAO.save(floorItem);
 		}
-
+		
+		@Override
+		public void delete(FloorItemDTO floorItemDTO) {
+			
+			EFloorItem floorItem = getById(floorItemDTO.getId(), true);
+			
+			floorItemDAO.delete(floorItem);
+		}
+		
+		
 		  @SuppressWarnings("unchecked")
 		    public Specification<EFloorItem> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 

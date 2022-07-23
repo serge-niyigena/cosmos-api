@@ -58,6 +58,29 @@ public class CProject {
             .created(new URI("/project" + proj.getId()))
             .body(new SuccessResponse(201, "Successfully created project", new ProjectDTO(proj)));
     }
+    
+    @PostMapping(path = "/project", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateProject(@RequestBody ProjectDTO projectDTO) 
+            throws URISyntaxException {
+
+        EProject proj = sProject.update(projectDTO);
+
+        return ResponseEntity
+            .created(new URI("/project" + proj.getId()))
+            .body(new SuccessResponse(201, "Successfully updated project", new ProjectDTO(proj)));
+    }
+    
+    @PostMapping(path = "/project", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteProject(@RequestBody ProjectDTO projectDTO) 
+            throws URISyntaxException {
+
+        sProject.delete(projectDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully updated project", projectDTO));
+    }
+
 
     @GetMapping(path = "/project/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getProjectById(@PathVariable Integer id) {

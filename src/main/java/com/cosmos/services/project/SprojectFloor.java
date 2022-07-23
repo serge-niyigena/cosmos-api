@@ -70,14 +70,35 @@ public class SprojectFloor implements IProjectFloor {
 			project.setProjectFloorProject(proj);
 			project.setProjectFloorStatus(pStat);
 			
-			
-			return save(project);
+			return projectDAO.save(project);
 		}
 		
-		public EProjectFloor save(EProjectFloor eProjectFloor) {
-			return projectDAO.save(eProjectFloor);
+		@Override
+		public EProjectFloor update(ProjectFloorDTO projectFloorDTO) {
+			
+			EProjectFloor project = getById(projectFloorDTO.getId(), true);
+			
+			EProject proj= sProjectFloorProject.getById(projectFloorDTO.getProjectId(),true);
+			EProjectStatus pStat= sProjectFloorStatus.getById(projectFloorDTO.getStatusId(), true);
+			
+			project.setProjectFloorDescription(projectFloorDTO.getPFloorDescription());
+			project.setProjectFloorValue(projectFloorDTO.getPFloorValue());
+			project.setProjectFloorRef(projectFloorDTO.getPFloorRef());
+			project.setProjectFloorMeasurement(projectFloorDTO.getPFloorMeasurement());
+			project.setProjectFloorProject(proj);
+			project.setProjectFloorStatus(pStat);
+			
+			return projectDAO.save(project);
 		}
-
+		
+		@Override
+		public void delete(ProjectFloorDTO projectFloorDTO) {
+			
+			EProjectFloor project = getById(projectFloorDTO.getId(), true);
+			
+			projectDAO.save(project);
+		}
+	
 		  @SuppressWarnings("unchecked")
 		    public Specification<EProjectFloor> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 

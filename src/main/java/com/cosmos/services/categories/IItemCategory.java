@@ -11,6 +11,10 @@ public interface IItemCategory {
 
 	EItemCategory create(ItemCategoryDTO usagestatusDTO);
 	
+	EItemCategory update(ItemCategoryDTO usagestatusDTO);
+	
+	void delete(ItemCategoryDTO usagestatusDTO);
+	
     List<EItemCategory> getAll();
 
     Optional<EItemCategory> getById(Integer itemCategoryId);

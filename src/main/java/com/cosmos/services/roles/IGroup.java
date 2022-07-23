@@ -11,6 +11,10 @@ public interface IGroup {
 	
 	EGroup create(GroupDTO groupDTO);
 	
+	EGroup update(GroupDTO groupDTO);
+	
+	void delete(GroupDTO groupDTO);
+	
     Page<EGroup> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     Optional<EGroup> getById(Integer groupId);

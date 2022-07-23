@@ -11,6 +11,10 @@ public interface IProjectCategory {
 
 	EProjectCategory create(ProjectCategoryDTO projectCategoryDTO);
 	
+	EProjectCategory update(ProjectCategoryDTO projectCategoryDTO);
+	
+	void delete(ProjectCategoryDTO projectCategoryDTO);
+	
     List<EProjectCategory> getAll();
 
     Optional<EProjectCategory> getById(Integer projectCategoryId);

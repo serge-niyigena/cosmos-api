@@ -3,12 +3,18 @@ package com.cosmos.services.org;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
+import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.repositories.OrganizationDAO;
+import com.cosmos.utilities.specs.SpecBuilder;
+import com.cosmos.utilities.specs.SpecFactory;
+import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SOrganization implements IOrganization {
@@ -16,6 +22,12 @@ public class SOrganization implements IOrganization {
 	
 	@Autowired
 	private OrganizationDAO organizationDAO;
+	
+	@Autowired
+	private GlobalFunctions globalFunction;
+	
+	@Autowired
+	private SpecFactory specFactory;
 	
 	@Override
 	public EOrganization create(OrganizationDTO organizationDTO) {
@@ -31,10 +43,6 @@ public class SOrganization implements IOrganization {
 		return organizationDAO.save(org);
 	}
 
-	@Override
-	public List<EOrganization> getAll() {
-		 return organizationDAO.findAll();
-	}
 
 	@Override
 	public Optional<EOrganization> getById(Integer organizationId) {
@@ -49,23 +57,45 @@ public class SOrganization implements IOrganization {
 	        }
 	        return projectCategory.get();
 	}
+	
+	@Override
+	public void delete(OrganizationDTO orgDTO) {
+	     
+		organizationDAO.delete(getById(orgDTO.getId(), true));
+	}
 
 	@Override
 	public EOrganization update(OrganizationDTO organizationDTO) {
-		Optional<EOrganization> org = organizationDAO.findById(organizationDTO.getId());
 		
-		if (!org.isPresent()) {
-            throw new InvalidInputException("Organization with given id not found", "organizationId");
-        }
-		else {
+		EOrganization org = getById(organizationDTO.getId(), true);
 		
-		org.get().setName(organizationDTO.getName());
-		org.get().setPhysicalAddress(organizationDTO.getPhysicalAddress());
-		org.get().setPostalAddress(organizationDTO.getPostalAddress());
-		org.get().setMobileNumber(organizationDTO.getMobileNumber());
-		org.get().setEmail(organizationDTO.getEmail());
-		}
-		return organizationDAO.save(org.get());
+		org.setName(organizationDTO.getName());
+		org.setPhysicalAddress(organizationDTO.getPhysicalAddress());
+		org.setPostalAddress(organizationDTO.getPostalAddress());
+		org.setMobileNumber(organizationDTO.getMobileNumber());
+		org.setEmail(organizationDTO.getEmail());
+		
+		return organizationDAO.save(org);
 	}
+
+
+	@Override
+	public Page<EOrganization> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {
+		String searchQuery = pageDTO.getSearch();
+
+        PageRequest pageRequest = globalFunction.getPageRequest(pageDTO);
+        return organizationDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
+	}
+	
+	 @SuppressWarnings("unchecked")
+	    public Specification<EOrganization> buildFilterSpec(String searchQuery, List<String> allowedFields) {
+
+	        SpecBuilder<EOrganization> specBuilder = new SpecBuilder<>();
+
+	        specBuilder = (SpecBuilder<EOrganization>) specFactory.generateSpecification(searchQuery, specBuilder, allowedFields);
+
+	        return specBuilder.build();
+	    
+}
 
 }

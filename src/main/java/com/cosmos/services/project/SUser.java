@@ -67,13 +67,34 @@ public class SUser implements IUser {
 			user.setUserActive(userDTO.getUserStatus());
 			user.setEUserType(uType);
 			
-			return save(user);
+			return userDAO.save(user);
 		}
 		
-		public EUser save(EUser eUser) {
-			return userDAO.save(eUser);
+		@Override
+		public EUser update(UserDTO userDTO) {
+			
+			EUser user = getById(userDTO.getId(), true);
+			
+			EUserType uType= sUserType.getById(userDTO.getUserTypeId(),true);
+			
+			user.setUserFullName(userDTO.getUserFullName());
+			user.setUserEmail(userDTO.getUserEmail());
+			user.setUserMobile(userDTO.getUserMobile());
+			user.setUserReset(userDTO.getUserReset());
+			user.setUserActive(userDTO.getUserStatus());
+			user.setEUserType(uType);
+			
+			return userDAO.save(user);
 		}
-
+		
+		@Override
+		public void delete(UserDTO userDTO) {
+			
+			EUser user = getById(userDTO.getId(), true);
+		
+			userDAO.delete(user);
+		}
+		
 		  @SuppressWarnings("unchecked")
 		    public Specification<EUser> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 
@@ -91,6 +112,13 @@ public class SUser implements IUser {
 			 Optional<EUser> user = userDAO.findById(userId);
 			 
 		      return user;
+		}
+
+
+		@Override
+		public Optional<EUser> getByMobileOrEmail(String contact) {
+			
+			return userDAO.findMobileOrEmail(contact);
 		}
 
 }

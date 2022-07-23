@@ -12,6 +12,10 @@ import com.cosmos.models.project.EFloorRoom;
 public interface IFloorRoom {
 
     EFloorRoom create(FloorRoomDTO floorRoomDTO);
+    
+    EFloorRoom update(FloorRoomDTO floorRoomDTO);
+    
+    void delete(FloorRoomDTO floorRoomDTO);
 	
     Page<EFloorRoom> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 

@@ -32,24 +32,46 @@ public class CProjectCategory {
     public ResponseEntity<SuccessResponse> createProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
             throws URISyntaxException {
 
-        EProjectCategory prop = sProjectCategory.create(projectCategoryDTO);
+        EProjectCategory pCat = sProjectCategory.create(projectCategoryDTO);
 
         return ResponseEntity
-            .created(new URI("/project/category" + prop.getId()))
-            .body(new SuccessResponse(201, "Successfully created category", new ProjectCategoryDTO(prop)));
+            .created(new URI("/project/category" + pCat.getId()))
+            .body(new SuccessResponse(201, "Successfully created category", new ProjectCategoryDTO(pCat)));
+    }
+    
+    @PostMapping(path = "/project/category", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
+            throws URISyntaxException {
+
+        EProjectCategory pCat = sProjectCategory.update(projectCategoryDTO);
+
+        return ResponseEntity
+            .created(new URI("/project/category" + pCat.getId()))
+            .body(new SuccessResponse(201, "Successfully updated category", new ProjectCategoryDTO(pCat)));
+    }
+    
+    @PostMapping(path = "/project/category", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
+            throws URISyntaxException {
+
+        sProjectCategory.delete(projectCategoryDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted category", projectCategoryDTO));
     }
 
     @GetMapping(path = "/project/category/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getProjectCategoryById(@PathVariable Integer id) {
 
-        Optional<EProjectCategory> pprojectCategory = sProjectCategory.getById(id);
-        if (!pprojectCategory.isPresent()) {
-            throw new NotFoundException("category with specified id not found", "pprojectCategoryId");
+        Optional<EProjectCategory> projectCategory = sProjectCategory.getById(id);
+        if (!projectCategory.isPresent()) {
+            throw new NotFoundException("category with specified id not found", "projectCategoryId");
         }
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched pprojectCategory", new ProjectCategoryDTO(pprojectCategory.get())));
+            .body(new SuccessResponse(200, "Successfully fetched pprojectCategory", new ProjectCategoryDTO(projectCategory.get())));
     }
     
     @GetMapping(path = "/project/category", produces = "application/json")

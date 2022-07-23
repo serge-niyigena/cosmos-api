@@ -52,14 +52,36 @@ public class CProjectFloor {
     }
     
     @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> createProjectFloor(@RequestBody ProjectFloorDTO projectDTO) 
+    public ResponseEntity<SuccessResponse> createProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
-        EProjectFloor projFloor = sProjectFloor.create(projectDTO);
+        EProjectFloor projFloor = sProjectFloor.create(projectFloorDTO);
 
         return ResponseEntity
             .created(new URI("/project/floor" + projFloor.getId()))
             .body(new SuccessResponse(201, "Successfully created project floor", new ProjectFloorDTO(projFloor)));
+    }
+    
+    @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
+            throws URISyntaxException {
+
+        EProjectFloor projFloor = sProjectFloor.update(projectFloorDTO);
+
+        return ResponseEntity
+            .created(new URI("/project/floor" + projFloor.getId()))
+            .body(new SuccessResponse(201, "Successfully updated project floor", new ProjectFloorDTO(projFloor)));
+    }
+    
+    @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
+            throws URISyntaxException {
+
+       sProjectFloor.delete(projectFloorDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deletd project floor", projectFloorDTO));
     }
 
     @GetMapping(path = "/project/floor/{id}", produces = "application/json")

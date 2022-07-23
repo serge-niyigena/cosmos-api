@@ -50,14 +50,36 @@ public class CFloorItem {
     }
     
     @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> createFloorItem(@RequestBody FloorItemDTO projectDTO) 
+    public ResponseEntity<SuccessResponse> createFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
             throws URISyntaxException {
 
-        EFloorItem projFloor = sFloorItem.create(projectDTO);
+        EFloorItem projFloor = sFloorItem.create(floorItemDTO);
 
         return ResponseEntity
             .created(new URI("/floor/item" + projFloor.getId()))
             .body(new SuccessResponse(201, "Successfully created floor item", new FloorItemDTO(projFloor)));
+    }
+    
+    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
+            throws URISyntaxException {
+
+        EFloorItem projFloor = sFloorItem.update(floorItemDTO);
+
+        return ResponseEntity
+            .created(new URI("/floor/item" + projFloor.getId()))
+            .body(new SuccessResponse(201, "Successfully updated floor item", new FloorItemDTO(projFloor)));
+    }
+    
+    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
+            throws URISyntaxException {
+
+        sFloorItem.delete(floorItemDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted floor item", floorItemDTO));
     }
 
     @GetMapping(path = "floor/item/{id}", produces = "application/json")

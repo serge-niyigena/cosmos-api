@@ -59,6 +59,28 @@ public class CRoleGroup {
             .created(new URI("/roleGroup" + proj.getId()))
             .body(new SuccessResponse(201, "Successfully created roleGroup", new RoleGroupDTO(proj)));
     }
+    
+    @PostMapping(path = "/roleGroup", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateRoleGroup(@RequestBody RoleGroupDTO roleGroupDTO) 
+            throws URISyntaxException {
+
+        ERoleGroup proj = sRoleGroup.update(roleGroupDTO);
+
+        return ResponseEntity
+            .created(new URI("/roleGroup" + proj.getId()))
+            .body(new SuccessResponse(201, "Successfully updated roleGroup", new RoleGroupDTO(proj)));
+    }
+    
+    @PostMapping(path = "/roleGroup", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteRoleGroup(@RequestBody RoleGroupDTO roleGroupDTO) 
+            throws URISyntaxException {
+
+     sRoleGroup.delete(roleGroupDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted roleGroup", roleGroupDTO));
+    }
 
     @GetMapping(path = "/roleGroup/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getRoleGroupById(@PathVariable Integer id) {

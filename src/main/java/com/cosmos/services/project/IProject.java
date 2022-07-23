@@ -12,6 +12,10 @@ public interface IProject {
 
 	EProject create(ProjectDTO projectDTO);
 	
+	EProject update(ProjectDTO projectDTO);
+	
+	void delete(ProjectDTO projectDTO);
+	
     Page<EProject> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
     
     Optional<EProject> getById(Integer floorRoomStatusId);

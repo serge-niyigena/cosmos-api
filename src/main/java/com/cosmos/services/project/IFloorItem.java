@@ -9,6 +9,10 @@ import com.cosmos.models.project.EFloorItem;
 public interface IFloorItem {
 
     EFloorItem create(FloorItemDTO projectFloorDTO);
+    
+    EFloorItem update(FloorItemDTO projectFloorDTO);
+    
+    void delete(FloorItemDTO projectFloorDTO);
 	
     Page<EFloorItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 

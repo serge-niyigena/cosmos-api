@@ -12,6 +12,10 @@ public interface IItem {
 
 	EItem create(ItemDTO itemDTO);
 	
+	EItem update(ItemDTO itemDTO);
+	
+	void delete(ItemDTO itemDTO);
+	
     Page<EItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     Optional<EItem> getById(Integer itemId);

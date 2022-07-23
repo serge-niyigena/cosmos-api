@@ -59,6 +59,29 @@ public class CGroup {
             .created(new URI("/group" + proj.getId()))
             .body(new SuccessResponse(201, "Successfully created group", new GroupDTO(proj)));
     }
+    
+    
+    @PostMapping(path = "/group", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateGroup(@RequestBody GroupDTO groupDTO) 
+            throws URISyntaxException {
+
+        EGroup proj = sGroup.update(groupDTO);
+
+        return ResponseEntity
+            .created(new URI("/group" + proj.getId()))
+            .body(new SuccessResponse(201, "Successfully updated group", new GroupDTO(proj)));
+    }
+    
+    @PostMapping(path = "/group", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteGroup(@RequestBody GroupDTO groupDTO) 
+            throws URISyntaxException {
+
+        sGroup.delete(groupDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted group", groupDTO));
+    }
 
     @GetMapping(path = "/group/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getGroupById(@PathVariable Integer id) {

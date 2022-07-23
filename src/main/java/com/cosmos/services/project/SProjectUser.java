@@ -63,11 +63,28 @@ public class SProjectUser implements IProjectUser {
 			projectUser.setProjectUserProject(proj);
 			projectUser.setProjectUserUsers(setUsers(projectUserDTO.getProjectUsersIds()));
 			
-			return save(projectUser);
+			return projectDAO.save(projectUser);
 		}
 		
-		public EProjectUser save(EProjectUser eProjectUser) {
-			return projectDAO.save(eProjectUser);
+		@Override
+		public EProjectUser update(ProjectUserDTO projectUserDTO) {
+			
+			EProjectUser projectUser = getById(projectUserDTO.getProjectUserId(), true);
+			
+			EProject proj= sProjectUserProject.getById(projectUserDTO.getProjectUserProjectId(),true);
+			
+			projectUser.setProjectUserProject(proj);
+			projectUser.setProjectUserUsers(setUsers(projectUserDTO.getProjectUsersIds()));
+			
+			return projectDAO.save(projectUser);
+		}
+		
+		@Override
+		public void delete(ProjectUserDTO projectUserDTO) {
+			
+			EProjectUser projectUser = getById(projectUserDTO.getProjectUserId(), true);
+			
+			projectDAO.delete(projectUser);
 		}
 
 		  @SuppressWarnings("unchecked")

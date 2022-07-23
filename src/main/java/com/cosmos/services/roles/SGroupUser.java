@@ -67,12 +67,9 @@ public class SGroupUser implements IGroupUSer {
 		groupUser.setEGroup(group);
 		groupUser.setEUsers(setUsers(groupUserDTO.getUserIds()));
 		
-		return save(groupUser);
+		return groupUserDAO.save(groupUser);
 	}
 	
-	public EGroupUsers save(EGroupUsers eGroupUsers) {
-		return groupUserDAO.save(eGroupUsers);
-	}
 
 	  @SuppressWarnings("unchecked")
 	    public Specification<EGroupUsers> buildFilterSpec(String searchQuery, List<String> allowedFields) {
@@ -105,6 +102,27 @@ public class SGroupUser implements IGroupUSer {
 		}
 		
 		return usersList;
+	}
+
+
+	@Override
+	public EGroupUsers update(GroupUserDTO groupUserDTO) {
+		
+		EGroupUsers groupUser = getById(groupUserDTO.getGroupUserId(), true);
+		
+		EGroup group = sGroup.getById(groupUserDTO.getGroupUserId(), true);
+		
+		groupUser.setEGroup(group);
+		groupUser.setEUsers(setUsers(groupUserDTO.getUserIds()));
+		
+		return groupUserDAO.save(groupUser);
+	}
+
+
+	@Override
+	public void delete(GroupUserDTO groupUserDTO) {
+		
+		groupUserDAO.delete(getById(groupUserDTO.getGroupUserId(), true));
 	}
 	
 

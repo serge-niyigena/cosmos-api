@@ -14,6 +14,10 @@ public interface IRole {
 	
 	ERole create(RoleDTO roleDTO);
 	
+	ERole update(RoleDTO roleDTO);
+	
+	void delete(RoleDTO roleDTO);
+	
     Page<ERole> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     Optional<ERole> getById(Integer roleId);

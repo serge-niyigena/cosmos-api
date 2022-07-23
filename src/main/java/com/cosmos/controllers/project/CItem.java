@@ -61,6 +61,28 @@ public class CItem {
             .created(new URI("/item" + item.getId()))
             .body(new SuccessResponse(201, "Successfully created item", new ItemDTO(item)));
     }
+    
+    @PostMapping(path = "/item", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateItem(@RequestBody ItemDTO itemDTO) 
+            throws URISyntaxException {
+
+        EItem item = sItem.update(itemDTO);
+
+        return ResponseEntity
+            .created(new URI("/item" + item.getId()))
+            .body(new SuccessResponse(201, "Successfully updated item", new ItemDTO(item)));
+    }
+    
+    @PostMapping(path = "/item", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteItem(@RequestBody ItemDTO itemDTO) 
+            throws URISyntaxException {
+
+         sItem.delete(itemDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted item", itemDTO));
+    }
 
     @GetMapping(path = "/item/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getItemById(@PathVariable Integer id) {

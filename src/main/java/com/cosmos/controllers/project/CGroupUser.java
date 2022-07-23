@@ -59,6 +59,28 @@ public class CGroupUser {
             .created(new URI("/groupUser" + groupUsers.getId()))
             .body(new SuccessResponse(201, "Successfully created groupUser", new GroupUserDTO(groupUsers)));
     }
+    
+    @PostMapping(path = "/groupUser", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateGroupUser(@RequestBody GroupUserDTO groupUserDTO) 
+            throws URISyntaxException {
+
+        EGroupUsers groupUsers = sGroupUser.update(groupUserDTO);
+
+        return ResponseEntity
+            .created(new URI("/groupUser" + groupUsers.getId()))
+            .body(new SuccessResponse(201, "Successfully updated groupUser", new GroupUserDTO(groupUsers)));
+    }
+    
+    @PostMapping(path = "/groupUser", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteGroupUser(@RequestBody GroupUserDTO groupUserDTO) 
+            throws URISyntaxException {
+
+    	sGroupUser.delete(groupUserDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted groupUser", groupUserDTO));
+    }
 
     @GetMapping(path = "/groupUser/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getGroupUserById(@PathVariable Integer id) {

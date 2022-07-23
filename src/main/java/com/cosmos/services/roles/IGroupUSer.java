@@ -11,6 +11,10 @@ import com.cosmos.models.setups.EGroupUsers;
 public interface IGroupUSer {
 	
     EGroupUsers create(GroupUserDTO groupDTO);
+    
+    EGroupUsers update(GroupUserDTO groupDTO);
+    
+    void delete(GroupUserDTO groupDTO);
 	
     Page<EGroupUsers> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 

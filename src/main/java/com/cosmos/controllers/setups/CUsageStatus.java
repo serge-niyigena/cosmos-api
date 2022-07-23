@@ -38,6 +38,28 @@ public class CUsageStatus {
             .created(new URI("/usage/status" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created status", new UsageStatusDTO(prop)));
     }
+    
+    @PostMapping(path = "/usage/status", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
+            throws URISyntaxException {
+
+        EUsageStatus prop = sUsageStatus.update(usageStatusDTO);
+
+        return ResponseEntity
+            .created(new URI("/usage/status" + prop.getId()))
+            .body(new SuccessResponse(201, "Successfully updated status", new UsageStatusDTO(prop)));
+    }
+    
+    @PostMapping(path = "/usage/status", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
+            throws URISyntaxException {
+
+       sUsageStatus.delete(usageStatusDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully deleted status",usageStatusDTO));
+    }
 
     @GetMapping(path = "/usage/status/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getUsageStatusById(@PathVariable Integer id) {

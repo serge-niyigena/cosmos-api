@@ -40,18 +40,31 @@ public class SUserType implements IUserType{
 		@Override
 		public EUserType create(UserTypeDTO uTypeDTO) {
 			
-			EUserType propType = new EUserType();
+			EUserType userType = new EUserType();
 			
-			propType.setDescription(uTypeDTO.getDesc());
-			propType.setName(uTypeDTO.getName());
-			save(propType);
-			return propType;
+			userType.setDescription(uTypeDTO.getDesc());
+			userType.setName(uTypeDTO.getName());
+			
+			return userTypeDAO.save(userType);
 		}
 		
-		public void save(EUserType eUserType) {
-			userTypeDAO.save(eUserType);
+		@Override
+		public EUserType update(UserTypeDTO uTypeDTO) {
+			
+			EUserType userType = getById(uTypeDTO.getId(), true);
+			
+			userType.setDescription(uTypeDTO.getDesc());
+			userType.setName(uTypeDTO.getName());
+			
+			return userTypeDAO.save(userType);
 		}
-
+		
+		
+		@Override
+		public void delete(UserTypeDTO userTypeDTO) {
+			
+			 userTypeDAO.delete(getById(userTypeDTO.getId(), true));
+		}
 		
 
 }

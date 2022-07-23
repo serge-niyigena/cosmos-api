@@ -11,6 +11,10 @@ public interface IUsageStatus {
 
 	EUsageStatus create(UsageStatusDTO usageStatusDTO);
 	
+	EUsageStatus update(UsageStatusDTO usageStatusDTO);
+	
+	void delete(UsageStatusDTO usageStatusDTO);
+	
     List<EUsageStatus> getAll();
 
     Optional<EUsageStatus> getById(Integer usageStatusId);

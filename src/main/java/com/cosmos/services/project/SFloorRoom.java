@@ -64,13 +64,33 @@ public class SFloorRoom implements IFloorRoom {
 			fRoom.setSize(floorRoomDTO.getSize());
 			fRoom.setRoomProjectFloor(pFloor);
 			
-			return save(fRoom);
+			return floorRoomDAO.save(fRoom);
 		}
 		
-		public EFloorRoom save(EFloorRoom eFloorRoom) {
-			return floorRoomDAO.save(eFloorRoom);
+		@Override
+		public EFloorRoom update(FloorRoomDTO floorRoomDTO) {
+			
+			EFloorRoom fRoom = getById(floorRoomDTO.getId(), true);
+		
+			EProjectFloor pFloor= sFloorRoomProjectFloor.getById(floorRoomDTO.getProjectFloorId(), true);
+			
+			fRoom.setFloorRoomDesc(floorRoomDTO.getFloorRoomDesc());
+			fRoom.setFloorRoomValue(floorRoomDTO.getFloorRoomValue());
+			fRoom.setSize(floorRoomDTO.getSize());
+			fRoom.setRoomProjectFloor(pFloor);
+			
+			return floorRoomDAO.save(fRoom);
 		}
-
+		
+		@Override
+		public void delete(FloorRoomDTO floorRoomDTO) {
+			
+			EFloorRoom fRoom = getById(floorRoomDTO.getId(), true);
+			
+			floorRoomDAO.save(fRoom);
+		}
+		
+		
 		  @SuppressWarnings("unchecked")
 		    public Specification<EFloorRoom> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 

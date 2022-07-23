@@ -11,6 +11,10 @@ public interface IProjectUser {
 	
 	EProjectUser create(ProjectUserDTO projectUserDTO);
 	
+	EProjectUser update(ProjectUserDTO projectUserDTO);
+	
+	void delete(ProjectUserDTO projectUserDTO);
+	
     Page<EProjectUser> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     EProjectUser getById(Integer projectUserId, Boolean throwException);

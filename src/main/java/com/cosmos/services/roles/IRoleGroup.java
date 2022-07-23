@@ -9,7 +9,11 @@ import com.cosmos.models.setups.ERoleGroup;
 
 public interface IRoleGroup{
 	
-ERoleGroup create(RoleGroupDTO roleGroupDTO);
+   ERoleGroup create(RoleGroupDTO roleGroupDTO);
+   
+   ERoleGroup update(RoleGroupDTO roleGroupDTO);
+   
+   void delete(RoleGroupDTO roleGroupDTO);
 	
     Page<ERoleGroup> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 

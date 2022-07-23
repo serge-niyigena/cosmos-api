@@ -61,12 +61,32 @@ public class SDamagedItem implements IDamagedItem{
 			damagedItem.setDamagedQuantity(damagedItem.getDamagedQuantity());
 			damagedItem.setProjectFloorItemId(floorItem);
 			
-			return save(damagedItem);
+			return damagedItemDAO.save(damagedItem);
 		}
 		
-		public EDamagedItem save(EDamagedItem eDamagedItem) {
-			return damagedItemDAO.save(eDamagedItem);
+		@Override
+		public EDamagedItem update(DamagedItemDTO damagedItemDTO) {
+			
+			EDamagedItem damagedItem = getById(damagedItemDTO.getDamagedId(), true);
+		
+			EFloorItem floorItem = sFloorItem.getById(damagedItemDTO.getDamagedFloorItemId(), true);
+			
+			damagedItem.setDamagedDesc(damagedItemDTO.getDamagedDesc());
+			damagedItem.setDamagedDate(damagedItemDTO.getDamagedDate());
+			damagedItem.setDamagedQuantity(damagedItem.getDamagedQuantity());
+			damagedItem.setProjectFloorItemId(floorItem);
+			
+			return damagedItemDAO.save(damagedItem);
 		}
+		
+		@Override
+		public void delete(DamagedItemDTO damagedItemDTO) {
+			
+			EDamagedItem damagedItem = getById(damagedItemDTO.getDamagedId(), true);
+		
+			 damagedItemDAO.delete(damagedItem);
+		}
+		
 
 		  @SuppressWarnings("unchecked")
 		    public Specification<EDamagedItem> buildFilterSpec(String searchQuery, List<String> allowedFields) {

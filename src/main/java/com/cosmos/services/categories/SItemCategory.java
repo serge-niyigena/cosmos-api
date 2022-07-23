@@ -38,20 +38,34 @@ public class SItemCategory implements IItemCategory{
 	    }
 	  
 		@Override
-		public EItemCategory create(ItemCategoryDTO uStatusDTO) {
+		public EItemCategory create(ItemCategoryDTO itemCategoryDTO) {
 			
-			EItemCategory propType = new EItemCategory();
+			EItemCategory iCategory = new EItemCategory();
 			
-			propType.setDescription(uStatusDTO.getDesc());
-			propType.setName(uStatusDTO.getName());
-			save(propType);
-			return propType;
+			iCategory.setDescription(itemCategoryDTO.getDesc());
+			iCategory.setName(itemCategoryDTO.getName());
+			
+			return itemCategoryDAO.save(iCategory) ;
 		}
 		
-		public void save(EItemCategory ePropType) {
-			itemCategoryDAO.save(ePropType);
+		@Override
+		public EItemCategory update(ItemCategoryDTO itemCategoryDTO) {
+			
+			EItemCategory iCategory =getById(itemCategoryDTO.getId(), true);
+			
+			iCategory.setDescription(itemCategoryDTO.getDesc());
+			iCategory.setName(itemCategoryDTO.getName());
+			
+			return itemCategoryDAO.save(iCategory);
 		}
-
 		
-
+		@Override
+		public void delete(ItemCategoryDTO itemCategoryDTO) {
+			
+			EItemCategory iCategory =getById(itemCategoryDTO.getId(), true);
+			
+			itemCategoryDAO.delete(iCategory);
+		}
+		
+	
 }

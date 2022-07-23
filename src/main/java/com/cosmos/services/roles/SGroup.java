@@ -51,12 +51,10 @@ public class SGroup implements IGroup {
 		EGroup group = new EGroup();
 		group.setDesc(groupDTO.getDesc());
 		group.setName(groupDTO.getName());
-		return save(group);
+		
+		return groupDAO.save(group);
 	}
 	
-	public EGroup save(EGroup eGroup) {
-		return groupDAO.save(eGroup);
-	}
 
 	  @SuppressWarnings("unchecked")
 	    public Specification<EGroup> buildFilterSpec(String searchQuery, List<String> allowedFields) {
@@ -79,6 +77,25 @@ public class SGroup implements IGroup {
 			 throw new InvalidInputException("Group with given id not found", "projectId");
 	        }  
 	     return group.get();
+	}
+
+
+	@Override
+	public EGroup update(GroupDTO groupDTO) {
+		
+		EGroup group = getById(groupDTO.getId(), true);
+		group.setDesc(groupDTO.getDesc());
+		group.setName(groupDTO.getName());
+		
+		return groupDAO.save(group);
+	}
+
+
+	@Override
+	public void delete(GroupDTO groupDTO) {
+		
+		groupDAO.delete(getById(groupDTO.getId(), true));
+		
 	}
 	
 

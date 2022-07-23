@@ -38,6 +38,28 @@ public class CItemCategory {
             .created(new URI("/item/category" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created category", new ItemCategoryDTO(prop)));
     }
+    
+    @PostMapping(path = "/item/category", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteItemCategory(@RequestBody ItemCategoryDTO itemCategoryDTO) 
+            throws URISyntaxException {
+
+    	sItemCategory.delete(itemCategoryDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(200, "Successfully deleted category", itemCategoryDTO));
+    }
+    
+    @PostMapping(path = "/item/category", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateItemCategory(@RequestBody ItemCategoryDTO itemCategoryDTO) 
+            throws URISyntaxException {
+
+        EItemCategory prop = sItemCategory.update(itemCategoryDTO);
+
+        return ResponseEntity
+            .created(new URI("/item/category" + prop.getId()))
+            .body(new SuccessResponse(201, "Successfully updated category", new ItemCategoryDTO(prop)));
+    }
 
     @GetMapping(path = "/item/category/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getItemCategoryById(@PathVariable Integer id) {

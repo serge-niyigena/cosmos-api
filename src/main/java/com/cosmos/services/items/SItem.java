@@ -2,6 +2,8 @@ package com.cosmos.services.items;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,12 +76,28 @@ public class SItem implements IItem {
 			item.setItemCategory(iCat);
 			item.setItemType(iType);
 			item.setItemUnitType(uType);
-			return save(item);
+			
+			return itemDAO.save(item);
 		}
 		
-		public EItem save(EItem eItem) {
-			return itemDAO.save(eItem);
+		@Override
+		public EItem update(ItemDTO itemDTO) {
+			
+			EItem item = getById(itemDTO.getId(), true);
+			
+			EItemCategory iCat= sItemCategory.getById(itemDTO.getItemCategoryId(),true);
+			EUnitType uType= sUnitType.getById(itemDTO.getItemUnitTypeId(), true);
+			EItemType iType= sItemType.getById(itemDTO.getItemTypeId(), true);
+			
+			item.setDesc(itemDTO.getDesc());
+			item.setName(itemDTO.getName());
+			item.setItemCategory(iCat);
+			item.setItemType(iType);
+			item.setItemUnitType(uType);
+			
+			return itemDAO.save(item);
 		}
+		
 	
 		  @SuppressWarnings("unchecked")
 		    public Specification<EItem> buildFilterSpec(String searchQuery, List<String> allowedFields) {
@@ -102,6 +120,12 @@ public class SItem implements IItem {
 				 throw new InvalidInputException("Item with given id not found", "projectId");
 		        }  
 		     return item.get();
+		}
+		
+		@Override
+		public void delete(ItemDTO item) {
+			EItem eItem = getById(item.getId(),true);
+			itemDAO.delete(eItem);
 		}
 		
 }
