@@ -49,7 +49,7 @@ public class CFloorItem {
                 		floorItemPage, FloorItemDTO.class, EFloorItem.class));
     }
     
-    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/floor/item/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
             throws URISyntaxException {
 
@@ -60,7 +60,7 @@ public class CFloorItem {
             .body(new SuccessResponse(201, "Successfully created floor item", new FloorItemDTO(projFloor)));
     }
     
-    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/floor/item/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
             throws URISyntaxException {
 
@@ -71,7 +71,7 @@ public class CFloorItem {
             .body(new SuccessResponse(201, "Successfully updated floor item", new FloorItemDTO(projFloor)));
     }
     
-    @PostMapping(path = "/floor/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/floor/item/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
             throws URISyntaxException {
 

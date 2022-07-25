@@ -49,7 +49,7 @@ public class CDamagedItem {
                 		damagedItemPage, DamagedItemDTO.class, EDamagedItem.class));
     }
     
-    @PostMapping(path = "/damaged/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damaged/item/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
@@ -60,7 +60,7 @@ public class CDamagedItem {
             .body(new SuccessResponse(201, "Successfully created damaged item", new DamagedItemDTO(damagedItem)));
     }
     
-    @PostMapping(path = "/damaged/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damaged/item/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
@@ -71,7 +71,7 @@ public class CDamagedItem {
             .body(new SuccessResponse(201, "Successfully updated damaged item", new DamagedItemDTO(damagedItem)));
     }
     
-    @PostMapping(path = "/damaged/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damaged/item/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 

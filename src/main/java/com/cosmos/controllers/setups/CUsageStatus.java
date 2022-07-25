@@ -28,7 +28,7 @@ public class CUsageStatus {
 	private IUsageStatus sUsageStatus;
 	
 
-    @PostMapping(path = "/usage/status", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usage/status/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 
@@ -39,7 +39,7 @@ public class CUsageStatus {
             .body(new SuccessResponse(201, "Successfully created status", new UsageStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/usage/status", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usage/status/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 
@@ -50,7 +50,7 @@ public class CUsageStatus {
             .body(new SuccessResponse(201, "Successfully updated status", new UsageStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/usage/status", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usage/status/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 

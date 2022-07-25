@@ -28,7 +28,7 @@ public class CUserType {
 	private IUserType sUserType;
 	
 
-    @PostMapping(path = "/user/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/type/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
@@ -39,7 +39,7 @@ public class CUserType {
             .body(new SuccessResponse(201, "Successfully created type", new UserTypeDTO(prop)));
     }
 
-    @PostMapping(path = "/user/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/type/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
@@ -50,7 +50,7 @@ public class CUserType {
             .body(new SuccessResponse(201, "Successfully updated type", new UserTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/user/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/type/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 

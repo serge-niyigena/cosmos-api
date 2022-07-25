@@ -2,8 +2,6 @@ package com.cosmos.services.items;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

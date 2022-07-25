@@ -58,7 +58,7 @@ public class COrganization {
             .body(new SuccessResponse(201, "Successfully updated organization", new OrganizationDTO(org)));
     }
     
-    @PostMapping(path = "/organization/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/organization/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteOrganization(@RequestBody OrganizationDTO organizationDTO) 
             throws URISyntaxException {
 

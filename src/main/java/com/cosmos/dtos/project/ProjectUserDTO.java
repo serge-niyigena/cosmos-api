@@ -1,13 +1,8 @@
 package com.cosmos.dtos.project;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cosmos.models.project.EProjectUser;
-import com.cosmos.models.setups.EUser;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
@@ -24,28 +19,29 @@ public class ProjectUserDTO {
 	private ProjectDTO projectUserProject;
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-	private List<UserDTO> projectUsers;
+	private UserDTO projectUser;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Integer projectUserProjectId;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private List<Integer> projectUsersIds;
+	private Integer projectUserUserId;
 	
 	public ProjectUserDTO(EProjectUser eProjectUser) {
 		setProjectUserId(eProjectUser.getId());
 		setProjectUserProject(new ProjectDTO(eProjectUser.getProjectUserProject()));
-		setProjectUsers(setProjectUsersList(eProjectUser.getProjectUserUsers()));
+		setProjectUser(new UserDTO(eProjectUser.getProjectUserUsers()));
+		//set(setProjectUsersList(eProjectUser.getProjectUserUsers()));
 	}
 	
-	private List<UserDTO> setProjectUsersList(List<EUser> projectUsers ) {
-		List<UserDTO> usersList = new ArrayList<UserDTO>();
-		
-		for(EUser projUser: projectUsers) {
-			usersList.add(new UserDTO(projUser));
-		}
-		
-		return usersList;
-	}
+//	private List<UserDTO> setProjectUsersList(List<EUser> projectUsers ) {
+//		List<UserDTO> usersList = new ArrayList<UserDTO>();
+//		
+//		for(EUser projUser: projectUsers) {
+//			usersList.add(new UserDTO(projUser));
+//		}
+//		
+//		return usersList;
+//	}
 
 }

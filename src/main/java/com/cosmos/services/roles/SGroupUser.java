@@ -62,10 +62,11 @@ public class SGroupUser implements IGroupUSer {
 		
 		EGroupUsers groupUser = new EGroupUsers();
 		
-		EGroup group = sGroup.getById(groupUserDTO.getGroupUserId(), true);
+		EGroup group = sGroup.getById(groupUserDTO.getGroupId(), true);
+		EUser user = sUser.getById(groupUserDTO.getUserId(), true);
 		
 		groupUser.setEGroup(group);
-		groupUser.setEUsers(setUsers(groupUserDTO.getUserIds()));
+		groupUser.setEUsers(user);
 		
 		return groupUserDAO.save(groupUser);
 	}
@@ -108,12 +109,13 @@ public class SGroupUser implements IGroupUSer {
 	@Override
 	public EGroupUsers update(GroupUserDTO groupUserDTO) {
 		
-		EGroupUsers groupUser = getById(groupUserDTO.getGroupUserId(), true);
+		EGroupUsers groupUser = new EGroupUsers();
 		
+		EUser user = sUser.getById(groupUserDTO.getUserId(), true);
 		EGroup group = sGroup.getById(groupUserDTO.getGroupUserId(), true);
 		
+		groupUser.setEUsers(user);
 		groupUser.setEGroup(group);
-		groupUser.setEUsers(setUsers(groupUserDTO.getUserIds()));
 		
 		return groupUserDAO.save(groupUser);
 	}

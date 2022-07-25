@@ -49,7 +49,7 @@ public class CRole {
                     rolePage, RoleDTO.class, ERole.class));
     }
     
-    @PostMapping(path = "/role", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/role/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createRole(@RequestBody RoleDTO roleDTO) 
             throws URISyntaxException {
 
@@ -60,14 +60,14 @@ public class CRole {
             .body(new SuccessResponse(201, "Successfully created role", new RoleDTO(proj)));
     }
     
-    @PostMapping(path = "/role", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/role/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateRole(@RequestBody RoleDTO roleDTO) 
             throws URISyntaxException {
 
         ERole proj = sRole.update(roleDTO);
 
         return ResponseEntity
-            .created(new URI("/role" + proj.getId()))
+            .created(new URI("/role/delete" + proj.getId()))
             .body(new SuccessResponse(201, "Successfully updated role", new RoleDTO(proj)));
     }
     

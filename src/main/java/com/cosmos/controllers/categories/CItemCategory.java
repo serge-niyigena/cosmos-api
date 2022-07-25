@@ -28,7 +28,7 @@ public class CItemCategory {
 	private IItemCategory sItemCategory;
 	
 
-    @PostMapping(path = "/item/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/category/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createItemCategory(@RequestBody ItemCategoryDTO itemCategoryDTO) 
             throws URISyntaxException {
 
@@ -39,7 +39,7 @@ public class CItemCategory {
             .body(new SuccessResponse(201, "Successfully created category", new ItemCategoryDTO(prop)));
     }
     
-    @PostMapping(path = "/item/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/category/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteItemCategory(@RequestBody ItemCategoryDTO itemCategoryDTO) 
             throws URISyntaxException {
 
@@ -50,7 +50,7 @@ public class CItemCategory {
             .body(new SuccessResponse(200, "Successfully deleted category", itemCategoryDTO));
     }
     
-    @PostMapping(path = "/item/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/category/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateItemCategory(@RequestBody ItemCategoryDTO itemCategoryDTO) 
             throws URISyntaxException {
 

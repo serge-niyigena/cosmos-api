@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
@@ -61,6 +62,7 @@ public class SUser implements IUser {
 			EUserType uType= sUserType.getById(userDTO.getUserTypeId(),true);
 			
 			user.setUserFullName(userDTO.getUserFullName());
+			user.setUserPassword(new BCryptPasswordEncoder().encode(userDTO.getUserPassword()));
 			user.setUserEmail(userDTO.getUserEmail());
 			user.setUserMobile(userDTO.getUserMobile());
 			user.setUserReset(userDTO.getUserReset());

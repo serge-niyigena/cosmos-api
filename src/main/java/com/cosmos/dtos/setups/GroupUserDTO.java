@@ -23,24 +23,28 @@ public class GroupUserDTO {
 	
 	private GroupDTO groupUserGroup;
 	
-	private List<UserDTO> groupUserUsers;
+	private UserDTO groupUserUser;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private List<Integer> userIds;
+	private Integer groupId;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Integer userId;
 	
 	public GroupUserDTO(EGroupUsers eGroupUser) {
 		setGroupUserId(eGroupUser.getId());
 		setGroupUserGroup(new GroupDTO(eGroupUser.getEGroup()));
-		setUsers(eGroupUser.getEUsers());
+		setGroupUserUser(new UserDTO(eGroupUser.getEUsers()));
+		//setUsers(eGroupUser.getEUsers());
 	}
 	
-	private List<UserDTO> setUsers(List<EUser> users){
-		List<UserDTO> usersList = new ArrayList<UserDTO>();
-		
-		for(EUser user: users) {
-			usersList.add(new UserDTO(user));
-		}
-		return usersList;
-	}
+//	private List<UserDTO> setUsers(List<EUser> users){
+//		List<UserDTO> usersList = new ArrayList<UserDTO>();
+//		
+//		for(EUser user: users) {
+//			usersList.add(new UserDTO(user));
+//		}
+//		return usersList;
+//	}
 
 }

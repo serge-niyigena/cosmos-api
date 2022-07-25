@@ -49,7 +49,7 @@ public class CRoleGroup {
                     roleGroupPage, RoleGroupDTO.class, ERoleGroup.class));
     }
     
-    @PostMapping(path = "/roleGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/roleGroup/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createRoleGroup(@RequestBody RoleGroupDTO roleGroupDTO) 
             throws URISyntaxException {
 
@@ -60,7 +60,7 @@ public class CRoleGroup {
             .body(new SuccessResponse(201, "Successfully created roleGroup", new RoleGroupDTO(proj)));
     }
     
-    @PostMapping(path = "/roleGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/roleGroup/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateRoleGroup(@RequestBody RoleGroupDTO roleGroupDTO) 
             throws URISyntaxException {
 
@@ -71,7 +71,7 @@ public class CRoleGroup {
             .body(new SuccessResponse(201, "Successfully updated roleGroup", new RoleGroupDTO(proj)));
     }
     
-    @PostMapping(path = "/roleGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/roleGroup/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteRoleGroup(@RequestBody RoleGroupDTO roleGroupDTO) 
             throws URISyntaxException {
 

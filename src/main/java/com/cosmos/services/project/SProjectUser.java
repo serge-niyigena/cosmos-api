@@ -58,10 +58,12 @@ public class SProjectUser implements IProjectUser {
 			
 			EProjectUser projectUser = new EProjectUser();
 			
+
 			EProject proj= sProjectUserProject.getById(projectUserDTO.getProjectUserProjectId(),true);
+			EUser user= sUser.getById(projectUserDTO.getProjectUserUserId(),true);
 			
 			projectUser.setProjectUserProject(proj);
-			projectUser.setProjectUserUsers(setUsers(projectUserDTO.getProjectUsersIds()));
+			projectUser.setProjectUserUsers(user);
 			
 			return projectDAO.save(projectUser);
 		}
@@ -72,9 +74,10 @@ public class SProjectUser implements IProjectUser {
 			EProjectUser projectUser = getById(projectUserDTO.getProjectUserId(), true);
 			
 			EProject proj= sProjectUserProject.getById(projectUserDTO.getProjectUserProjectId(),true);
+			EUser user= sUser.getById(projectUserDTO.getProjectUserUserId(),true);
 			
 			projectUser.setProjectUserProject(proj);
-			projectUser.setProjectUserUsers(setUsers(projectUserDTO.getProjectUsersIds()));
+			projectUser.setProjectUserUsers(user);
 			
 			return projectDAO.save(projectUser);
 		}

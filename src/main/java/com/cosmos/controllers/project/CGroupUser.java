@@ -49,7 +49,7 @@ public class CGroupUser {
                     groupUserPage, GroupUserDTO.class, EGroupUsers.class));
     }
     
-    @PostMapping(path = "/groupUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/groupUser/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createGroupUser(@RequestBody GroupUserDTO groupUserDTO) 
             throws URISyntaxException {
 
@@ -57,10 +57,10 @@ public class CGroupUser {
 
         return ResponseEntity
             .created(new URI("/groupUser" + groupUsers.getId()))
-            .body(new SuccessResponse(201, "Successfully created groupUser", new GroupUserDTO(groupUsers)));
+            .body(new SuccessResponse(201, "Successfully created groupUser", groupUsers));
     }
     
-    @PostMapping(path = "/groupUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/groupUser/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateGroupUser(@RequestBody GroupUserDTO groupUserDTO) 
             throws URISyntaxException {
 
@@ -68,10 +68,10 @@ public class CGroupUser {
 
         return ResponseEntity
             .created(new URI("/groupUser" + groupUsers.getId()))
-            .body(new SuccessResponse(201, "Successfully updated groupUser", new GroupUserDTO(groupUsers)));
+            .body(new SuccessResponse(201, "Successfully updated groupUser",groupUsers));
     }
     
-    @PostMapping(path = "/groupUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/groupUser/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteGroupUser(@RequestBody GroupUserDTO groupUserDTO) 
             throws URISyntaxException {
 
@@ -89,7 +89,7 @@ public class CGroupUser {
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched groupUser", new GroupUserDTO(groupUser)));
+            .body(new SuccessResponse(200, "Successfully fetched groupUser", groupUser));
     }
 
 }

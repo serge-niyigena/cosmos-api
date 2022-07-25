@@ -48,7 +48,7 @@ public class CProject {
                     projectPage, ProjectDTO.class, EProject.class));
     }
     
-    @PostMapping(path = "/project", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProject(@RequestBody ProjectDTO projectDTO) 
             throws URISyntaxException {
 
@@ -59,7 +59,7 @@ public class CProject {
             .body(new SuccessResponse(201, "Successfully created project", new ProjectDTO(proj)));
     }
     
-    @PostMapping(path = "/project", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProject(@RequestBody ProjectDTO projectDTO) 
             throws URISyntaxException {
 
@@ -70,7 +70,7 @@ public class CProject {
             .body(new SuccessResponse(201, "Successfully updated project", new ProjectDTO(proj)));
     }
     
-    @PostMapping(path = "/project", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteProject(@RequestBody ProjectDTO projectDTO) 
             throws URISyntaxException {
 

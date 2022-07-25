@@ -60,10 +60,12 @@ public class SRoleGroup implements IRoleGroup{
 			
 			ERoleGroup roleGroup = new ERoleGroup();
 			
-			EGroup group = sGroup.getById(roleGroupDTO.getRoleGroupGroupId(), true);
+			EGroup group = sGroup.getById(roleGroupDTO.getGroupId(), true);
 			
-			roleGroup.setEGroup(group);
-			roleGroup.setERoles(setRoles(roleGroupDTO.getRoleGroupRolesId()));
+			ERole role = sRole.getById(roleGroupDTO.getRoleId(), true);
+			
+			roleGroup.setGroup(group);
+			roleGroup.setRole(role);
 			
 			return roleGroupDAO.save(roleGroup);
 		}
@@ -109,10 +111,10 @@ public class SRoleGroup implements IRoleGroup{
 			
 			ERoleGroup roleGroup = getById(roleGroupDTO.getRoleGroupId(), true);
 			
-			EGroup group = sGroup.getById(roleGroupDTO.getRoleGroupGroupId(), true);
-			
-			roleGroup.setEGroup(group);
-			roleGroup.setERoles(setRoles(roleGroupDTO.getRoleGroupRolesId()));
+//			EGroup group = sGroup.getById(roleGroupDTO.getRoleGroupGroupId(), true);
+//			
+//			roleGroup.setEGroup(group);
+//			roleGroup.setERoles(setRoles(roleGroupDTO.getRoleGroupRolesId()));
 			
 			return roleGroupDAO.save(roleGroup);
 			

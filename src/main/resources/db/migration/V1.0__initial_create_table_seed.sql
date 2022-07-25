@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS item_categories (
 CREATE TABLE IF NOT EXISTS item_types (
     "item_type_id" SERIAL PRIMARY KEY ,
     "item_type_name" VARCHAR(25) NOT NULL,
-    "item_type_desc" VARCHAR(50) NULL,
+    "item_type_desc" VARCHAR(50) NULL);
 
     -- Create unit_type table
 CREATE TABLE IF NOT EXISTS unit_type (
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS project_status(
 CREATE TABLE IF NOT EXISTS project (
     "project_id" SERIAL PRIMARY KEY ,
     "project_org_id" SMALLINT REFERENCES organization("org_id") ON DELETE SET NULL,
-    "project_name" VARCHAR(35) NUT NULL,
+    "project_name" VARCHAR(35) NOT NULL,
     "project_ref" VARCHAR(20) NULL,
     "project_desc" VARCHAR(50) NULL,
     "project_status" SMALLINT REFERENCES project_status("project_status_id") ON DELETE SET NULL,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS project_floors (
      --create project_floor_items table
     CREATE TABLE IF NOT EXISTS project_floor_item(
     "floor_item_id" SERIAL PRIMARY KEY,
-    "floor_item_project_floor_id" SMALLINT REFERENCES floor_floor("floor_floor_id") ON DELETE SET NULL,
+    "floor_item_project_floor_id" SMALLINT REFERENCES project_floors("project_floor_id") ON DELETE SET NULL,
     "floor_item_item_id" SMALLINT REFERENCES items("item_id") ON DELETE SET NULL,
     "floor_item_normal_quantity" NUMERIC(3,2) NOT NULL,
     "floor_item_maximum_quantity" NUMERIC(3,2) NOT NULL,
@@ -131,14 +131,14 @@ CREATE TABLE IF NOT EXISTS project_floors (
   CREATE TABLE IF NOT EXISTS group_users (
   "group_user_id" SERIAL PRIMARY KEY,
   "group_user_group_id" SMALLINT REFERENCES groups("group_id") ON DELETE CASCADE,
-  "group_user_user_id" SMALLINT REFERENCES users("user_id") ON DELETE CASCADE;
+  "group_user_user_id" SMALLINT REFERENCES users("user_id") ON DELETE CASCADE
 );
 
 --create table roles
 CREATE TABLE IF NOT EXISTS roles (
   "role_id" SERIAL PRIMARY KEY,
   "role_name" varchar(160) NOT NULL,
-  "role_desc" varchar(160) NOT NULL,
+  "role_desc" varchar(160) NOT NULL
 );
 
 --create table role groups

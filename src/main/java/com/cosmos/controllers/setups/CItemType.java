@@ -31,7 +31,7 @@ public class CItemType {
 	private IItemType sItemType;
 	
 
-    @PostMapping(path = "/item/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/type/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 
@@ -43,7 +43,7 @@ public class CItemType {
     }
     
 
-    @PostMapping(path = "/item/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/type/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 
@@ -54,7 +54,7 @@ public class CItemType {
             .body(new SuccessResponse(201, "Successfully updated type", new ItemTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/item/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/item/type/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 

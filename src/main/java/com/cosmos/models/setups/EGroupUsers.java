@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -24,11 +25,12 @@ public class EGroupUsers {
     @Column(nullable = false, updatable = false, name = "group_user_id")
     private Integer id;
     
-    @Column(name = "group_user_group_id")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_group_group_id", referencedColumnName = "group_id")
     private EGroup eGroup;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_user_user_id", referencedColumnName = "role_id")
-    private List<EUser> eUsers;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_group_user_id", referencedColumnName = "user_id")
+    private EUser eUsers;
 
 }

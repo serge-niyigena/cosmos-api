@@ -1,6 +1,9 @@
 package com.cosmos.models.project;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.models.setups.EProjectCategory;
@@ -63,5 +67,8 @@ public class EProject {
 	    
 	    @Column(name = "project_items_selection_type", nullable = false)
 	    private String projectItemSelectionType;
+	    
+	    @OneToMany(mappedBy = "projectUserUsers", cascade = CascadeType.ALL, orphanRemoval = true)
+	    private List<EProjectUser> users;
 	
 }

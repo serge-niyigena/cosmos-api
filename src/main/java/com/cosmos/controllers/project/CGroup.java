@@ -49,7 +49,7 @@ public class CGroup {
                     groupPage, GroupDTO.class, EGroup.class));
     }
     
-    @PostMapping(path = "/group", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createGroup(@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 
@@ -61,7 +61,7 @@ public class CGroup {
     }
     
     
-    @PostMapping(path = "/group", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateGroup(@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 
@@ -72,7 +72,7 @@ public class CGroup {
             .body(new SuccessResponse(201, "Successfully updated group", new GroupDTO(proj)));
     }
     
-    @PostMapping(path = "/group", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteGroup(@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 

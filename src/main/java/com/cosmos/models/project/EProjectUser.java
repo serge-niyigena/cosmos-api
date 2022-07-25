@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.cosmos.models.setups.EUser;
 
@@ -31,9 +30,9 @@ public class EProjectUser {
     @JoinColumn(name = "project_user_project_id", referencedColumnName = "project_id")
     private EProject projectUserProject;
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_user_user_id", referencedColumnName = "project_id")
-    private List<EUser> projectUserUsers;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_user_user_id", referencedColumnName = "user_id")
+    private EUser projectUserUsers;
     
     
 }

@@ -51,7 +51,7 @@ public class CProjectFloor {
                     projectPage, ProjectFloorDTO.class, EProjectFloor.class));
     }
     
-    @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/floor/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
@@ -62,7 +62,7 @@ public class CProjectFloor {
             .body(new SuccessResponse(201, "Successfully created project floor", new ProjectFloorDTO(projFloor)));
     }
     
-    @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/floor/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
@@ -73,7 +73,7 @@ public class CProjectFloor {
             .body(new SuccessResponse(201, "Successfully updated project floor", new ProjectFloorDTO(projFloor)));
     }
     
-    @PostMapping(path = "/project/floor", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/floor/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 

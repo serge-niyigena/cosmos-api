@@ -28,7 +28,7 @@ public class CProjectCategory {
 	private IProjectCategory sProjectCategory;
 	
 
-    @PostMapping(path = "/project/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/category/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
             throws URISyntaxException {
 
@@ -39,7 +39,7 @@ public class CProjectCategory {
             .body(new SuccessResponse(201, "Successfully created category", new ProjectCategoryDTO(pCat)));
     }
     
-    @PostMapping(path = "/project/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/category/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
             throws URISyntaxException {
 
@@ -50,7 +50,7 @@ public class CProjectCategory {
             .body(new SuccessResponse(201, "Successfully updated category", new ProjectCategoryDTO(pCat)));
     }
     
-    @PostMapping(path = "/project/category", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/project/category/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteProjectCategory(@RequestBody ProjectCategoryDTO projectCategoryDTO) 
             throws URISyntaxException {
 

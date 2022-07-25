@@ -1,5 +1,8 @@
 package com.cosmos.models.setups;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+
+import com.cosmos.models.project.EProjectUser;
 
 import lombok.Data;
 
@@ -23,24 +30,31 @@ public class EUser {
 	@Column(nullable = false, name = "user_password")
 	private String userPassword;
 	
-	@Column(nullable = false,  name = "user_id")
+	@Column(nullable = false,  name = "user_fullname")
 	private String userFullName;
 	
-	@Column( name = "user_id")
+	@Column( name = "user_moble")
 	private String userMobile;
 	
-	@Column( name = "user_id")
+	@Column( name = "user_email")
 	private String userEmail;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_type", referencedColumnName = "user_type_id")
 	private EUserType eUserType;
 	
-	@Column(nullable = false,  name = "user_id")
+	@Column(nullable = false,  name = "user_active")
 	private String userActive;
 	
-	@Column(nullable = false,  name = "user_id")
+	@Column(nullable = false,  name = "user_reset")
 	private String userReset;
 	
 
+	@OneToMany(mappedBy = "eGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EGroupUsers> groups;
+	
+	@OneToMany(mappedBy = "projectUserProject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EProjectUser> projects;
+	
+	
 }

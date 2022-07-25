@@ -1,11 +1,15 @@
 package com.cosmos.dtos.project;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.dtos.setups.ProjectCategoryDTO;
 import com.cosmos.dtos.setups.ProjectStatusDTO;
+import com.cosmos.dtos.setups.RoleGroupDTO;
 import com.cosmos.models.project.EProject;
+import com.cosmos.models.project.EProjectUser;
+import com.cosmos.models.setups.ERoleGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -49,6 +53,8 @@ public class ProjectDTO {
 	    @JsonProperty(access = Access.WRITE_ONLY)
 	    private Integer categoryId;
 	    
+	    private List<ProjectUserDTO> users;
+	    
 	    public ProjectDTO(EProject eProject) {
 	    	setId(eProject.getId());
 	    	setName(eProject.getName());
@@ -62,6 +68,12 @@ public class ProjectDTO {
 	    	setProjWet(eProject.getProjectWET());
 	    	setProjectItemSelectionType(eProject.getProjectItemSelectionType());
 	    	
+	    }
+	    
+	    public void addUsers(List<EProjectUser> projectUsers) {
+			for(EProjectUser pu: projectUsers) {
+	        this.users.add(new ProjectUserDTO(pu));
+			}
 	    }
 	
 }

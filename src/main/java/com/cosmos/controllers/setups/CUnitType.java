@@ -36,7 +36,7 @@ public class CUnitType {
 	private IUnitType sUnitType;
 	
 
-    @PostMapping(path = "/unit/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unit/type/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 
@@ -47,7 +47,7 @@ public class CUnitType {
             .body(new SuccessResponse(201, "Successfully created type", new UnitTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/unit/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unit/type/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 
@@ -59,7 +59,7 @@ public class CUnitType {
     }
     
 
-    @PostMapping(path = "/unit/type", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unit/type/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 

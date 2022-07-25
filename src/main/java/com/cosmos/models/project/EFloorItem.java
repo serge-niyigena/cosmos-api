@@ -22,7 +22,7 @@ public class EFloorItem {
     private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "floor_item_project_floor_id", referencedColumnName = "floor_room_id")
+    @JoinColumn(name = "floor_item_project_floor_id", referencedColumnName = "project_floor_id")
     private EProjectFloor floorItemProjectFloor;
  
 	@ManyToOne(fetch = FetchType.LAZY)

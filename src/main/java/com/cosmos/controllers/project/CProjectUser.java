@@ -48,7 +48,7 @@ public class CProjectUser {
                     projectUserPage, ProjectUserDTO.class, EProjectUser.class));
     }
     
-    @PostMapping(path = "/projectUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectUser/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectUser(@RequestBody ProjectUserDTO projectUserDTO) 
             throws URISyntaxException {
 
@@ -59,7 +59,7 @@ public class CProjectUser {
                 .body(new SuccessResponse(201, "Successfully created projectUser", new ProjectUserDTO(projectUsers)));
     }
     
-    @PostMapping(path = "/projectUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectUser/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProjectUser(@RequestBody ProjectUserDTO projectUserDTO) 
             throws URISyntaxException {
 
@@ -68,6 +68,17 @@ public class CProjectUser {
         return ResponseEntity
         		.created(new URI("/groupUser" + projectUsers.getId()))
                 .body(new SuccessResponse(201, "Successfully updated projectUser", new ProjectUserDTO(projectUsers)));
+    }
+    
+    @PostMapping(path = "/projectUser/delete", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteProjectUser(@RequestBody ProjectUserDTO projectUserDTO) 
+            throws URISyntaxException {
+
+        sProjectUser.delete(projectUserDTO);
+
+        return ResponseEntity
+        		.ok()
+                .body(new SuccessResponse(201, "Successfully updated projectUser",projectUserDTO));
     }
 
     @GetMapping(path = "/projectUser/{id}", produces = "application/json")

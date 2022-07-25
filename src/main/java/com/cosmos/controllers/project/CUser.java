@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.models.setups.EUser;
@@ -22,6 +24,10 @@ import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.project.IUser;
 
+import io.swagger.annotations.Api;
+
+@RestController
+@Api("User Endpoints")
 public class CUser {
 	
 	@Autowired
@@ -33,7 +39,7 @@ public class CUser {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name","status.id", "userCategory.id"));
 
         Page<EUser> userPage = sUser.getPaginatedList(pageDTO, allowableFields);
         
@@ -43,15 +49,26 @@ public class CUser {
                     userPage, UserDTO.class, EUser.class));
     }
     
-    @PostMapping(path = "/user", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUser(@RequestBody UserDTO userDTO) 
             throws URISyntaxException {
 
-        EUser proj = sUser.create(userDTO);
+        EUser user = sUser.create(userDTO);
 
         return ResponseEntity
-            .created(new URI("/user" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully created user", new UserDTO(proj)));
+            .created(new URI("/user" + user.getId()))
+            .body(new SuccessResponse(201, "Successfully created user", new UserDTO(user)));
+    }
+    
+    @PostMapping(path = "/user/delete", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> deleteUser(@RequestBody UserDTO userDTO) 
+              {
+
+       sUser.delete(userDTO);
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(201, "Successfully created user",userDTO));
     }
 
     @GetMapping(path = "/user/{id}", produces = "application/json")

@@ -13,13 +13,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
+
 import com.cosmos.services.project.SUserDetailsService;
 import com.cosmos.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 
+@Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter  {
 
