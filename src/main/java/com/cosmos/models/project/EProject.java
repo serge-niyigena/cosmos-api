@@ -68,7 +68,7 @@ public class EProject {
 	    @Column(name = "project_items_selection_type", nullable = false)
 	    private String projectItemSelectionType;
 	    
-	    @OneToMany(mappedBy = "projectUserUsers", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @OneToMany(mappedBy = "projectUserProject", cascade = CascadeType.ALL, orphanRemoval = true)
 	    private List<EProjectUser> users;
 	
 }

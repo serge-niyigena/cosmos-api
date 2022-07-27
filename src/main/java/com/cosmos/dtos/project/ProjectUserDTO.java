@@ -1,6 +1,7 @@
 package com.cosmos.dtos.project;
 
 import com.cosmos.models.project.EProjectUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectUserDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -29,19 +31,8 @@ public class ProjectUserDTO {
 	
 	public ProjectUserDTO(EProjectUser eProjectUser) {
 		setProjectUserId(eProjectUser.getId());
-		setProjectUserProject(new ProjectDTO(eProjectUser.getProjectUserProject()));
-		setProjectUser(new UserDTO(eProjectUser.getProjectUserUsers()));
-		//set(setProjectUsersList(eProjectUser.getProjectUserUsers()));
+		setProjectUserProject(new ProjectDTO(eProjectUser.getProjectUserProject(),false));
+		setProjectUser(new UserDTO(eProjectUser.getProjectUserUsers(),false,false));
 	}
-	
-//	private List<UserDTO> setProjectUsersList(List<EUser> projectUsers ) {
-//		List<UserDTO> usersList = new ArrayList<UserDTO>();
-//		
-//		for(EUser projUser: projectUsers) {
-//			usersList.add(new UserDTO(projUser));
-//		}
-//		
-//		return usersList;
-//	}
 
 }

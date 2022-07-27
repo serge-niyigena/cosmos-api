@@ -1,7 +1,6 @@
 package com.cosmos.models.setups;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-
 import com.cosmos.models.project.EProjectUser;
-
 import lombok.Data;
 
 @Data
@@ -33,7 +29,7 @@ public class EUser {
 	@Column(nullable = false,  name = "user_fullname")
 	private String userFullName;
 	
-	@Column( name = "user_moble")
+	@Column( name = "user_mobile")
 	private String userMobile;
 	
 	@Column( name = "user_email")
@@ -50,10 +46,10 @@ public class EUser {
 	private String userReset;
 	
 
-	@OneToMany(mappedBy = "eGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "eUsers", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EGroupUsers> groups;
 	
-	@OneToMany(mappedBy = "projectUserProject", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "projectUserUsers", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EProjectUser> projects;
 	
 	

@@ -46,7 +46,7 @@ public class CRole {
         return ResponseEntity
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched roles list", 
-                    rolePage, RoleDTO.class, ERole.class));
+                    rolePage, RoleDTO.class, ERole.class,true,true));
     }
     
     @PostMapping(path = "/role/create", consumes = "application/json", produces = "application/json")
@@ -57,7 +57,7 @@ public class CRole {
 
         return ResponseEntity
             .created(new URI("/role" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully created role", new RoleDTO(proj)));
+            .body(new SuccessResponse(201, "Successfully created role", new RoleDTO(proj,true,true)));
     }
     
     @PostMapping(path = "/role/update", consumes = "application/json", produces = "application/json")
@@ -68,7 +68,7 @@ public class CRole {
 
         return ResponseEntity
             .created(new URI("/role/delete" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully updated role", new RoleDTO(proj)));
+            .body(new SuccessResponse(201, "Successfully updated role", new RoleDTO(proj,true,true)));
     }
     
     @PostMapping(path = "/role", consumes = "application/json", produces = "application/json")
@@ -89,7 +89,7 @@ public class CRole {
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched role", new RoleDTO(role)));
+            .body(new SuccessResponse(200, "Successfully fetched role", new RoleDTO(role,true,true)));
     }
 
 }

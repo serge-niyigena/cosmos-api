@@ -46,7 +46,7 @@ public class CUser {
         return ResponseEntity
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched users list", 
-                    userPage, UserDTO.class, EUser.class));
+                    userPage, UserDTO.class, EUser.class,true,true));
     }
     
     @PostMapping(path = "/user/create", consumes = "application/json", produces = "application/json")
@@ -57,7 +57,18 @@ public class CUser {
 
         return ResponseEntity
             .created(new URI("/user" + user.getId()))
-            .body(new SuccessResponse(201, "Successfully created user", new UserDTO(user)));
+            .body(new SuccessResponse(201, "Successfully created user", new UserDTO(user,true,true)));
+    }
+    
+    @PostMapping(path = "/user/update", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateUser(@RequestBody UserDTO userDTO) 
+            throws URISyntaxException {
+
+        EUser user = sUser.update(userDTO);
+
+        return ResponseEntity
+            .created(new URI("/user" + user.getId()))
+            .body(new SuccessResponse(201, "Successfully updated user", new UserDTO(user,true,true)));
     }
     
     @PostMapping(path = "/user/delete", consumes = "application/json", produces = "application/json")
@@ -68,7 +79,7 @@ public class CUser {
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(201, "Successfully created user",userDTO));
+            .body(new SuccessResponse(201, "Successfully deleted user",userDTO));
     }
 
     @GetMapping(path = "/user/{id}", produces = "application/json")
@@ -78,7 +89,7 @@ public class CUser {
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched user", new UserDTO(user)));
+            .body(new SuccessResponse(200, "Successfully fetched user", new UserDTO(user,true,true)));
     }
 
 }

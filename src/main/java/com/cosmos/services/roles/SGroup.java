@@ -1,5 +1,6 @@
 package com.cosmos.services.roles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.GroupDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.setups.EGroup;
+import com.cosmos.models.setups.EGroupUsers;
+import com.cosmos.models.setups.ERoleGroup;
 import com.cosmos.repositories.GroupDAO;
+import com.cosmos.services.project.IUser;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
 import com.cosmos.utils.GlobalFunctions;
@@ -27,6 +31,12 @@ public class SGroup implements IGroup {
 	
 	@Autowired
 	private SpecFactory specFactory;
+	
+	@Autowired
+	private IRole sRole;
+	
+	@Autowired
+	private IUser sUser;
 	
     @Override
     public Page<EGroup> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {
@@ -51,6 +61,13 @@ public class SGroup implements IGroup {
 		EGroup group = new EGroup();
 		group.setDesc(groupDTO.getDesc());
 		group.setName(groupDTO.getName());
+		if(groupDTO.getRolesIds()!=null && !groupDTO.getRolesIds().isEmpty()) {
+			group.setRoles(assignRoles(groupDTO.getRolesIds(), false,group));
+		}
+		
+		if(groupDTO.getUsersIds()!=null && !groupDTO.getUsersIds().isEmpty()) {
+			group.setUsers(assignUsers(groupDTO.getUsersIds(),false, group));
+		}
 		
 		return groupDAO.save(group);
 	}
@@ -87,6 +104,14 @@ public class SGroup implements IGroup {
 		group.setDesc(groupDTO.getDesc());
 		group.setName(groupDTO.getName());
 		
+		if(groupDTO.getRolesIds()!=null && !groupDTO.getRolesIds().isEmpty()) {
+			group.setRoles(assignRoles(groupDTO.getRolesIds(),true, group));
+		}
+		
+		if(groupDTO.getUsersIds()!=null && !groupDTO.getUsersIds().isEmpty()) {
+			group.setUsers(assignUsers(groupDTO.getUsersIds(), true,group));
+		}
+		
 		return groupDAO.save(group);
 	}
 
@@ -98,5 +123,59 @@ public class SGroup implements IGroup {
 		
 	}
 	
+	
+	public List<EGroupUsers> assignUsers(List<Integer> userIds,boolean update,EGroup group){
+		List<EGroupUsers> userGroups = new ArrayList<>();
+		if(update) {
+			userGroups= group.getUsers();
+			userGroups.clear();
+			// group.getRoles().clear();
+			 //group.getUsers().clear();
+			for(Integer userId: userIds) {
+				
+				EGroupUsers groupUser = new EGroupUsers();
+				groupUser.setEUsers(sUser.getById(userId, true));
+				groupUser.setEGroup(group);
+				userGroups.add(groupUser);
+			}
+		}
+		else{
+		for(Integer userId: userIds) {
+	
+			EGroupUsers groupUser = new EGroupUsers();
+			groupUser.setEUsers(sUser.getById(userId, true));
+			groupUser.setEGroup(group);
+			userGroups.add(groupUser);
+		}
+		}
+		return userGroups;
+	}
+	
+	public List<ERoleGroup> assignRoles(List<Integer> rolesIds,boolean update,EGroup group){
+		
+		List<ERoleGroup> groupRoles = new ArrayList<>();
+			
+		if(update) {
+			groupRoles = group.getRoles();
+			groupRoles.clear();
+			for(Integer roleId: rolesIds) {
+				ERoleGroup groupRole = new ERoleGroup();
+				groupRole.setGroup(group);
+				groupRole.setRole(sRole.getById(roleId, true));
+				groupRoles.add(groupRole);
+			}
+			
+		}
+		else {
+			for(Integer roleId: rolesIds) {
+				ERoleGroup groupRole = new ERoleGroup();
+				groupRole.setGroup(group);
+				groupRole.setRole(sRole.getById(roleId, true));
+				groupRoles.add(groupRole);
+			}
+			
+		}
+		return groupRoles;
+	}
 
 }

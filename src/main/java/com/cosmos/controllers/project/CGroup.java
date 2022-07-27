@@ -46,7 +46,7 @@ public class CGroup {
         return ResponseEntity
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched groups list", 
-                    groupPage, GroupDTO.class, EGroup.class));
+                    groupPage, GroupDTO.class, EGroup.class,true,true));
     }
     
     @PostMapping(path = "/group/create", consumes = "application/json", produces = "application/json")
@@ -57,7 +57,7 @@ public class CGroup {
 
         return ResponseEntity
             .created(new URI("/group" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully created group", new GroupDTO(proj)));
+            .body(new SuccessResponse(201, "Successfully created group", new GroupDTO(proj,true,true)));
     }
     
     
@@ -69,7 +69,7 @@ public class CGroup {
 
         return ResponseEntity
             .created(new URI("/group" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully updated group", new GroupDTO(proj)));
+            .body(new SuccessResponse(201, "Successfully updated group", new GroupDTO(proj,true,true)));
     }
     
     @PostMapping(path = "/group/delete", consumes = "application/json", produces = "application/json")
@@ -90,7 +90,7 @@ public class CGroup {
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched group", new GroupDTO(group)));
+            .body(new SuccessResponse(200, "Successfully fetched group", new GroupDTO(group,true,true)));
     }
 
 }

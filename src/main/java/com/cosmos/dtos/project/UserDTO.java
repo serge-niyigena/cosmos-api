@@ -1,12 +1,15 @@
 package com.cosmos.dtos.project;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.cosmos.dtos.setups.GroupUserDTO;
+import com.cosmos.dtos.setups.GroupDTO;
+import com.cosmos.dtos.setups.RoleDTO;
 import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EGroupUsers;
+import com.cosmos.models.setups.ERoleGroup;
 import com.cosmos.models.setups.EUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,6 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -23,6 +27,7 @@ public class UserDTO {
 	
 	private String userFullName;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String userPassword;
 	
 	private String userMobile;
@@ -32,9 +37,24 @@ public class UserDTO {
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
 	private UserTypeDTO userType;
 	
-	private List<GroupUserDTO> groups;
+	@JsonProperty(access = Access.READ_ONLY)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"users","roles"} )
+	private List<GroupDTO> groups = new ArrayList<>();
 	
-	private List<ProjectUserDTO> projects;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private List<Integer> groupsIds;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"groups"})
+	private List<RoleDTO> roles = new ArrayList<>();
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"users"})
+	private List<ProjectDTO> projects = new ArrayList<>();
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private List<Integer> projectsIds;
 	
 	private String userStatus;
 	
@@ -44,29 +64,43 @@ public class UserDTO {
 	private Integer userTypeId;
 
 
-	public UserDTO(EUser eUser) {
+	public UserDTO(EUser eUser,boolean group, boolean project) {
 		setId(eUser.getId());
 		setUserFullName(eUser.getUserFullName());
-		setUserPassword(eUser.getUserPassword());
 		setUserMobile(eUser.getUserMobile());
 		setUserEmail(eUser.getUserEmail());
 		setUserType(new UserTypeDTO(eUser.getEUserType()));
 		setUserStatus(eUser.getUserActive());
 		setUserReset(eUser.getUserReset());
+		if(group && eUser.getGroups()!=null) {
 		addGroups(eUser.getGroups());
+		}
+		if(project && eUser.getProjects()!=null) {
 		addProjects(eUser.getProjects());
+		}
+		addRoles(eUser.getGroups());
 	}
 	
 	
-	public void addGroups(List<EGroupUsers> userGroups) {
-		for(EGroupUsers ug: userGroups) {
-        this.groups.add(new GroupUserDTO(ug));
+	public void addRoles(List<EGroupUsers> roleGroups) {
+		for(EGroupUsers gu: roleGroups) {
+			for(ERoleGroup rg: gu.getEGroup().getRoles()) {
+			this.roles.add(new RoleDTO(rg.getRole(),false,false));
+			}
+        
 		}
     }
 	
+	public void addGroups(List<EGroupUsers> userGroups) {
+		for(EGroupUsers ug: userGroups) {
+        this.groups.add(new GroupDTO(ug.getEGroup(),false,false));
+		}
+    }
+	
+	
 	public void addProjects(List<EProjectUser> userProjects) {
 		for(EProjectUser pu: userProjects) {
-        this.projects.add(new ProjectUserDTO(pu));
+        this.projects.add(new ProjectDTO(pu.getProjectUserProject(),false));
 		}
     }
 	

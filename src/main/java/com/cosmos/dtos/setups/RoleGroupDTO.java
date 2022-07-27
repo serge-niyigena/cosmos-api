@@ -1,27 +1,22 @@
 package com.cosmos.dtos.setups;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.cosmos.models.setups.ERoleGroup;
-import com.cosmos.models.setups.ERole;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-//@ToString(exclude = {"role","group"})
-//@EqualsAndHashCode(exclude = {"role","group"})
+@JsonInclude(content = Include.NON_NULL)
 public class RoleGroupDTO  implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,9 +25,11 @@ public class RoleGroupDTO  implements Serializable {
 	private Integer roleGroupId;
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
+	@JsonIgnoreProperties(value={"roles","users"})
 	private GroupDTO group;
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
+	@JsonIgnoreProperties(value={"groups"})
 	private RoleDTO role;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -41,13 +38,10 @@ public class RoleGroupDTO  implements Serializable {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Integer roleId;
 	
-	
-	
-//	
 	public RoleGroupDTO(ERoleGroup eRoleGroup) {
 		setRoleGroupId(eRoleGroup.getId());
-		setGroup(new GroupDTO(eRoleGroup.getGroup()));
-		setRole(new RoleDTO(eRoleGroup.getRole()));
+		setGroup(new GroupDTO(eRoleGroup.getGroup(),false,false));
+		setRole(new RoleDTO(eRoleGroup.getRole(),false,false));
 	}
 	
 //	@ApiModelProperty( hidden = true)

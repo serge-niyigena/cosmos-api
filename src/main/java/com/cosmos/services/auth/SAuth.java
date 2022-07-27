@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.cosmos.dtos.general.AuthDTO;
+import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.setups.EUser;
@@ -49,10 +50,12 @@ public class SAuth implements IAuth {
 	        UserDetails userDetails = sUserDetails.loadUserByUsername(authDTO.getUserContact());
 
 	        EUser user = sUser.getByMobileOrEmail(authDTO.getUserContact()).get();
+	        UserDTO userDtls= new UserDTO(user,true,true);
 	        Map<String, Object> claims = new HashMap<>();
 	        claims.put("userId", user.getId());
 	        claims.put("userType", new UserTypeDTO(user.getEUserType()));
-	        claims.put("userRoles", new UserTypeDTO(user.getEUserType()));
+	        claims.put("userGroups", userDtls.getGroups());
+	        claims.put("userRoles", userDtls.getRoles());
 	        final String token = jwtUtil.generateToken(userDetails, claims);
 
 	        return token;

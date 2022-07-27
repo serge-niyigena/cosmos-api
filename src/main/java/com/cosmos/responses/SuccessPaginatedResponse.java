@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.data.domain.Page;
-
 import com.cosmos.dtos.general.PageInfoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -74,6 +72,37 @@ public class SuccessPaginatedResponse {
         List<Object> contentList = new ArrayList<Object>();
         for (Object obj : page.getContent()) {
             Object customObj = customClass.getConstructor(entityClass).newInstance(obj);
+            contentList.add(customObj);
+        }
+        contentMap.put("data", contentList);
+        this.setContent(contentMap);
+    }
+    
+    /**
+     * Handles paginated responses that require transformation
+     * 
+     * @param status
+     * @param message
+     * @param page
+     * @param customClass
+     * @param entityClass
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
+    public SuccessPaginatedResponse(int status, String message, Page<?> page, Class<?> customClass,
+            Class<?> entityClass,Boolean users, Boolean roles)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException, SecurityException {
+
+        setBasicProperties(status, message, page);
+
+        List<Object> contentList = new ArrayList<Object>();
+        for (Object obj : page.getContent()) {
+            Object customObj = customClass.getConstructor(entityClass,Boolean.TYPE,Boolean.TYPE).newInstance(obj,users,roles);
             contentList.add(customObj);
         }
         contentMap.put("data", contentList);

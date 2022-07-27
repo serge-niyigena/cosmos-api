@@ -1,17 +1,17 @@
 package com.cosmos.dtos.project;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-
 import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.dtos.setups.ProjectCategoryDTO;
 import com.cosmos.dtos.setups.ProjectStatusDTO;
-import com.cosmos.dtos.setups.RoleGroupDTO;
 import com.cosmos.models.project.EProject;
 import com.cosmos.models.project.EProjectUser;
-import com.cosmos.models.setups.ERoleGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 @NoArgsConstructor
+@JsonInclude(content = Include.NON_NULL)
 public class ProjectDTO {
 	
 	    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -53,9 +54,14 @@ public class ProjectDTO {
 	    @JsonProperty(access = Access.WRITE_ONLY)
 	    private Integer categoryId;
 	    
-	    private List<ProjectUserDTO> users;
+	    @JsonProperty(access = Access.READ_ONLY)
+		@JsonIgnoreProperties(ignoreUnknown = true, value = {"projects","roles"})
+	    private List<UserDTO> users = new ArrayList<>();
 	    
-	    public ProjectDTO(EProject eProject) {
+	    @JsonProperty(access = Access.WRITE_ONLY)
+	    private List<Integer> usersIds;
+	    
+	    public ProjectDTO(EProject eProject, Boolean users) {
 	    	setId(eProject.getId());
 	    	setName(eProject.getName());
 	    	setDesc(eProject.getDesc());
@@ -67,12 +73,14 @@ public class ProjectDTO {
 	    	setProjWef(eProject.getProjectWEF());
 	    	setProjWet(eProject.getProjectWET());
 	    	setProjectItemSelectionType(eProject.getProjectItemSelectionType());
-	    	
+	    	if(users && eProject.getUsers()!=null) {
+	    	addUsers(eProject.getUsers());
+	    	}
 	    }
 	    
 	    public void addUsers(List<EProjectUser> projectUsers) {
 			for(EProjectUser pu: projectUsers) {
-	        this.users.add(new ProjectUserDTO(pu));
+	        this.users.add(new UserDTO(pu.getProjectUserUsers(),false,false));
 			}
 	    }
 	

@@ -37,6 +37,7 @@ public class UnhandledExceptionHandler extends ResponseEntityExceptionHandler {
         GeneralErrorResponse basicErrorResponse = new GeneralErrorResponse(new Date().toString(), message,
                 status.value());
 
+        ex.printStackTrace();
         logger.error(String.format("(%s) -- [MSG] %s", status.value(), message));
 
         StringWriter writer = new StringWriter();

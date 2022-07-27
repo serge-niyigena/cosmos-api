@@ -1,6 +1,7 @@
 package com.cosmos.services.project;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ProjectDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.project.EProject;
+import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.models.setups.EProjectStatus;
@@ -43,6 +45,9 @@ public class SProject implements IProject {
 	 
 	 @Autowired
 	 private GlobalFunctions globalFunction;
+	 
+	 @Autowired
+	 private IUser sUser;
 	 
 	    @Override
 	    public Page<EProject> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {
@@ -82,7 +87,9 @@ public class SProject implements IProject {
 			project.setProjectOrgnanization(pOrg);
 			project.setProjCategory(pCat);
 			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
-			
+			if(projectDTO.getUsersIds()!=null && !projectDTO.getUsersIds().isEmpty()) {
+				project.setUsers(assignUsers(projectDTO.getUsersIds(),false,project));
+				}
 		    return projectDAO.save(project);
 		}
 		
@@ -105,7 +112,9 @@ public class SProject implements IProject {
 			project.setProjectOrgnanization(pOrg);
 			project.setProjCategory(pCat);
 			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
-			
+			if(projectDTO.getUsersIds()!=null && !projectDTO.getUsersIds().isEmpty()) {
+			project.setUsers(assignUsers(projectDTO.getUsersIds(),true,project));
+			}
 			return projectDAO.save(project);
 		}
 		
@@ -135,5 +144,31 @@ public class SProject implements IProject {
 			 Optional<EProject> project = projectDAO.findById(projectId);
 			 
 		      return project;
+		}
+		
+		public List<EProjectUser> assignUsers(List<Integer> userIds,boolean update,EProject project){
+			List<EProjectUser> projectUsers = new ArrayList<>();
+			if(update) {
+				projectUsers= project.getUsers();
+				projectUsers.clear();
+				for(Integer userId: userIds) {
+					
+					EProjectUser projectUser = new EProjectUser();
+					projectUser.setProjectUserUsers(sUser.getById(userId, true));
+					projectUser.setProjectUserProject(project);
+					projectUsers.add(projectUser);
+				}
+			}
+			else {
+				for(Integer userId: userIds) {
+					
+					EProjectUser projectUser = new EProjectUser();
+					projectUser.setProjectUserUsers(sUser.getById(userId, true));
+					projectUser.setProjectUserProject(project);
+					projectUsers.add(projectUser);
+				}
+			}
+			
+			return projectUsers;
 		}
 }

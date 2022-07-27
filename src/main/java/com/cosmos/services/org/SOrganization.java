@@ -95,7 +95,6 @@ public class SOrganization implements IOrganization {
 	        specBuilder = (SpecBuilder<EOrganization>) specFactory.generateSpecification(searchQuery, specBuilder, allowedFields);
 
 	        return specBuilder.build();
-	    
-}
+	    }
 
 }

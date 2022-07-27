@@ -13,7 +13,7 @@ public interface UserDAO extends JpaRepository<EUser, Integer>, JpaSpecification
 
 	 @Query(
 		        value = "SELECT * FROM users u WHERE u.user_mobile = :contactValue "
-		                + "OR c.user_email = :contactValue",
+		                +  "OR u.user_email = :contactValue",
 		        nativeQuery = true
 		    )
 	 Optional<EUser> findMobileOrEmail(String contactValue);

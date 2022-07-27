@@ -1,8 +1,8 @@
 package com.cosmos.services.project;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.exceptions.InvalidInputException;
+import com.cosmos.models.project.EProjectUser;
+import com.cosmos.models.setups.EGroupUsers;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.models.setups.EUserType;
 import com.cosmos.repositories.UserDAO;
+import com.cosmos.services.roles.IGroup;
 import com.cosmos.services.types.IUserType;
 import com.cosmos.utilities.specs.SpecBuilder;
 import com.cosmos.utilities.specs.SpecFactory;
@@ -31,6 +34,12 @@ public class SUser implements IUser {
 	
 	@Autowired
 	private IUserType sUserType;
+	
+	@Autowired
+	private IGroup sGroup;
+	
+	@Autowired
+	private IProject sProject;
 	
 	@Autowired
 	private SpecFactory specFactory;
@@ -68,6 +77,12 @@ public class SUser implements IUser {
 			user.setUserReset(userDTO.getUserReset());
 			user.setUserActive(userDTO.getUserStatus());
 			user.setEUserType(uType);
+			if(userDTO.getGroupsIds()!=null && !userDTO.getGroupsIds().isEmpty()) {
+			user.setGroups(assignGroups(userDTO.getGroupsIds(),false,user));
+			}
+			if(userDTO.getProjectsIds()!=null && !userDTO.getProjectsIds().isEmpty()) {
+			user.setProjects(assignProjects(userDTO.getProjectsIds(),false,user));
+			}
 			
 			return userDAO.save(user);
 		}
@@ -85,6 +100,12 @@ public class SUser implements IUser {
 			user.setUserReset(userDTO.getUserReset());
 			user.setUserActive(userDTO.getUserStatus());
 			user.setEUserType(uType);
+			if(userDTO.getGroupsIds()!=null && !userDTO.getGroupsIds().isEmpty()) {
+				user.setGroups(assignGroups(userDTO.getGroupsIds(),true,user));
+				}
+				if(userDTO.getProjectsIds()!=null && !userDTO.getProjectsIds().isEmpty() ) {
+				user.setProjects(assignProjects(userDTO.getProjectsIds(),true,user));
+				}
 			
 			return userDAO.save(user);
 		}
@@ -121,6 +142,52 @@ public class SUser implements IUser {
 		public Optional<EUser> getByMobileOrEmail(String contact) {
 			
 			return userDAO.findMobileOrEmail(contact);
+		}
+		
+		public List<EGroupUsers> assignGroups(List<Integer> groupsIds, boolean update,EUser user){
+			List<EGroupUsers> userGroups = new ArrayList<>();
+			if(update) {
+				userGroups= user.getGroups();
+				userGroups.clear();
+				for(Integer groupId: groupsIds) {
+					
+					EGroupUsers groupUser = new EGroupUsers();
+					groupUser.setEUsers(user);
+					groupUser.setEGroup(sGroup.getById(groupId, true));
+					userGroups.add(groupUser);
+				}
+				
+			}
+			else {
+				for(Integer groupId: groupsIds) {
+					
+					EGroupUsers groupUser = new EGroupUsers();
+					groupUser.setEUsers(user);
+					groupUser.setEGroup(sGroup.getById(groupId, true));
+					userGroups.add(groupUser);
+				}
+				
+			}
+			return userGroups;
+		}
+		
+		public List<EProjectUser> assignProjects(List<Integer> projectsIds,boolean update,EUser user){
+			List<EProjectUser> userProjects = new ArrayList<>();
+			
+			if(update) {
+				userProjects=user.getProjects();
+				userProjects.clear();
+				for(Integer projectId: projectsIds) {
+					
+					EProjectUser projUser = new EProjectUser();
+					projUser.setProjectUserUsers(user);
+					projUser.setProjectUserProject(sProject.getById(projectId, true));
+					userProjects.add(projUser);
+				
+				}
+			}
+			
+			return userProjects;
 		}
 
 }

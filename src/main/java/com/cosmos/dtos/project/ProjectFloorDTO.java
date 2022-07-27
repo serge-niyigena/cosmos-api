@@ -2,6 +2,7 @@ package com.cosmos.dtos.project;
 
 import com.cosmos.dtos.setups.ProjectStatusDTO;
 import com.cosmos.models.project.EProjectFloor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectFloorDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -39,7 +41,7 @@ public class ProjectFloorDTO {
     public ProjectFloorDTO(EProjectFloor eProjFloor) {
     	setPFloorDescription(eProjFloor.getProjectFloorDescription());
     	setPFloorMeasurement(eProjFloor.getProjectFloorMeasurement());
-    	setPFloorProject(new ProjectDTO(eProjFloor.getProjectFloorProject()));
+    	setPFloorProject(new ProjectDTO(eProjFloor.getProjectFloorProject(),false));
     	setPFloorRef(eProjFloor.getProjectFloorRef());
     	setPFloorStatus(new ProjectStatusDTO(eProjFloor.getProjectFloorStatus()));
     }

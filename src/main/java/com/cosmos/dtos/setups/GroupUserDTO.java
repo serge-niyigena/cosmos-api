@@ -1,14 +1,13 @@
 package com.cosmos.dtos.setups;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.models.setups.EGroupUsers;
-import com.cosmos.models.setups.EUser;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
@@ -16,13 +15,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(content = Include.NON_NULL)
 public class GroupUserDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
 	private Integer groupUserId;
 	
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"roles","users"})
 	private GroupDTO groupUserGroup;
 	
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"groups","projects"})
 	private UserDTO groupUserUser;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -33,18 +36,8 @@ public class GroupUserDTO {
 	
 	public GroupUserDTO(EGroupUsers eGroupUser) {
 		setGroupUserId(eGroupUser.getId());
-		setGroupUserGroup(new GroupDTO(eGroupUser.getEGroup()));
-		setGroupUserUser(new UserDTO(eGroupUser.getEUsers()));
-		//setUsers(eGroupUser.getEUsers());
+		setGroupUserGroup(new GroupDTO(eGroupUser.getEGroup(),false,false));
+		setGroupUserUser(new UserDTO(eGroupUser.getEUsers(),false,false));
 	}
-	
-//	private List<UserDTO> setUsers(List<EUser> users){
-//		List<UserDTO> usersList = new ArrayList<UserDTO>();
-//		
-//		for(EUser user: users) {
-//			usersList.add(new UserDTO(user));
-//		}
-//		return usersList;
-//	}
 
 }

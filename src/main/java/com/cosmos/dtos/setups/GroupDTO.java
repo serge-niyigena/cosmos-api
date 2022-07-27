@@ -1,15 +1,16 @@
 package com.cosmos.dtos.setups;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
+import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.models.setups.EGroup;
 import com.cosmos.models.setups.EGroupUsers;
 import com.cosmos.models.setups.ERoleGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
@@ -17,6 +18,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(content = Include.NON_NULL)
 public class GroupDTO {
 
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -29,28 +32,38 @@ public class GroupDTO {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Integer> rolesIds;
 	
-	@JsonIgnoreProperties(ignoreUnknown = true, value = "group")
-	private List<RoleGroupDTO> roles;
+	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"groups"})
+	private List<RoleDTO> roles = new ArrayList<>();
 	
-	//@JsonIgnoreProperties(ignoreUnknown = true, value = {"group"})
-	private List<GroupUserDTO> users;
+	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"groups","projects","roles"})
+	private List<UserDTO> users = new ArrayList<>();
 	
-	public GroupDTO(EGroup eGroup) {
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private List<Integer> usersIds;
+	
+	public GroupDTO(EGroup eGroup,boolean users, boolean roles) {
 		setId(eGroup.getId());
 		setName(eGroup.getName());
 		setDesc(eGroup.getDesc());
+		if(users && eGroup.getUsers()!=null) {
+			setUsers(eGroup.getUsers());
+		}
+		if(roles && eGroup.getRoles()!=null) {
 		setRoles(eGroup.getRoles());
+		}
 	}
 	
 	public void setRoles(List<ERoleGroup> roleGroup) {
 		for(ERoleGroup rg: roleGroup) {
-			this.roles.add(new RoleGroupDTO(rg));;
+			this.roles.add(new RoleDTO(rg.getRole(),false,false));
 		}
 	}
 	
 	public void setUsers(List<EGroupUsers> groupUsers) {
 		for(EGroupUsers u: groupUsers) {
-			this.users.add(new GroupUserDTO(u));;
+			this.users.add(new UserDTO(u.getEUsers(),false,false));
 		}
 	}
 
