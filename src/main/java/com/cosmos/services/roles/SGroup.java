@@ -98,9 +98,9 @@ public class SGroup implements IGroup {
 
 
 	@Override
-	public EGroup update(GroupDTO groupDTO) {
+	public EGroup update(Integer id,GroupDTO groupDTO) {
 		
-		EGroup group = getById(groupDTO.getId(), true);
+		EGroup group = getById(id, true);
 		group.setDesc(groupDTO.getDesc());
 		group.setName(groupDTO.getName());
 		
@@ -176,6 +176,12 @@ public class SGroup implements IGroup {
 			
 		}
 		return groupRoles;
+	}
+
+
+	@Override
+	public List<EGroup> getAll() {
+		return groupDAO.findAll();
 	}
 
 }

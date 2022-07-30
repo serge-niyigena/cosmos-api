@@ -69,9 +69,9 @@ public class SProjectUser implements IProjectUser {
 		}
 		
 		@Override
-		public EProjectUser update(ProjectUserDTO projectUserDTO) {
+		public EProjectUser update(Integer projectId,ProjectUserDTO projectUserDTO) {
 			
-			EProjectUser projectUser = getById(projectUserDTO.getProjectUserId(), true);
+			EProjectUser projectUser = getById(projectId, true);
 			
 			EProject proj= sProjectUserProject.getById(projectUserDTO.getProjectUserProjectId(),true);
 			EUser user= sUser.getById(projectUserDTO.getProjectUserUserId(),true);

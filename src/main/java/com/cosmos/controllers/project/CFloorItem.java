@@ -60,11 +60,11 @@ public class CFloorItem {
             .body(new SuccessResponse(201, "Successfully created floor item", new FloorItemDTO(projFloor)));
     }
     
-    @PostMapping(path = "/floor/item/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateFloorItem(@RequestBody FloorItemDTO floorItemDTO) 
+    @PostMapping(path = "/floor/item/update/{itemId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateFloorItem(@PathVariable Integer itemId,@RequestBody FloorItemDTO floorItemDTO) 
             throws URISyntaxException {
 
-        EFloorItem projFloor = sFloorItem.update(floorItemDTO);
+        EFloorItem projFloor = sFloorItem.update(itemId,floorItemDTO);
 
         return ResponseEntity
             .created(new URI("/floor/item" + projFloor.getId()))

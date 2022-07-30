@@ -36,7 +36,7 @@ public class COrganization {
 	private IOrganization sOrganization;
 	
 
-    @PostMapping(path = "/organization", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/organization/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createOrganization(@RequestBody OrganizationDTO organizationDTO) 
             throws URISyntaxException {
 
@@ -47,11 +47,10 @@ public class COrganization {
             .body(new SuccessResponse(201, "Successfully created organization", new OrganizationDTO(org)));
     }
     
-    @PostMapping(path = "/organization/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateOrganization(@RequestBody OrganizationDTO organizationDTO) 
+    @PostMapping(path = "/organization/update/{orgId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateOrganization(@RequestBody OrganizationDTO organizationDTO,@PathVariable Integer orgId) 
             throws URISyntaxException {
-
-        EOrganization org = sOrganization.update(organizationDTO);
+        EOrganization org = sOrganization.update(organizationDTO,orgId);
 
         return ResponseEntity
             .created(new URI("/organization" + org.getId()))
@@ -59,14 +58,15 @@ public class COrganization {
     }
     
     @PostMapping(path = "/organization/delete", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> deleteOrganization(@RequestBody OrganizationDTO organizationDTO) 
+    public ResponseEntity<SuccessResponse> deleteOrganization(@RequestBody Integer orgId) 
             throws URISyntaxException {
 
-        sOrganization.delete(organizationDTO);
+        sOrganization.delete(orgId);
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(201, "Successfully deleted organization",organizationDTO));
+            .body(new SuccessResponse(201, "Successfully deleted organization",""));
+        
     }
 
     @GetMapping(path = "/organization/{id}", produces = "application/json")

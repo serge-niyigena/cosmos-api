@@ -19,8 +19,8 @@ public interface IOrganization {
 
     EOrganization getById(Integer organizationId, Boolean throwException);
     
-    EOrganization update(OrganizationDTO orgDTO);  
+    EOrganization update(OrganizationDTO orgDTO, Integer orgId);  
     
-    void delete(OrganizationDTO orgDTO);
+    void delete(Integer orgId);
 
 }

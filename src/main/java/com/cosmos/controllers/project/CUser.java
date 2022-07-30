@@ -49,7 +49,7 @@ public class CUser {
                     userPage, UserDTO.class, EUser.class,true,true));
     }
     
-    @PostMapping(path = "/user/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/createUser", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUser(@RequestBody UserDTO userDTO) 
             throws URISyntaxException {
 
@@ -60,18 +60,18 @@ public class CUser {
             .body(new SuccessResponse(201, "Successfully created user", new UserDTO(user,true,true)));
     }
     
-    @PostMapping(path = "/user/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateUser(@RequestBody UserDTO userDTO) 
+    @PostMapping(path = "/updateUser/{userId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateUser(@PathVariable Integer userId,@RequestBody UserDTO userDTO) 
             throws URISyntaxException {
 
-        EUser user = sUser.update(userDTO);
+        EUser user = sUser.update(userId,userDTO);
 
         return ResponseEntity
             .created(new URI("/user" + user.getId()))
             .body(new SuccessResponse(201, "Successfully updated user", new UserDTO(user,true,true)));
     }
     
-    @PostMapping(path = "/user/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/deleteUser", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUser(@RequestBody UserDTO userDTO) 
               {
 

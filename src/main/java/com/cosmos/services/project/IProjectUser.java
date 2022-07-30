@@ -11,7 +11,7 @@ public interface IProjectUser {
 	
 	EProjectUser create(ProjectUserDTO projectUserDTO);
 	
-	EProjectUser update(ProjectUserDTO projectUserDTO);
+	EProjectUser update(Integer id,ProjectUserDTO projectUserDTO);
 	
 	void delete(ProjectUserDTO projectUserDTO);
 	

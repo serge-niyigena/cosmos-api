@@ -62,11 +62,11 @@ public class CProjectFloor {
             .body(new SuccessResponse(201, "Successfully created project floor", new ProjectFloorDTO(projFloor)));
     }
     
-    @PostMapping(path = "/project/floor/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
+    @PostMapping(path = "/project/floor/update/{floorId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateProjectFloor(@PathVariable Integer floorId,@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
-        EProjectFloor projFloor = sProjectFloor.update(projectFloorDTO);
+        EProjectFloor projFloor = sProjectFloor.update(floorId,projectFloorDTO);
 
         return ResponseEntity
             .created(new URI("/project/floor" + projFloor.getId()))

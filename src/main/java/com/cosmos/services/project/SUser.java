@@ -88,9 +88,9 @@ public class SUser implements IUser {
 		}
 		
 		@Override
-		public EUser update(UserDTO userDTO) {
+		public EUser update(Integer userId,UserDTO userDTO) {
 			
-			EUser user = getById(userDTO.getId(), true);
+			EUser user = getById(userId, true);
 			
 			EUserType uType= sUserType.getById(userDTO.getUserTypeId(),true);
 			

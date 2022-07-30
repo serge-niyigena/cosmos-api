@@ -28,29 +28,29 @@ public class CProjectStatus {
 	private IProjectStatus sProjectStatus;
 	
 
-    @PostMapping(path = "/project/status/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectStatus/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectStatus(@RequestBody ProjectStatusDTO projectStatusDTO) 
             throws URISyntaxException {
 
         EProjectStatus prop = sProjectStatus.create(projectStatusDTO);
 
         return ResponseEntity
-            .created(new URI("/project/status" + prop.getId()))
+            .created(new URI("/projectStatus" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created status", new ProjectStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/project/status/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectStatus/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProjectStatus(@RequestBody ProjectStatusDTO projectStatusDTO) 
             throws URISyntaxException {
 
         EProjectStatus prop = sProjectStatus.update(projectStatusDTO);
 
         return ResponseEntity
-            .created(new URI("/project/status" + prop.getId()))
+            .created(new URI("/projectStatus" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully updated status", new ProjectStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/project/status/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectStatus/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteProjectStatus(@RequestBody ProjectStatusDTO projectStatusDTO) 
             throws URISyntaxException {
 
@@ -61,7 +61,7 @@ public class CProjectStatus {
             .body(new SuccessResponse(201, "Successfully deleted status", projectStatusDTO));
     }
 
-    @GetMapping(path = "/project/status/{id}", produces = "application/json")
+    @GetMapping(path = "/projectStatus/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getProjectStatusById(@PathVariable Integer id) {
 
         Optional<EProjectStatus> projectStatus = sProjectStatus.getById(id);
@@ -74,7 +74,7 @@ public class CProjectStatus {
             .body(new SuccessResponse(200, "Successfully fetched projectStatus", new ProjectStatusDTO(projectStatus.get())));
     }
     
-    @GetMapping(path = "/project/status", produces = "application/json")
+    @GetMapping(path = "/projectStatus", produces = "application/json")
     public ResponseEntity<SuccessResponse> getAllProjectStatuses() {
 
         List<EProjectStatus> projectStatus = sProjectStatus.getAll();

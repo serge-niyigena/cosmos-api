@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -31,6 +35,7 @@ public class ERole implements Serializable{
 	    private String desc;
 	    
 	    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @JsonIgnore
 	    private List<ERoleGroup> groups;
 	
 }

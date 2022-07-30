@@ -94,9 +94,9 @@ public class SProject implements IProject {
 		}
 		
 		@Override
-		public EProject update(ProjectDTO projectDTO) {
+		public EProject update(Integer id,ProjectDTO projectDTO) {
 			
-			EProject project = getById(projectDTO.getId(), true);
+			EProject project = getById(id, true);
 			
 			EProjectCategory pCat= sProjectCategory.getById(projectDTO.getCategoryId(),true);
 			EProjectStatus pStat= sProjectStatus.getById(projectDTO.getStatusId(), true);

@@ -12,7 +12,7 @@ public interface IItem {
 
 	EItem create(ItemDTO itemDTO);
 	
-	EItem update(ItemDTO itemDTO);
+	EItem update(Integer id,ItemDTO itemDTO);
 	
 	void delete(ItemDTO itemDTO);
 	

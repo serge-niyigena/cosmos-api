@@ -10,7 +10,7 @@ public interface IUser {
 
     EUser create(UserDTO userDTO);
     
-    EUser update(UserDTO userDTO);
+    EUser update(Integer id,UserDTO userDTO);
     
     void delete(UserDTO userDTO);
 	

@@ -79,9 +79,9 @@ public class SItem implements IItem {
 		}
 		
 		@Override
-		public EItem update(ItemDTO itemDTO) {
+		public EItem update(Integer id,ItemDTO itemDTO) {
 			
-			EItem item = getById(itemDTO.getId(), true);
+			EItem item = getById(id, true);
 			
 			EItemCategory iCat= sItemCategory.getById(itemDTO.getItemCategoryId(),true);
 			EUnitType uType= sUnitType.getById(itemDTO.getItemUnitTypeId(), true);

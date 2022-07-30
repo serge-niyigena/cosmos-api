@@ -11,7 +11,7 @@ public interface IDamagedItem {
 	
 	   EDamagedItem create(DamagedItemDTO projectFloorDTO);
 	   
-	   EDamagedItem update(DamagedItemDTO projectFloorDTO);
+	   EDamagedItem update(Integer id, DamagedItemDTO projectFloorDTO);
 	   
 	   void delete(DamagedItemDTO projectFloorDTO);
 		

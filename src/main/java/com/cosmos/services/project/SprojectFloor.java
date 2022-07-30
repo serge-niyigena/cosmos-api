@@ -74,9 +74,9 @@ public class SprojectFloor implements IProjectFloor {
 		}
 		
 		@Override
-		public EProjectFloor update(ProjectFloorDTO projectFloorDTO) {
+		public EProjectFloor update(Integer id,ProjectFloorDTO projectFloorDTO) {
 			
-			EProjectFloor project = getById(projectFloorDTO.getId(), true);
+			EProjectFloor project = getById(id, true);
 			
 			EProject proj= sProjectFloorProject.getById(projectFloorDTO.getProjectId(),true);
 			EProjectStatus pStat= sProjectFloorStatus.getById(projectFloorDTO.getStatusId(), true);

@@ -62,11 +62,11 @@ public class CItem {
             .body(new SuccessResponse(201, "Successfully created item", new ItemDTO(item)));
     }
     
-    @PostMapping(path = "/item/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateItem(@RequestBody ItemDTO itemDTO) 
+    @PostMapping(path = "/item/update/{itemId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateItem(@PathVariable Integer itemId,@RequestBody ItemDTO itemDTO) 
             throws URISyntaxException {
 
-        EItem item = sItem.update(itemDTO);
+        EItem item = sItem.update(itemId,itemDTO);
 
         return ResponseEntity
             .created(new URI("/item" + item.getId()))

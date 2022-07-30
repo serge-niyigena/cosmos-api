@@ -65,7 +65,7 @@ public class SDamagedItem implements IDamagedItem{
 		}
 		
 		@Override
-		public EDamagedItem update(DamagedItemDTO damagedItemDTO) {
+		public EDamagedItem update(Integer id,DamagedItemDTO damagedItemDTO) {
 			
 			EDamagedItem damagedItem = getById(damagedItemDTO.getDamagedId(), true);
 		

@@ -28,29 +28,29 @@ public class CUserType {
 	private IUserType sUserType;
 	
 
-    @PostMapping(path = "/user/type/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/userType/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
         EUserType prop = sUserType.create(userTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/user/type" + prop.getId()))
+            .created(new URI("/userType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created type", new UserTypeDTO(prop)));
     }
 
-    @PostMapping(path = "/user/type/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/userType/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
         EUserType prop = sUserType.update(userTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/user/type" + prop.getId()))
+            .created(new URI("/userType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully updated type", new UserTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/user/type/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/userType/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUserType(@RequestBody UserTypeDTO userTypeDTO) 
             throws URISyntaxException {
 
@@ -61,7 +61,7 @@ public class CUserType {
             .body(new SuccessResponse(201, "Successfully deleted type", userTypeDTO));
     }
 
-    @GetMapping(path = "/user/type/{id}", produces = "application/json")
+    @GetMapping(path = "/userType/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getUserTypeById(@PathVariable Integer id) {
 
         Optional<EUserType> userType = sUserType.getById(id);
@@ -74,7 +74,7 @@ public class CUserType {
             .body(new SuccessResponse(200, "Successfully fetched userType", new UserTypeDTO(userType.get())));
     }
     
-    @GetMapping(path = "/user/type", produces = "application/json")
+    @GetMapping(path = "/userType", produces = "application/json")
     public ResponseEntity<SuccessResponse> getAllUserTypees() {
 
         List<EUserType> userType = sUserType.getAll();

@@ -36,30 +36,30 @@ public class CUnitType {
 	private IUnitType sUnitType;
 	
 
-    @PostMapping(path = "/unit/type/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unitType/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 
         EUnitType prop = sUnitType.create(unitTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/unit/type" + prop.getId()))
+            .created(new URI("/unitType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created type", new UnitTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/unit/type/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unitType/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 
         EUnitType prop = sUnitType.update(unitTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/unit/type" + prop.getId()))
+            .created(new URI("/unitType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully updated type", new UnitTypeDTO(prop)));
     }
     
 
-    @PostMapping(path = "/unit/type/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/unitType/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUnitType(@RequestBody UnitTypeDTO unitTypeDTO) 
             throws URISyntaxException {
 
@@ -70,7 +70,7 @@ public class CUnitType {
             .body(new SuccessResponse(201, "Successfully deleted type", unitTypeDTO));
     }
 
-    @GetMapping(path = "/unit/type/{id}", produces = "application/json")
+    @GetMapping(path = "/unitType/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getUnitTypeById(@PathVariable Integer id) {
 
         Optional<EUnitType> unitType = sUnitType.getById(id);
@@ -83,7 +83,7 @@ public class CUnitType {
             .body(new SuccessResponse(200, "Successfully fetched unitType", new UnitTypeDTO(unitType.get())));
     }
     
-    @GetMapping(path = "/unit/types", produces = "application/json")
+    @GetMapping(path = "/unitTypes", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);

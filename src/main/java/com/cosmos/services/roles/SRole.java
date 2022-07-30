@@ -99,4 +99,11 @@ public class SRole implements IRole{
 			roleDAO.delete(getById(roleDTO.getRoleId(), true));
 		}
 
+
+		@Override
+		public List<ERole> getAll() {
+			
+			return roleDAO.findAll();
+		}
+
 }

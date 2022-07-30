@@ -28,29 +28,29 @@ public class CUsageStatus {
 	private IUsageStatus sUsageStatus;
 	
 
-    @PostMapping(path = "/usage/status/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usageStatus/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 
         EUsageStatus prop = sUsageStatus.create(usageStatusDTO);
 
         return ResponseEntity
-            .created(new URI("/usage/status" + prop.getId()))
+            .created(new URI("/usageStatus" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created status", new UsageStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/usage/status/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usageStatus/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 
         EUsageStatus prop = sUsageStatus.update(usageStatusDTO);
 
         return ResponseEntity
-            .created(new URI("/usage/status" + prop.getId()))
+            .created(new URI("/usageStatus" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully updated status", new UsageStatusDTO(prop)));
     }
     
-    @PostMapping(path = "/usage/status/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/usageStatus/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUsageStatus(@RequestBody UsageStatusDTO usageStatusDTO) 
             throws URISyntaxException {
 
@@ -61,7 +61,7 @@ public class CUsageStatus {
             .body(new SuccessResponse(201, "Successfully deleted status",usageStatusDTO));
     }
 
-    @GetMapping(path = "/usage/status/{id}", produces = "application/json")
+    @GetMapping(path = "/usageStatus/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getUsageStatusById(@PathVariable Integer id) {
 
         Optional<EUsageStatus> usageStatus = sUsageStatus.getById(id);
@@ -74,7 +74,7 @@ public class CUsageStatus {
             .body(new SuccessResponse(200, "Successfully fetched usageStatus", new UsageStatusDTO(usageStatus.get())));
     }
     
-    @GetMapping(path = "/usage/status", produces = "application/json")
+    @GetMapping(path = "/usageStatus", produces = "application/json")
     public ResponseEntity<SuccessResponse> getAllUsageStatuses() {
 
         List<EUsageStatus> usageStatus = sUsageStatus.getAll();

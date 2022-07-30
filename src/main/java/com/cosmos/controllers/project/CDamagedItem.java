@@ -60,11 +60,11 @@ public class CDamagedItem {
             .body(new SuccessResponse(201, "Successfully created damaged item", new DamagedItemDTO(damagedItem)));
     }
     
-    @PostMapping(path = "/damaged/item/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<SuccessResponse> updateDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
+    @PostMapping(path = "/damaged/item/update/{itemId}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateDamagedItem(@PathVariable Integer itemId,@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
-        EDamagedItem damagedItem = sDamagedItem.update(damagedItemDTO);
+        EDamagedItem damagedItem = sDamagedItem.update(itemId,damagedItemDTO);
 
         return ResponseEntity
             .created(new URI("/damaged/item" + damagedItem.getId()))

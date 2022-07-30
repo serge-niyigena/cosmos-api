@@ -11,7 +11,7 @@ public interface IProjectFloor{
 
 	EProjectFloor create(ProjectFloorDTO projectFloorDTO);
 	
-	EProjectFloor update(ProjectFloorDTO projectFloorDTO);
+	EProjectFloor update(Integer id,ProjectFloorDTO projectFloorDTO);
 	
 	void delete(ProjectFloorDTO projectFloorDTO);
 	

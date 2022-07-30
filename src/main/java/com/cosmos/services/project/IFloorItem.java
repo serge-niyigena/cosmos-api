@@ -10,7 +10,7 @@ public interface IFloorItem {
 
     EFloorItem create(FloorItemDTO projectFloorDTO);
     
-    EFloorItem update(FloorItemDTO projectFloorDTO);
+    EFloorItem update(Integer id,FloorItemDTO projectFloorDTO);
     
     void delete(FloorItemDTO projectFloorDTO);
 	

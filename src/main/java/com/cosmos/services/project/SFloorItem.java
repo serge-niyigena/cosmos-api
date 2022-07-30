@@ -80,9 +80,9 @@ public class SFloorItem implements IFloorItem {
 		}
 		
 		@Override
-		public EFloorItem update(FloorItemDTO floorItemDTO) {
+		public EFloorItem update(Integer id, FloorItemDTO floorItemDTO) {
 			
-			EFloorItem floorItem = getById(floorItemDTO.getId(), true);
+			EFloorItem floorItem = getById(id, true);
 		
 			EProjectFloor fRoom= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
 			EItem item=  sItem.getById(floorItemDTO.getFloorItemItemId(),true);

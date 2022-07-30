@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.RoleDTO;
 import com.cosmos.models.setups.ERole;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.roles.IRole;
-
 import io.swagger.annotations.Api;
+
 
 @RestController
 @Api("Roles Endpoints")
@@ -47,6 +46,17 @@ public class CRole {
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched roles list", 
                     rolePage, RoleDTO.class, ERole.class,true,true));
+    }
+    
+    @GetMapping(path = "/role/all", produces = "application/json")
+    public ResponseEntity<SuccessResponse> getAllRoles() {
+
+        List<ERole> roles = sRole.getAll();
+        
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(200, "Successfully fetched roles", roles));
     }
     
     @PostMapping(path = "/role/create", consumes = "application/json", produces = "application/json")

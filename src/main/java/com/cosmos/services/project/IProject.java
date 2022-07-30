@@ -12,7 +12,7 @@ public interface IProject {
 
 	EProject create(ProjectDTO projectDTO);
 	
-	EProject update(ProjectDTO projectDTO);
+	EProject update(Integer id,ProjectDTO projectDTO);
 	
 	void delete(ProjectDTO projectDTO);
 	

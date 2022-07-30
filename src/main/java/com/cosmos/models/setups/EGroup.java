@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,9 +32,11 @@ public class EGroup {
 	    private String desc;
 	    
 	    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @JsonIgnore
 	    private List<ERoleGroup> roles;
 	    
 	    @OneToMany(mappedBy = "eGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @JsonIgnore
 		 private List<EGroupUsers> users;
 	    
 	    

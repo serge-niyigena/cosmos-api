@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "item_category")
+@Entity(name = "item_categories")
 @Data
 @NoArgsConstructor
 public class EItemCategory implements Serializable {

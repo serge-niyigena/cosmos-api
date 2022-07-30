@@ -59,15 +59,15 @@ public class SOrganization implements IOrganization {
 	}
 	
 	@Override
-	public void delete(OrganizationDTO orgDTO) {
+	public void delete(Integer orgId) {
 	     
-		organizationDAO.delete(getById(orgDTO.getId(), true));
+		organizationDAO.delete(getById(orgId, true));
 	}
 
 	@Override
-	public EOrganization update(OrganizationDTO organizationDTO) {
+	public EOrganization update(OrganizationDTO organizationDTO,Integer orgId) {
 		
-		EOrganization org = getById(organizationDTO.getId(), true);
+		EOrganization org = getById(orgId, true);
 		
 		org.setName(organizationDTO.getName());
 		org.setPhysicalAddress(organizationDTO.getPhysicalAddress());

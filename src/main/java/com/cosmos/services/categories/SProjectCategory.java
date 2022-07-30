@@ -3,12 +3,20 @@ package com.cosmos.services.categories;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.ProjectCategoryDTO;
 import com.cosmos.exceptions.InvalidInputException;
+import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.repositories.ProjectCategoryDAO;
+import com.cosmos.utilities.specs.SpecBuilder;
+import com.cosmos.utilities.specs.SpecFactory;
+import com.cosmos.utils.GlobalFunctions;
 
 
 @Service
@@ -17,6 +25,21 @@ public class SProjectCategory implements IProjectCategory{
 	   @Autowired
 	   private ProjectCategoryDAO projectCategoryDAO;
 
+	   @Autowired
+	   private SpecFactory specFactory;
+	   
+	   @Autowired
+	   private GlobalFunctions globalFunction;
+
+	   
+	   @Override
+	    public Page<EProjectCategory> getPaginatedList(PageDTO pageDTO, List<String> allowedFields) {
+	    	  String searchQuery = pageDTO.getSearch();
+
+	          PageRequest pageRequest = globalFunction.getPageRequest(pageDTO);
+	          return projectCategoryDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
+	    }
+	   
 
 	    @Override
 	    public List<EProjectCategory> getAll() {
@@ -49,9 +72,9 @@ public class SProjectCategory implements IProjectCategory{
 		}
 		
 		@Override
-		public EProjectCategory update(ProjectCategoryDTO projCategoryDTO) {
+		public EProjectCategory update(Integer id,ProjectCategoryDTO projCategoryDTO) {
 			
-			EProjectCategory projCategory = getById(projCategoryDTO.getId(), true);
+			EProjectCategory projCategory = getById(id, true);
 			
 			projCategory.setDescription(projCategoryDTO.getDesc());
 			projCategory.setName(projCategoryDTO.getName());
@@ -66,5 +89,16 @@ public class SProjectCategory implements IProjectCategory{
 			
 			projectCategoryDAO.delete(projCategory);;
 		}
+		
+
+		@SuppressWarnings("unchecked")
+	    public Specification<EProjectCategory> buildFilterSpec(String searchQuery, List<String> allowedFields) {
+
+	        SpecBuilder<EProjectCategory> specBuilder = new SpecBuilder<>();
+
+	        specBuilder = (SpecBuilder<EProjectCategory>) specFactory.generateSpecification(searchQuery, specBuilder, allowedFields);
+
+	        return specBuilder.build();
+	    }
 
 }
