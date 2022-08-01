@@ -77,6 +77,18 @@ public class SearchSpec<T> implements Specification<T> {
                 criteriaBuilder.like(criteriaBuilder.lower(root.<String>get(key)), "%" + ((String) value).toLowerCase() + "%") : 
                 criteriaBuilder.equal(root.get(key), value);
         }
+        
+//        else if (operation.equalsIgnoreCase("IN")) {
+//            String maxKeysValue = keys[keys.length - 1];
+//            predicate = keyType == String.class ?
+//                criteriaBuilder.in(fieldJoin.<String>get(maxKeysValue), "%" + ((String) value).toLowerCase() + "%") :
+//                criteriaBuilder.equal(fieldJoin.<String>get(maxKeysValue), value);
+//        } else if (operation.equalsIgnoreCase("IN")) {
+//            predicate = keyType == String.class ?
+//                criteriaBuilder.equal(root.<String>get(key), "%" + ((String) value).toLowerCase() + "%") :
+//                criteriaBuilder.equal(root.get(key), value);
+//        }
+        
         return predicate;
     }
 

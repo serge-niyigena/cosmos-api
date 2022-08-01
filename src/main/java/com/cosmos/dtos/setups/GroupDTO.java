@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(content = Include.NON_NULL)
 public class GroupDTO {
 
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)

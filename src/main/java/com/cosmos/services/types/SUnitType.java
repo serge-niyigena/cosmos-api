@@ -48,7 +48,7 @@ public class SUnitType implements IUnitType{
 			
 			EUnitType propType = new EUnitType();
 			
-			propType.setDescription(unitTypeDTO.getDesc());
+			propType.setDesc(unitTypeDTO.getDesc());
 			propType.setName(unitTypeDTO.getName());
 			save(propType);
 			return propType;
@@ -61,7 +61,7 @@ public class SUnitType implements IUnitType{
 		@Override
 		public EUnitType update( UnitTypeDTO unitTypeDTO) {
 			EUnitType unitType= getById(unitTypeDTO.getId(), true);
-			unitType.setDescription(unitTypeDTO.getDesc());
+			unitType.setDesc(unitTypeDTO.getDesc());
 			unitType.setName(unitTypeDTO.getName());
 			
 			return unitTypeDAO.save(unitType);

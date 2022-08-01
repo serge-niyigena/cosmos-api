@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import com.cosmos.models.project.EProjectUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -24,6 +26,7 @@ public class EUser {
 	private Integer id;
 	
 	@Column(nullable = false, name = "user_password")
+	@JsonIgnore
 	private String userPassword;
 	
 	@Column(nullable = false,  name = "user_fullname")
@@ -37,7 +40,8 @@ public class EUser {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_type", referencedColumnName = "user_type_id")
-	private EUserType eUserType;
+	@JsonIgnore
+	private EUserType userType;
 	
 	@Column(nullable = false,  name = "user_active")
 	private String userActive;
@@ -45,11 +49,17 @@ public class EUser {
 	@Column(nullable = false,  name = "user_reset")
 	private String userReset;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_org_id", referencedColumnName = "org_id")
+	@JsonIgnore
+	private EOrganization userOrg;
 
 	@OneToMany(mappedBy = "eUsers", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
     private List<EGroupUsers> groups;
 	
 	@OneToMany(mappedBy = "projectUserUsers", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
     private List<EProjectUser> projects;
 	
 	

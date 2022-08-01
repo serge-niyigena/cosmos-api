@@ -41,14 +41,14 @@ public class CItemCategory {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name"));
 
         Page<EItemCategory> groupPage = sItemCategory.getPaginatedList(pageDTO, allowableFields);
         
         return ResponseEntity
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched categories list", 
-                    groupPage, ItemCategoryDTO.class, EItemCategory.class,true,true));
+                    groupPage, ItemCategoryDTO.class, EItemCategory.class));
     }
 	
     @PostMapping(path = "/itemCategory/create", consumes = "application/json", produces = "application/json")

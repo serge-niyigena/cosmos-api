@@ -20,7 +20,7 @@ public class ProjectCategoryDTO {
 	public ProjectCategoryDTO(EProjectCategory eProjectCategory) {
 		setId(eProjectCategory.getId());
 		setName(eProjectCategory.getName());
-		setDesc(eProjectCategory.getDescription());
+		setDesc(eProjectCategory.getDesc());
 	}
 
 }

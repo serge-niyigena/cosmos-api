@@ -18,13 +18,15 @@ public class EUserType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    @Column(nullable = false, updatable = false, name = "user_type_id")
+	    private Integer id;
+	
     @Column(name = "user_type_desc")
-    private String description;
+    private String desc;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false, name = "user_type_id")
-    private Integer id;
+   
 
     @Column(name = "user_type_name")
     private String name;

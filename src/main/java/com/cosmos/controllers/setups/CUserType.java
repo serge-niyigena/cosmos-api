@@ -75,7 +75,7 @@ public class CUserType {
     }
     
     @GetMapping(path = "/userType", produces = "application/json")
-    public ResponseEntity<SuccessResponse> getAllUserTypees() {
+    public ResponseEntity<SuccessResponse> getAllUserTypes() {
 
         List<EUserType> userType = sUserType.getAll();
         

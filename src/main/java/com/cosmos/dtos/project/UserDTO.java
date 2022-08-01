@@ -3,6 +3,7 @@ package com.cosmos.dtos.project;
 import java.util.ArrayList;
 import java.util.List;
 import com.cosmos.dtos.setups.GroupDTO;
+import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.dtos.setups.RoleDTO;
 import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.models.project.EProjectUser;
@@ -37,6 +38,9 @@ public class UserDTO {
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
 	private UserTypeDTO userType;
 	
+	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
+	private OrganizationDTO userOrg;
+	
 	@JsonProperty(access = Access.READ_ONLY)
 	@JsonIgnoreProperties(ignoreUnknown = true, value = {"users","roles"} )
 	private List<GroupDTO> groups = new ArrayList<>();
@@ -56,6 +60,9 @@ public class UserDTO {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private List<Integer> projectsIds;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Integer userOrgId;
+	
 	private String userStatus;
 	
 	private String userReset;
@@ -69,9 +76,10 @@ public class UserDTO {
 		setUserFullName(eUser.getUserFullName());
 		setUserMobile(eUser.getUserMobile());
 		setUserEmail(eUser.getUserEmail());
-		setUserType(new UserTypeDTO(eUser.getEUserType()));
+		setUserType(new UserTypeDTO(eUser.getUserType()));
 		setUserStatus(eUser.getUserActive());
 		setUserReset(eUser.getUserReset());
+		setUserOrg(new OrganizationDTO(eUser.getUserOrg()));
 		if(group && eUser.getGroups()!=null) {
 		addGroups(eUser.getGroups());
 		}

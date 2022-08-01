@@ -88,7 +88,7 @@ public class COrganization {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name","mobileNumber","email"));
         
         Page<EOrganization> organization = sOrganization.getPaginatedList(pageDTO,allowableFields);
         

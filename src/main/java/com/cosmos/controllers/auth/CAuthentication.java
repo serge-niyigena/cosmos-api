@@ -15,13 +15,13 @@ import com.cosmos.services.auth.IAuth;
 import io.swagger.annotations.Api;
 
 @RestController
-@Api("Authentication Endpoints")
+@Api("Authentication Endpoint")
 public class CAuthentication {
 	
 	@Autowired
 	private IAuth sAuth;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/auth/login", method = RequestMethod.POST)
 	public ResponseEntity<SuccessResponse> authenticate(@RequestBody AuthDTO authDTO) throws Exception {
 
 		String token = sAuth.authenticateUser(authDTO);

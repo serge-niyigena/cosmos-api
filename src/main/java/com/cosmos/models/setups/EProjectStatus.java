@@ -27,6 +27,6 @@ public class EProjectStatus implements Serializable {
     private String name;
 
     @Column(name = "project_status_desc")
-    private String description;
+    private String desc;
 
 }

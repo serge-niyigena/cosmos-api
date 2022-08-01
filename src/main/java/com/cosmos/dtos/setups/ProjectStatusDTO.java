@@ -20,7 +20,7 @@ public class ProjectStatusDTO {
 	public ProjectStatusDTO(EProjectStatus eProjectStatus) {
 		setId(eProjectStatus.getId());
 		setName(eProjectStatus.getName());
-		setDesc(eProjectStatus.getDescription());
+		setDesc(eProjectStatus.getDesc());
 	}
 
 }

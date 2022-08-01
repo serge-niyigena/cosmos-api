@@ -20,7 +20,7 @@ public class UserTypeDTO {
 	public UserTypeDTO(EUserType eUserType) {
 		setId(eUserType.getId());
 		setName(eUserType.getName());
-		setDesc(eUserType.getDescription());
+		setDesc(eUserType.getDesc());
 	}
 
 }

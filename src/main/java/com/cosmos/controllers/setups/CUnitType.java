@@ -83,13 +83,13 @@ public class CUnitType {
             .body(new SuccessResponse(200, "Successfully fetched unitType", new UnitTypeDTO(unitType.get())));
     }
     
-    @GetMapping(path = "/unitTypes", produces = "application/json")
+    @GetMapping(path = "/unitType", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name"));
         
         Page<EUnitType> unitType = sUnitType.getPaginatedList(pageDTO,allowableFields);
         

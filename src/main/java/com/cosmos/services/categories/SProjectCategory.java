@@ -65,7 +65,7 @@ public class SProjectCategory implements IProjectCategory{
 			
 			EProjectCategory projCategory = new EProjectCategory();
 			
-			projCategory.setDescription(projCategoryDTO.getDesc());
+			projCategory.setDesc(projCategoryDTO.getDesc());
 			projCategory.setName(projCategoryDTO.getName());
 			
 			return projectCategoryDAO.save(projCategory);
@@ -76,7 +76,7 @@ public class SProjectCategory implements IProjectCategory{
 			
 			EProjectCategory projCategory = getById(id, true);
 			
-			projCategory.setDescription(projCategoryDTO.getDesc());
+			projCategory.setDesc(projCategoryDTO.getDesc());
 			projCategory.setName(projCategoryDTO.getName());
 			
 			return projectCategoryDAO.save(projCategory);

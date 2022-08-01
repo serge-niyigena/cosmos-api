@@ -20,7 +20,7 @@ public class UnitTypeDTO {
 	public UnitTypeDTO(EUnitType eUnitType) {
 		setId(eUnitType.getId());
 		setName(eUnitType.getName());
-		setDesc(eUnitType.getDescription());
+		setDesc(eUnitType.getDesc());
 	}
 
 }

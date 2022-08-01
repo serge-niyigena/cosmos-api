@@ -33,7 +33,7 @@ public class CDamagedItem {
 	@Autowired
 	private IDamagedItem sDamagedItem;
 
-    @GetMapping(path = "/damaged/item", produces = "application/json")
+    @GetMapping(path = "/damagedItem", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);
@@ -49,29 +49,29 @@ public class CDamagedItem {
                 		damagedItemPage, DamagedItemDTO.class, EDamagedItem.class));
     }
     
-    @PostMapping(path = "/damaged/item/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damagedItem/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
         EDamagedItem damagedItem = sDamagedItem.create(damagedItemDTO);
 
         return ResponseEntity
-            .created(new URI("/damaged/item" + damagedItem.getId()))
+            .created(new URI("/damagedItem" + damagedItem.getId()))
             .body(new SuccessResponse(201, "Successfully created damaged item", new DamagedItemDTO(damagedItem)));
     }
     
-    @PostMapping(path = "/damaged/item/update/{itemId}", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damagedItem/update/{itemId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateDamagedItem(@PathVariable Integer itemId,@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
         EDamagedItem damagedItem = sDamagedItem.update(itemId,damagedItemDTO);
 
         return ResponseEntity
-            .created(new URI("/damaged/item" + damagedItem.getId()))
+            .created(new URI("/damagedItem" + damagedItem.getId()))
             .body(new SuccessResponse(201, "Successfully updated damaged item", new DamagedItemDTO(damagedItem)));
     }
     
-    @PostMapping(path = "/damaged/item/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/damagedItem/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteDamagedItem(@RequestBody DamagedItemDTO damagedItemDTO) 
             throws URISyntaxException {
 
@@ -82,7 +82,7 @@ public class CDamagedItem {
             .body(new SuccessResponse(201, "Successfully deleted damaged item", damagedItemDTO));
     }
 
-    @GetMapping(path = "damaged/item/{id}", produces = "application/json")
+    @GetMapping(path = "damagedItem/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getDamagedItemById(@PathVariable Integer id) {
 
         EDamagedItem project = sDamagedItem.getById(id,true);

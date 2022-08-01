@@ -18,6 +18,7 @@ public class ItemCategoryDTO {
 	private String desc;
 	
 	public ItemCategoryDTO(EItemCategory eItemCategory) {
+		setId(eItemCategory.getId());
 		setName(eItemCategory.getName());
 		setDesc(eItemCategory.getDescription());
 	}

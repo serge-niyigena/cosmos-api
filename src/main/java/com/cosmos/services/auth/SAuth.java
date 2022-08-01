@@ -53,7 +53,7 @@ public class SAuth implements IAuth {
 	        UserDTO userDtls= new UserDTO(user,true,true);
 	        Map<String, Object> claims = new HashMap<>();
 	        claims.put("userId", user.getId());
-	        claims.put("userType", new UserTypeDTO(user.getEUserType()));
+	        claims.put("userType", new UserTypeDTO(user.getUserType()));
 	        claims.put("userGroups", userDtls.getGroups());
 	        claims.put("userRoles", userDtls.getRoles());
 	        final String token = jwtUtil.generateToken(userDetails, claims);

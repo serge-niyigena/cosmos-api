@@ -16,6 +16,8 @@ public interface IUser {
 	
     Page<EUser> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
     
+    List<EUser> getAll();
+    
     Optional<EUser> getById(Integer userId);
     
     Optional<EUser> getByMobileOrEmail(String contact);

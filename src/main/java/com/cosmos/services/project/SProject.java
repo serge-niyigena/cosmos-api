@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,7 @@ import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.models.setups.EProjectStatus;
+import com.cosmos.models.setups.EUser;
 import com.cosmos.repositories.ProjectDAO;
 import com.cosmos.services.categories.IProjectCategory;
 import com.cosmos.services.org.IOrganization;
@@ -81,10 +84,10 @@ public class SProject implements IProject {
 			project.setName(projectDTO.getName());
 			project.setProjectWEF(projectDTO.getProjWef());
 			project.setProjectWET(projectDTO.getProjWet());
-			project.setReference(projectDTO.getReference());
+			project.setReference("P"+generateRandomRef(6));
 			project.setProjCreationDate(LocalDateTime.now());
 			project.setProjectStatus(pStat);
-			project.setProjectOrgnanization(pOrg);
+			project.setProjectOrganization(pOrg);
 			project.setProjCategory(pCat);
 			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
 			if(projectDTO.getUsersIds()!=null && !projectDTO.getUsersIds().isEmpty()) {
@@ -109,9 +112,9 @@ public class SProject implements IProject {
 			project.setReference(projectDTO.getReference());
 			project.setProjCreationDate(LocalDateTime.now());
 			project.setProjectStatus(pStat);
-			project.setProjectOrgnanization(pOrg);
+			project.setProjectOrganization(pOrg);
 			project.setProjCategory(pCat);
-			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
+			project.setProjectItemSelectionType(projectDTO.getSelectionType());
 			if(projectDTO.getUsersIds()!=null && !projectDTO.getUsersIds().isEmpty()) {
 			project.setUsers(assignUsers(projectDTO.getUsersIds(),true,project));
 			}
@@ -171,4 +174,21 @@ public class SProject implements IProject {
 			
 			return projectUsers;
 		}
+		
+		@Override
+		public List<EProject> getAll() {
+			
+			return projectDAO.findAll();
+		}
+		
+		public static String generateRandomRef(int len) {
+			String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+	          +"lmnopqrstuvwxyz";
+			Random rnd = new Random();
+			StringBuilder sb = new StringBuilder(len);
+			for (int i = 0; i < len; i++)
+				sb.append(chars.charAt(rnd.nextInt(chars.length())));
+			return sb.toString();
+		}
+		
 }

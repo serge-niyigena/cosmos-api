@@ -42,7 +42,7 @@ public class SProjectStatus implements IProjectStatus{
 			
 			EProjectStatus projStatus = new EProjectStatus();
 			
-			projStatus.setDescription(uStatusDTO.getDesc());
+			projStatus.setDesc(uStatusDTO.getDesc());
 			projStatus.setName(uStatusDTO.getName());
 		
 			return projectStatusDAO.save(projStatus);
@@ -53,7 +53,7 @@ public class SProjectStatus implements IProjectStatus{
 			
 			EProjectStatus projStatus = getById(uStatusDTO.getId(), true);
 			
-			projStatus.setDescription(uStatusDTO.getDesc());
+			projStatus.setDesc(uStatusDTO.getDesc());
 			projStatus.setName(uStatusDTO.getName());
 		
 			return projectStatusDAO.save(projStatus);

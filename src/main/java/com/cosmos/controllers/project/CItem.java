@@ -41,7 +41,7 @@ public class CItem {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name","itemCategory.id", "itemUnitType.id","itemType.id"));
 
         Page<EItem> itemPage = sItem.getPaginatedList(pageDTO, allowableFields);
 

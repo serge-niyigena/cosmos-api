@@ -20,7 +20,7 @@ public class UsageStatusDTO {
 	public UsageStatusDTO(EUsageStatus eUsageStatus) {
 		setId(eUsageStatus.getId());
 		setName(eUsageStatus.getName());
-		setDesc(eUsageStatus.getDescription());
+		setDesc(eUsageStatus.getDesc());
 	}
 
 }

@@ -25,7 +25,7 @@ public class EUnitType implements Serializable {
     private Integer id;
     
     @Column(name = "unit_desc")
-    private String description;
+    private String desc;
 
     @Column(name = "unit_name")
     private String name;

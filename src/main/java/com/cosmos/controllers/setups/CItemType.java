@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.ItemTypeDTO;
@@ -25,36 +26,40 @@ import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.types.IItemType;
 
+import io.swagger.annotations.Api;
+
+@RestController
+@Api("Item types Endpoints")
 public class CItemType {
 
 	@Autowired
 	private IItemType sItemType;
 	
 
-    @PostMapping(path = "/item/type/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/itemType/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 
         EItemType prop = sItemType.create(itemTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/item/type" + prop.getId()))
+            .created(new URI("/itemType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully created type", new ItemTypeDTO(prop)));
     }
     
 
-    @PostMapping(path = "/item/type/update", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/itemType/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 
         EItemType prop = sItemType.update(itemTypeDTO);
 
         return ResponseEntity
-            .created(new URI("/item/type" + prop.getId()))
+            .created(new URI("/itemType" + prop.getId()))
             .body(new SuccessResponse(201, "Successfully updated type", new ItemTypeDTO(prop)));
     }
     
-    @PostMapping(path = "/item/type/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/itemType/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteItemType(@RequestBody ItemTypeDTO itemTypeDTO) 
             throws URISyntaxException {
 
@@ -65,7 +70,7 @@ public class CItemType {
             .body(new SuccessResponse(201, "Successfully deleted type",itemTypeDTO));
     }
 
-    @GetMapping(path = "/item/type/{id}", produces = "application/json")
+    @GetMapping(path = "/itemType/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getItemTypeById(@PathVariable Integer id) {
 
         Optional<EItemType> itemType = sItemType.getById(id);
@@ -78,13 +83,13 @@ public class CItemType {
             .body(new SuccessResponse(200, "Successfully fetched itemType", new ItemTypeDTO(itemType.get())));
     }
     
-    @GetMapping(path = "/item/types", produces = "application/json")
+    @GetMapping(path = "/itemType", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name"));
 
         Page<EItemType> itemType = sItemType.getPaginatedList(pageDTO,allowableFields);
         

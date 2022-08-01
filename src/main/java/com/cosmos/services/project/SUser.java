@@ -14,9 +14,12 @@ import com.cosmos.dtos.project.UserDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EGroupUsers;
+import com.cosmos.models.setups.EOrganization;
+import com.cosmos.models.setups.ERole;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.models.setups.EUserType;
 import com.cosmos.repositories.UserDAO;
+import com.cosmos.services.org.IOrganization;
 import com.cosmos.services.roles.IGroup;
 import com.cosmos.services.types.IUserType;
 import com.cosmos.utilities.specs.SpecBuilder;
@@ -39,6 +42,9 @@ public class SUser implements IUser {
 	private IGroup sGroup;
 	
 	@Autowired
+	private IOrganization sOrganization;
+	
+	@Autowired
 	private IProject sProject;
 	
 	@Autowired
@@ -49,7 +55,7 @@ public class SUser implements IUser {
 	    	  String searchQuery = pageDTO.getSearch();
 
 	          PageRequest pageRequest = globalFunction.getPageRequest(pageDTO);
-
+	          System.out.println(buildFilterSpec(searchQuery, allowedFields));
 	          return userDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
 	    }
 
@@ -69,6 +75,7 @@ public class SUser implements IUser {
 			EUser user = new EUser();
 			
 			EUserType uType= sUserType.getById(userDTO.getUserTypeId(),true);
+			EOrganization org =sOrganization.getById(userDTO.getUserOrgId(), true);
 			
 			user.setUserFullName(userDTO.getUserFullName());
 			user.setUserPassword(new BCryptPasswordEncoder().encode(userDTO.getUserPassword()));
@@ -76,7 +83,8 @@ public class SUser implements IUser {
 			user.setUserMobile(userDTO.getUserMobile());
 			user.setUserReset(userDTO.getUserReset());
 			user.setUserActive(userDTO.getUserStatus());
-			user.setEUserType(uType);
+			user.setUserOrg(org);
+			user.setUserType(uType);
 			if(userDTO.getGroupsIds()!=null && !userDTO.getGroupsIds().isEmpty()) {
 			user.setGroups(assignGroups(userDTO.getGroupsIds(),false,user));
 			}
@@ -93,13 +101,15 @@ public class SUser implements IUser {
 			EUser user = getById(userId, true);
 			
 			EUserType uType= sUserType.getById(userDTO.getUserTypeId(),true);
+			EOrganization org =sOrganization.getById(userDTO.getUserOrgId(), true);
 			
 			user.setUserFullName(userDTO.getUserFullName());
 			user.setUserEmail(userDTO.getUserEmail());
 			user.setUserMobile(userDTO.getUserMobile());
 			user.setUserReset(userDTO.getUserReset());
 			user.setUserActive(userDTO.getUserStatus());
-			user.setEUserType(uType);
+			user.setUserOrg(org);
+			user.setUserType(uType);
 			if(userDTO.getGroupsIds()!=null && !userDTO.getGroupsIds().isEmpty()) {
 				user.setGroups(assignGroups(userDTO.getGroupsIds(),true,user));
 				}
@@ -112,8 +122,9 @@ public class SUser implements IUser {
 		
 		@Override
 		public void delete(UserDTO userDTO) {
-			
+			System.out.println(userDTO.getId());
 			EUser user = getById(userDTO.getId(), true);
+			
 		
 			userDAO.delete(user);
 		}
@@ -122,7 +133,7 @@ public class SUser implements IUser {
 		    public Specification<EUser> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 
 		        SpecBuilder<EUser> specBuilder = new SpecBuilder<>();
-
+System.out.println(searchQuery);
 		        specBuilder = (SpecBuilder<EUser>) specFactory.generateSpecification(searchQuery, specBuilder, allowedFields);
 
 		        return specBuilder.build();
@@ -188,6 +199,12 @@ public class SUser implements IUser {
 			}
 			
 			return userProjects;
+		}
+		
+		@Override
+		public List<EUser> getAll() {
+			
+			return userDAO.findAll();
 		}
 
 }

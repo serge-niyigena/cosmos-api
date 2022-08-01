@@ -31,7 +31,7 @@ public class SpecBuilder<T> {
                 result = new SearchSpec<T>(criteria);
                 continue;
             }
-            result = Specification.where(result);
+            result = Specification.where(result).and(new SearchSpec<T>(criteria));
             
         }
       

@@ -43,14 +43,14 @@ public class CProjectCategory {
 	        PageDTO pageDTO = new PageDTO(params);
 
 	        List<String> allowableFields = new ArrayList<String>(
-	                Arrays.asList("name","status.id", "projCategory.id"));
+	                Arrays.asList("name"));
 
 	        Page<EProjectCategory> groupPage = sProjectCategory.getPaginatedList(pageDTO, allowableFields);
 	        
 	        return ResponseEntity
 	                .ok()
 	                .body(new SuccessPaginatedResponse(200, "Successfully fetched categories list", 
-	                    groupPage, ProjectCategoryDTO.class, EProjectCategory.class,true,true));
+	                    groupPage, ProjectCategoryDTO.class, EProjectCategory.class));
 	    }
 	
     @PostMapping(path = "/projectCategory/create", consumes = "application/json", produces = "application/json")
@@ -107,7 +107,7 @@ public class CProjectCategory {
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched pprojectCategory", pprojectCategory));
+            .body(new SuccessResponse(200, "Successfully fetched project Categories", pprojectCategory));
     }
 	
 }

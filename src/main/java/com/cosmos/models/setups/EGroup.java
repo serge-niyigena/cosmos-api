@@ -32,10 +32,12 @@ public class EGroup {
 	    private String desc;
 	    
 	    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+	   // @JsonIgnoreProperties(ignoreUnknown = true, value = {"group","id"})
 	    @JsonIgnore
 	    private List<ERoleGroup> roles;
 	    
 	    @OneToMany(mappedBy = "eGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	   // @JsonIgnoreProperties(ignoreUnknown = true, value = {"id","eGroup"})
 	    @JsonIgnore
 		 private List<EGroupUsers> users;
 	    

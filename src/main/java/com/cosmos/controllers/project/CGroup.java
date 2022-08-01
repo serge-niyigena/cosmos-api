@@ -40,7 +40,7 @@ public class CGroup {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name","id"));
 
         Page<EGroup> groupPage = sGroup.getPaginatedList(pageDTO, allowableFields);
         
@@ -51,7 +51,7 @@ public class CGroup {
     }
     
     @GetMapping(path = "/group/all", produces = "application/json")
-    public ResponseEntity<SuccessResponse> getAllRoles() {
+    public ResponseEntity<SuccessResponse> getAllGroups() {
 
         List<EGroup> groups = sGroup.getAll();
         
@@ -61,7 +61,7 @@ public class CGroup {
             .body(new SuccessResponse(200, "Successfully fetched groups", groups));
     }
     
-    @PostMapping(path = "/createGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createGroup(@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 
@@ -73,7 +73,7 @@ public class CGroup {
     }
     
     
-    @PostMapping(path = "/updateGroup/{groupId}", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/update/{groupId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateGroup(@PathVariable Integer groupId,@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 
@@ -84,7 +84,7 @@ public class CGroup {
             .body(new SuccessResponse(201, "Successfully updated group", new GroupDTO(proj,true,true)));
     }
     
-    @PostMapping(path = "/deleteGroup", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/group/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteGroup(@RequestBody GroupDTO groupDTO) 
             throws URISyntaxException {
 

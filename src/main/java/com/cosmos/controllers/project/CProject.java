@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ProjectDTO;
 import com.cosmos.models.project.EProject;
+import com.cosmos.models.setups.EGroup;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.project.IProject;
@@ -38,7 +39,7 @@ public class CProject {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("name","reference","projectStatus.id", "projCategory.id","projectOrganization.id"));
 
         Page<EProject> projectPage = sProject.getPaginatedList(pageDTO, allowableFields);
         
@@ -90,6 +91,19 @@ public class CProject {
         return ResponseEntity
             .ok()
             .body(new SuccessResponse(200, "Successfully fetched project", new ProjectDTO(project,true)));
+    }
+    
+    
+
+    @GetMapping(path = "/project/all", produces = "application/json")
+    public ResponseEntity<SuccessResponse> getAllProjects() {
+
+        List<EProject> groups = sProject.getAll();
+        
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(200, "Successfully fetched groups", groups));
     }
 	
 	

@@ -42,7 +42,7 @@ public class SUserType implements IUserType{
 			
 			EUserType userType = new EUserType();
 			
-			userType.setDescription(uTypeDTO.getDesc());
+			userType.setDesc(uTypeDTO.getDesc());
 			userType.setName(uTypeDTO.getName());
 			
 			return userTypeDAO.save(userType);
@@ -53,7 +53,7 @@ public class SUserType implements IUserType{
 			
 			EUserType userType = getById(uTypeDTO.getId(), true);
 			
-			userType.setDescription(uTypeDTO.getDesc());
+			userType.setDesc(uTypeDTO.getDesc());
 			userType.setName(uTypeDTO.getName());
 			
 			return userTypeDAO.save(userType);

@@ -43,7 +43,7 @@ public class ProjectDTO {
 	    
 	    private LocalDateTime projWef;
 	    private LocalDateTime projWet;
-	    private String projectItemSelectionType;
+	    private String selectionType;
 	    
 	    @JsonProperty(access = Access.WRITE_ONLY)
 	    private Integer organizationId;
@@ -68,11 +68,11 @@ public class ProjectDTO {
 	    	setReference(eProject.getReference());
 	    	setCreationDate(eProject.getProjCreationDate());
 	    	setProjStatus(new ProjectStatusDTO(eProject.getProjectStatus()));
-	    	setProjOrgnanization(new OrganizationDTO(eProject.getProjectOrgnanization()));
+	    	setProjOrgnanization(new OrganizationDTO(eProject.getProjectOrganization()));
 	    	setProjectCategory(new ProjectCategoryDTO(eProject.getProjCategory()));
 	    	setProjWef(eProject.getProjectWEF());
 	    	setProjWet(eProject.getProjectWET());
-	    	setProjectItemSelectionType(eProject.getProjectItemSelectionType());
+	    	setSelectionType(eProject.getProjectItemSelectionType());
 	    	if(users && eProject.getUsers()!=null) {
 	    	addUsers(eProject.getUsers());
 	    	}

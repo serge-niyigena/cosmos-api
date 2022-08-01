@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.models.setups.EProjectStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,11 +49,13 @@ public class EProject {
 	  
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "project_org_id", referencedColumnName = "org_id")
-	    private EOrganization projectOrgnanization;
+	    @JsonIgnore
+	    private EOrganization projectOrganization;
 	    
 	  
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "project_category_id", referencedColumnName = "project_category_id" )
+	    @JsonIgnore
 	    private EProjectCategory projCategory;
 
 	    
@@ -69,6 +72,7 @@ public class EProject {
 	    private String projectItemSelectionType;
 	    
 	    @OneToMany(mappedBy = "projectUserProject", cascade = CascadeType.ALL, orphanRemoval = true)
+	    @JsonIgnore
 	    private List<EProjectUser> users;
 	
 }

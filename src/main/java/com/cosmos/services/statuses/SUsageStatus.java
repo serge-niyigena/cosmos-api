@@ -41,7 +41,7 @@ public class SUsageStatus implements IUsageStatus{
 			
 			EUsageStatus usageStatus = new EUsageStatus();
 			
-			usageStatus.setDescription(uStatusDTO.getDesc());
+			usageStatus.setDesc(uStatusDTO.getDesc());
 			usageStatus.setName(uStatusDTO.getName());
 			
 			return usageStatusDAO.save(usageStatus);
@@ -53,7 +53,7 @@ public class SUsageStatus implements IUsageStatus{
 			
 			EUsageStatus usageStatus = getById(uStatusDTO.getId(), true);
 			
-			usageStatus.setDescription(uStatusDTO.getDesc());
+			usageStatus.setDesc(uStatusDTO.getDesc());
 			usageStatus.setName(uStatusDTO.getName());
 		
 			return usageStatusDAO.save(usageStatus);

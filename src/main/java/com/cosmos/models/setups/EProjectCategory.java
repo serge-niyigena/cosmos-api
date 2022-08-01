@@ -25,7 +25,7 @@ public class EProjectCategory implements Serializable{
 	    private String name;
 	    
 	    @Column(name = "project_category_desc")
-	    private String description;
+	    private String desc;
 
 	
 }

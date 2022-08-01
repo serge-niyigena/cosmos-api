@@ -35,13 +35,13 @@ public class CProjectFloor {
 	@Autowired
 	private IProjectFloor sProjectFloor;
 
-    @GetMapping(path = "/project/floor", produces = "application/json")
+    @GetMapping(path = "/projectFloor", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
     		throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "projCategory.id"));
+                Arrays.asList("projectFloorRef","name","projectFloorProject.id", "projectFloorStatus.id"));
 
         Page<EProjectFloor> projectPage = sProjectFloor.getPaginatedList(pageDTO, allowableFields);
         
@@ -51,29 +51,29 @@ public class CProjectFloor {
                     projectPage, ProjectFloorDTO.class, EProjectFloor.class));
     }
     
-    @PostMapping(path = "/project/floor/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectFloor/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
         EProjectFloor projFloor = sProjectFloor.create(projectFloorDTO);
 
         return ResponseEntity
-            .created(new URI("/project/floor" + projFloor.getId()))
+            .created(new URI("/projectFloor" + projFloor.getId()))
             .body(new SuccessResponse(201, "Successfully created project floor", new ProjectFloorDTO(projFloor)));
     }
     
-    @PostMapping(path = "/project/floor/update/{floorId}", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectFloor/update/{floorId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateProjectFloor(@PathVariable Integer floorId,@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
         EProjectFloor projFloor = sProjectFloor.update(floorId,projectFloorDTO);
 
         return ResponseEntity
-            .created(new URI("/project/floor" + projFloor.getId()))
+            .created(new URI("/projectFloor" + projFloor.getId()))
             .body(new SuccessResponse(201, "Successfully updated project floor", new ProjectFloorDTO(projFloor)));
     }
     
-    @PostMapping(path = "/project/floor/delete", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/projectFloor/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
 
@@ -84,7 +84,7 @@ public class CProjectFloor {
             .body(new SuccessResponse(201, "Successfully deletd project floor", projectFloorDTO));
     }
 
-    @GetMapping(path = "/project/floor/{id}", produces = "application/json")
+    @GetMapping(path = "/projectFloor/{id}", produces = "application/json")
     public ResponseEntity<SuccessResponse> getProjectFloorById(@PathVariable Integer id) {
 
         EProjectFloor project = sProjectFloor.getById(id,true);

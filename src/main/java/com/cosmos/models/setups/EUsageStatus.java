@@ -19,7 +19,7 @@ public class EUsageStatus implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "usage_status_desc")
-    private String description;
+    private String desc;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

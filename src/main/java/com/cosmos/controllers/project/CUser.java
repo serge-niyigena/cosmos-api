@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
+import com.cosmos.models.setups.ERole;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
@@ -32,6 +33,17 @@ public class CUser {
 	
 	@Autowired
 	private IUser sUser;
+	
+	 @GetMapping(path = "/user/all", produces = "application/json")
+	    public ResponseEntity<SuccessResponse> getAllUsers() {
+
+	        List<EUser> users = sUser.getAll();
+	        
+
+	        return ResponseEntity
+	            .ok()
+	            .body(new SuccessResponse(200, "Successfully fetched users", users));
+	    }
 
     @GetMapping(path = "/user", produces = "application/json")
     public ResponseEntity<SuccessPaginatedResponse> getList(@RequestParam(required = false) Map<String, Object> params) 
@@ -39,7 +51,7 @@ public class CUser {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "userCategory.id"));
+                Arrays.asList("userFullName","userMobile","userEmail","userOrg.id","userType.id"));
 
         Page<EUser> userPage = sUser.getPaginatedList(pageDTO, allowableFields);
         
@@ -49,7 +61,7 @@ public class CUser {
                     userPage, UserDTO.class, EUser.class,true,true));
     }
     
-    @PostMapping(path = "/createUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createUser(@RequestBody UserDTO userDTO) 
             throws URISyntaxException {
 
@@ -60,7 +72,7 @@ public class CUser {
             .body(new SuccessResponse(201, "Successfully created user", new UserDTO(user,true,true)));
     }
     
-    @PostMapping(path = "/updateUser/{userId}", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/update/{userId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> updateUser(@PathVariable Integer userId,@RequestBody UserDTO userDTO) 
             throws URISyntaxException {
 
@@ -71,7 +83,7 @@ public class CUser {
             .body(new SuccessResponse(201, "Successfully updated user", new UserDTO(user,true,true)));
     }
     
-    @PostMapping(path = "/deleteUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/user/delete", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> deleteUser(@RequestBody UserDTO userDTO) 
               {
 

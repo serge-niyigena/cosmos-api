@@ -14,6 +14,8 @@ public interface IProject {
 	
 	EProject update(Integer id,ProjectDTO projectDTO);
 	
+	List<EProject> getAll();
+	
 	void delete(ProjectDTO projectDTO);
 	
     Page<EProject> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
