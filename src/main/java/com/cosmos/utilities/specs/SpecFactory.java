@@ -24,6 +24,7 @@ public class SpecFactory {
      */
     public SpecBuilder<?> generateSpecification(String searchQuery, SpecBuilder<?> specBuilder,
             List<String> allowableFields) {
+    	 System.out.println(searchQuery);
 
         searchQuery = searchQuery != null ? searchQuery : "";
         String[] searchQueries = searchQuery.split(",");

@@ -11,6 +11,7 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ItemDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.project.EItem;
+import com.cosmos.models.project.EProject;
 import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EItemType;
 import com.cosmos.models.setups.EUnitType;
@@ -118,6 +119,12 @@ public class SItem implements IItem {
 				 throw new InvalidInputException("Item with given id not found", "projectId");
 		        }  
 		     return item.get();
+		}
+		
+		@Override
+		public List<EItem> getAll() {
+			
+			return itemDAO.findAll();
 		}
 		
 		@Override

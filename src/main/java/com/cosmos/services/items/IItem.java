@@ -17,6 +17,8 @@ public interface IItem {
 	void delete(ItemDTO itemDTO);
 	
     Page<EItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
+    
+    List<EItem> getAll();
 
     Optional<EItem> getById(Integer itemId);
     

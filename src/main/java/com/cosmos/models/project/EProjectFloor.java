@@ -1,5 +1,7 @@
 package com.cosmos.models.project;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,14 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import com.cosmos.models.setups.EProjectStatus;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "project_floors")
-public class EProjectFloor {
+@NoArgsConstructor
+public class EProjectFloor implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

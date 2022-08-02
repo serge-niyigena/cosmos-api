@@ -13,7 +13,6 @@ public class ProjectStatusDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
 	private int id;
-	
 	private String name;
 	private String desc;
 	

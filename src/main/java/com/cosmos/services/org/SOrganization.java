@@ -97,4 +97,11 @@ public class SOrganization implements IOrganization {
 	        return specBuilder.build();
 	    }
 
+
+	@Override
+	public List<EOrganization> getAll() {
+		
+		return organizationDAO.findAll();
+	}
+
 }

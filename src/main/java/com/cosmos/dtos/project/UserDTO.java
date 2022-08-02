@@ -108,7 +108,7 @@ public class UserDTO {
 	
 	public void addProjects(List<EProjectUser> userProjects) {
 		for(EProjectUser pu: userProjects) {
-        this.projects.add(new ProjectDTO(pu.getProjectUserProject(),false));
+        this.projects.add(new ProjectDTO(pu.getProjectUserProject(),false,true));
 		}
     }
 	

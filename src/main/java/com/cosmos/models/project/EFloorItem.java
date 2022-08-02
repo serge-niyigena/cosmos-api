@@ -35,14 +35,14 @@ public class EFloorItem {
     @Column(name = "floor_item_maximum_quantity", nullable = false)
     private float floorItemMaximumQuantity;
     
-    @Column(name = "floor_item_quantity_used", nullable = true)
+    @Column(name = "floor_item_actual_quantity_used", nullable = true)
     private float floorItemUsedQuantity;
  
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_item_status", referencedColumnName = "usage_status_id")
     private EUsageStatus floorItemStatus;
 
-    @Column(name = "room_status_report", nullable = true)
+    @Column(name = "floor_item_status_report", nullable = true)
     private String floorItemStatusReport;
     
 }

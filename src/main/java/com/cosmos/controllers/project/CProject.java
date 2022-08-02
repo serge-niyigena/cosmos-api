@@ -46,7 +46,7 @@ public class CProject {
         return ResponseEntity
                 .ok()
                 .body(new SuccessPaginatedResponse(200, "Successfully fetched projects list", 
-                    projectPage, ProjectDTO.class, EProject.class));
+                    projectPage, ProjectDTO.class, EProject.class,true,true));
     }
     
     @PostMapping(path = "/project/create", consumes = "application/json", produces = "application/json")
@@ -57,7 +57,7 @@ public class CProject {
 
         return ResponseEntity
             .created(new URI("/project" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully created project", new ProjectDTO(proj,true)));
+            .body(new SuccessResponse(201, "Successfully created project", new ProjectDTO(proj,true,true)));
     }
     
     @PostMapping(path = "/project/update/{projectId}", consumes = "application/json", produces = "application/json")
@@ -68,7 +68,7 @@ public class CProject {
 
         return ResponseEntity
             .created(new URI("/project" + proj.getId()))
-            .body(new SuccessResponse(201, "Successfully updated project", new ProjectDTO(proj,true)));
+            .body(new SuccessResponse(201, "Successfully updated project", new ProjectDTO(proj,true,true)));
     }
     
     @PostMapping(path = "/project/delete", consumes = "application/json", produces = "application/json")
@@ -79,7 +79,7 @@ public class CProject {
 
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(201, "Successfully updated project", projectDTO));
+            .body(new SuccessResponse(201, "Successfully deleted project", projectDTO));
     }
 
 
@@ -90,7 +90,7 @@ public class CProject {
        
         return ResponseEntity
             .ok()
-            .body(new SuccessResponse(200, "Successfully fetched project", new ProjectDTO(project,true)));
+            .body(new SuccessResponse(200, "Successfully fetched project", new ProjectDTO(project,true,true)));
     }
     
     

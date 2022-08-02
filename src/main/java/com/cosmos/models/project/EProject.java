@@ -1,5 +1,6 @@
 package com.cosmos.models.project;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +26,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity(name = "project")
 @NoArgsConstructor
-public class EProject {
+public class EProject implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +41,7 @@ public class EProject {
 	    @Column(name = "project_desc", nullable = false)
 	    private String desc;
 	    
-	    @Column(name = "project_ref", nullable = true)
+	    @Column(name = "project_ref", nullable = false,updatable = false)
 	    private String reference;
 	    
 	    

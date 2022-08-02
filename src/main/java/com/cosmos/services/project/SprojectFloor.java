@@ -22,7 +22,7 @@ import com.cosmos.utils.GlobalFunctions;
 public class SprojectFloor implements IProjectFloor {
 
 	 @Autowired
-	 private ProjectFloorDAO projectDAO;
+	 private ProjectFloorDAO pFloorDAO;
 
 	 @Autowired
 	 private IProject sProjectFloorProject;
@@ -43,34 +43,36 @@ public class SprojectFloor implements IProjectFloor {
 
 	          PageRequest pageRequest = globalFunction.getPageRequest(pageDTO);
 
-	          return projectDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
+	          return pFloorDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
 	    }
 
 	   
 	    @Override
 	    public EProjectFloor getById(Integer floorId,Boolean throwException) {
 	    	
-	        EProjectFloor projectFloor = projectDAO.getById(floorId);
+	        EProjectFloor projectFloor = pFloorDAO.getById(floorId);
 	        
 	        return projectFloor;
 	    }
 	  
 		@Override
 		public EProjectFloor create(ProjectFloorDTO projectFloorDTO) {
-			
+			System.out.println(projectFloorDTO);
 			EProjectFloor project = new EProjectFloor();
 			
 			EProject proj= sProjectFloorProject.getById(projectFloorDTO.getProjectId(),true);
 			EProjectStatus pStat= sProjectFloorStatus.getById(projectFloorDTO.getStatusId(), true);
 			
-			project.setProjectFloorDescription(projectFloorDTO.getPFloorDescription());
-			project.setProjectFloorValue(projectFloorDTO.getPFloorValue());
-			project.setProjectFloorRef(projectFloorDTO.getPFloorRef());
-			project.setProjectFloorMeasurement(projectFloorDTO.getPFloorMeasurement());
+			project.setProjectFloorDescription(projectFloorDTO.getFloorDescription());
+			project.setProjectFloorValue(projectFloorDTO.getFloorValue());
+			project.setProjectFloorRef(projectFloorDTO.getFloorRef());
+			project.setProjectFloorMeasurement(projectFloorDTO.getFloorMeasurement());
 			project.setProjectFloorProject(proj);
 			project.setProjectFloorStatus(pStat);
 			
-			return projectDAO.save(project);
+			System.out.println(project.getProjectFloorRef());
+			
+			return pFloorDAO.save(project);
 		}
 		
 		@Override
@@ -81,14 +83,14 @@ public class SprojectFloor implements IProjectFloor {
 			EProject proj= sProjectFloorProject.getById(projectFloorDTO.getProjectId(),true);
 			EProjectStatus pStat= sProjectFloorStatus.getById(projectFloorDTO.getStatusId(), true);
 			
-			project.setProjectFloorDescription(projectFloorDTO.getPFloorDescription());
-			project.setProjectFloorValue(projectFloorDTO.getPFloorValue());
-			project.setProjectFloorRef(projectFloorDTO.getPFloorRef());
-			project.setProjectFloorMeasurement(projectFloorDTO.getPFloorMeasurement());
+			project.setProjectFloorDescription(projectFloorDTO.getFloorDescription());
+			project.setProjectFloorValue(projectFloorDTO.getFloorValue());
+			project.setProjectFloorRef(projectFloorDTO.getFloorRef());
+			project.setProjectFloorMeasurement(projectFloorDTO.getFloorMeasurement());
 			project.setProjectFloorProject(proj);
 			project.setProjectFloorStatus(pStat);
 			
-			return projectDAO.save(project);
+			return pFloorDAO.save(project);
 		}
 		
 		@Override
@@ -96,7 +98,7 @@ public class SprojectFloor implements IProjectFloor {
 			
 			EProjectFloor project = getById(projectFloorDTO.getId(), true);
 			
-			projectDAO.save(project);
+			pFloorDAO.delete(project);
 		}
 	
 		  @SuppressWarnings("unchecked")

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.exceptions.NotFoundException;
+import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
@@ -97,6 +98,17 @@ public class COrganization {
             .ok()
             .body(new SuccessPaginatedResponse(200, "Successfully fetched organization", organization,
             		OrganizationDTO.class,EOrganization.class));
+    }
+    
+    @GetMapping(path = "/organization/all", produces = "application/json")
+    public ResponseEntity<SuccessResponse> getAllItemCategories() {
+
+        List<EOrganization> orgs = sOrganization.getAll();
+        
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(200, "Successfully fetched organizations", orgs));
     }
 	
 }

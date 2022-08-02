@@ -39,7 +39,7 @@ public class CFloorItem {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("id","floorItemStatus.id"));
+                Arrays.asList("id","floorItemStatus.id,floorItemProjectFloor.id"));
 
         Page<EFloorItem> floorItemPage = sFloorItem.getPaginatedList(pageDTO, allowableFields);
         
@@ -69,6 +69,18 @@ public class CFloorItem {
         return ResponseEntity
             .created(new URI("/floorItem" + projFloor.getId()))
             .body(new SuccessResponse(201, "Successfully updated floor item", new FloorItemDTO(projFloor)));
+    }
+    
+    @PostMapping(path = "/floorItem/used/update/{fItemId}", consumes = "application/json",produces = "application/json")
+    public ResponseEntity<SuccessResponse> updateItemUsed(@PathVariable Integer fItemId,@RequestBody FloorItemDTO fItem) 
+            throws URISyntaxException {
+    	System.out.println(fItem.getFloorItemUsedQuantity());
+
+        EFloorItem projFloor = sFloorItem.updateUsedItem(fItemId,fItem);
+
+        return ResponseEntity
+            .created(new URI("/floorItem" + projFloor.getId()))
+            .body(new SuccessResponse(201, "Successfully updated used items", new FloorItemDTO(projFloor)));
     }
     
     @PostMapping(path = "/floorItem/delete", consumes = "application/json", produces = "application/json")

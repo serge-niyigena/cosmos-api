@@ -1,5 +1,8 @@
 package com.cosmos.dtos.project;
 
+
+
+
 import com.cosmos.dtos.setups.ProjectStatusDTO;
 import com.cosmos.models.project.EProjectFloor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,27 +13,30 @@ import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProjectFloorDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
     private Integer id;
 
-    private String pFloorValue;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	@JsonIgnoreProperties(ignoreUnknown = true, value = {"projStatus","projOrganization","projectCategory"})
+	private ProjectDTO floorProject;
+	    
+	@JsonProperty(access = Access.READ_ONLY)
+	private ProjectStatusDTO floorStatus;
+	
+    private String floorValue;
  
-    private String pFloorRef;
+    private String floorRef;
     
-    private float pFloorMeasurement;
+    private float floorMeasurement;
     
-    private String pFloorDescription;
+    private String floorDescription;
     
-    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-    private ProjectDTO pFloorProject;
-    
-    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-    private ProjectStatusDTO pFloorStatus;
     
     @JsonProperty(access = Access.WRITE_ONLY)
     private Integer statusId;
@@ -38,12 +44,15 @@ public class ProjectFloorDTO {
     @JsonProperty(access = Access.WRITE_ONLY)
     private Integer projectId;
     
+    
     public ProjectFloorDTO(EProjectFloor eProjFloor) {
-    	setPFloorDescription(eProjFloor.getProjectFloorDescription());
-    	setPFloorMeasurement(eProjFloor.getProjectFloorMeasurement());
-    	setPFloorProject(new ProjectDTO(eProjFloor.getProjectFloorProject(),false));
-    	setPFloorRef(eProjFloor.getProjectFloorRef());
-    	setPFloorStatus(new ProjectStatusDTO(eProjFloor.getProjectFloorStatus()));
+    	setId(eProjFloor.getId());
+    	setFloorDescription(eProjFloor.getProjectFloorDescription());
+    	setFloorMeasurement(eProjFloor.getProjectFloorMeasurement());
+    	setFloorProject(new ProjectDTO(eProjFloor.getProjectFloorProject(),false,false));
+    	setFloorRef(eProjFloor.getProjectFloorRef());
+    	setFloorValue(eProjFloor.getProjectFloorValue());
+    	setFloorStatus(new ProjectStatusDTO(eProjFloor.getProjectFloorStatus()));
     }
 
 }

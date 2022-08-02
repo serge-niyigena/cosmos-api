@@ -1,22 +1,20 @@
 package com.cosmos.models.setups;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Entity(name = "item_types")
 @Data
 @NoArgsConstructor
-public class EItemType implements Serializable{
-	
-	private static final long serialVersionUID = 1L; 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class EItemType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

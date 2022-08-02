@@ -31,7 +31,7 @@ public class ProjectUserDTO {
 	
 	public ProjectUserDTO(EProjectUser eProjectUser) {
 		setProjectUserId(eProjectUser.getId());
-		setProjectUserProject(new ProjectDTO(eProjectUser.getProjectUserProject(),false));
+		setProjectUserProject(new ProjectDTO(eProjectUser.getProjectUserProject(),false,true));
 		setProjectUser(new UserDTO(eProjectUser.getProjectUserUsers(),false,false));
 	}
 

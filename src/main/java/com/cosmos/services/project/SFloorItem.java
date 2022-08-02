@@ -2,6 +2,7 @@ package com.cosmos.services.project;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,6 +22,15 @@ import com.cosmos.utils.GlobalFunctions;
 
 @Service
 public class SFloorItem implements IFloorItem {
+	
+	@Value("${default.value.status.used}")
+	private Integer usedStatusId;
+	
+	@Value("${default.value.status.under_used}")
+	private Integer underStatusId;
+	
+	@Value("${default.value.status.over_used}")
+	private Integer overUsedStatusId;
 	
 	@Autowired
 	 private FloorItemDAO floorItemDAO;
@@ -64,15 +74,15 @@ public class SFloorItem implements IFloorItem {
 			
 			EFloorItem floorItem = new EFloorItem();
 		
-			EProjectFloor fRoom= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
+			EProjectFloor pFloor= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
 			EItem item=  sItem.getById(floorItemDTO.getFloorItemItemId(),true);
-			EUsageStatus usageStatus= sUsageStatus.getById(floorItemDTO.getFloorItemStatusId(), true);
+			EUsageStatus usageStatus= sUsageStatus.getById(usedStatusId, true);
 			
 			floorItem.setFloorItemMaximumQuantity(floorItemDTO.getFloorItemMaximumQuantity());
 			floorItem.setFloorItemNormalQuantity(floorItemDTO.getFloorItemNormalQuantity());
 			floorItem.setFloorItemUsedQuantity(floorItemDTO.getFloorItemUsedQuantity());
 			floorItem.setFloorItemStatusReport(floorItemDTO.getFloorItemStatusReport());
-			floorItem.setFloorItemProjectFloor(fRoom);
+			floorItem.setFloorItemProjectFloor(pFloor);
 			floorItem.setFloorItemItem(item);
 			floorItem.setFloorItemStatus(usageStatus);
 			
@@ -86,7 +96,7 @@ public class SFloorItem implements IFloorItem {
 		
 			EProjectFloor fRoom= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
 			EItem item=  sItem.getById(floorItemDTO.getFloorItemItemId(),true);
-			EUsageStatus usageStatus= sUsageStatus.getById(floorItemDTO.getFloorItemStatusId(), true);
+			EUsageStatus usageStatus= sUsageStatus.getById(usedStatusId, true);
 			
 			floorItem.setFloorItemMaximumQuantity(floorItemDTO.getFloorItemMaximumQuantity());
 			floorItem.setFloorItemNormalQuantity(floorItemDTO.getFloorItemNormalQuantity());
@@ -117,5 +127,14 @@ public class SFloorItem implements IFloorItem {
 
 		        return specBuilder.build();
 		    }
+
+
+		@Override
+		public EFloorItem updateUsedItem(Integer id, FloorItemDTO used) {
+			
+			EFloorItem floorItem = getById(id, true);
+			floorItem.setFloorItemUsedQuantity(floorItem.getFloorItemUsedQuantity()+used.getFloorItemUsedQuantity());
+			return floorItemDAO.save(floorItem);
+		}
 
 }

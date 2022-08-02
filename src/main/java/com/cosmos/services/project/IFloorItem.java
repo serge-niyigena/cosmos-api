@@ -12,6 +12,8 @@ public interface IFloorItem {
     
     EFloorItem update(Integer id,FloorItemDTO projectFloorDTO);
     
+    EFloorItem updateUsedItem(Integer id,FloorItemDTO used);
+    
     void delete(FloorItemDTO projectFloorDTO);
 	
     Page<EFloorItem> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);

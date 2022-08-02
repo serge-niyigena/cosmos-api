@@ -16,6 +16,8 @@ public interface IOrganization {
     Page<EOrganization> getPaginatedList(PageDTO pageDTO, List<String> allowedFields);
 
     Optional<EOrganization> getById(Integer organizationId);
+    
+    List<EOrganization>getAll();
 
     EOrganization getById(Integer organizationId, Boolean throwException);
     

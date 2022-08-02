@@ -9,19 +9,16 @@ import com.cosmos.dtos.setups.ProjectStatusDTO;
 import com.cosmos.models.project.EProject;
 import com.cosmos.models.project.EProjectUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 @Data
 @NoArgsConstructor
-@JsonInclude(content = Include.NON_NULL)
 public class ProjectDTO {
 	
 	    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -36,7 +33,7 @@ public class ProjectDTO {
 	    private ProjectStatusDTO projStatus;
 	    
 	    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-	    private OrganizationDTO projOrgnanization;
+	    private OrganizationDTO projOrganization;
 	    
 	    @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
 	    private ProjectCategoryDTO projectCategory;
@@ -61,14 +58,14 @@ public class ProjectDTO {
 	    @JsonProperty(access = Access.WRITE_ONLY)
 	    private List<Integer> usersIds;
 	    
-	    public ProjectDTO(EProject eProject, Boolean users) {
+	    public ProjectDTO(EProject eProject, boolean users,boolean none) {
 	    	setId(eProject.getId());
 	    	setName(eProject.getName());
 	    	setDesc(eProject.getDesc());
 	    	setReference(eProject.getReference());
 	    	setCreationDate(eProject.getProjCreationDate());
 	    	setProjStatus(new ProjectStatusDTO(eProject.getProjectStatus()));
-	    	setProjOrgnanization(new OrganizationDTO(eProject.getProjectOrganization()));
+	    	setProjOrganization(new OrganizationDTO(eProject.getProjectOrganization()));
 	    	setProjectCategory(new ProjectCategoryDTO(eProject.getProjCategory()));
 	    	setProjWef(eProject.getProjectWEF());
 	    	setProjWet(eProject.getProjectWET());

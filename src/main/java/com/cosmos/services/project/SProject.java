@@ -19,7 +19,6 @@ import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.models.setups.EProjectStatus;
-import com.cosmos.models.setups.EUser;
 import com.cosmos.repositories.ProjectDAO;
 import com.cosmos.services.categories.IProjectCategory;
 import com.cosmos.services.org.IOrganization;
@@ -84,12 +83,12 @@ public class SProject implements IProject {
 			project.setName(projectDTO.getName());
 			project.setProjectWEF(projectDTO.getProjWef());
 			project.setProjectWET(projectDTO.getProjWet());
-			project.setReference("P"+generateRandomRef(6));
+			project.setReference("P"+generateRandomRef(7));
 			project.setProjCreationDate(LocalDateTime.now());
 			project.setProjectStatus(pStat);
 			project.setProjectOrganization(pOrg);
 			project.setProjCategory(pCat);
-			project.setProjectItemSelectionType(project.getProjectItemSelectionType());
+			project.setProjectItemSelectionType(projectDTO.getSelectionType());
 			if(projectDTO.getUsersIds()!=null && !projectDTO.getUsersIds().isEmpty()) {
 				project.setUsers(assignUsers(projectDTO.getUsersIds(),false,project));
 				}
@@ -109,7 +108,6 @@ public class SProject implements IProject {
 			project.setName(projectDTO.getName());
 			project.setProjectWEF(projectDTO.getProjWef());
 			project.setProjectWET(projectDTO.getProjWet());
-			project.setReference(projectDTO.getReference());
 			project.setProjCreationDate(LocalDateTime.now());
 			project.setProjectStatus(pStat);
 			project.setProjectOrganization(pOrg);
@@ -182,8 +180,8 @@ public class SProject implements IProject {
 		}
 		
 		public static String generateRandomRef(int len) {
-			String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-	          +"lmnopqrstuvwxyz";
+			String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZOIUYTREWFVC"
+	          +"LMNCIUSFTWT67881BDDHDJJYG";
 			Random rnd = new Random();
 			StringBuilder sb = new StringBuilder(len);
 			for (int i = 0; i < len; i++)

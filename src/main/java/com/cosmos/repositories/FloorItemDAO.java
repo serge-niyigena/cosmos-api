@@ -6,5 +6,7 @@ import com.cosmos.models.project.EFloorItem;
 
 
 public interface FloorItemDAO extends JpaRepository<EFloorItem, Integer>, JpaSpecificationExecutor<EFloorItem> {
+	
+	
 
 }

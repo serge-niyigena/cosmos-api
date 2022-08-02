@@ -21,6 +21,7 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ItemDTO;
 import com.cosmos.exceptions.NotFoundException;
 import com.cosmos.models.project.EItem;
+import com.cosmos.models.setups.EGroup;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.items.IItem;
@@ -95,6 +96,17 @@ public class CItem {
         return ResponseEntity
             .ok()
             .body(new SuccessResponse(200, "Successfully fetched item", new ItemDTO(item.get())));
+    }
+    
+    @GetMapping(path = "/item/all", produces = "application/json")
+    public ResponseEntity<SuccessResponse> getAllGroups() {
+
+        List<EItem> groups = sItem.getAll();
+        
+
+        return ResponseEntity
+            .ok()
+            .body(new SuccessResponse(200, "Successfully fetched items", groups));
     }
 	
 	
