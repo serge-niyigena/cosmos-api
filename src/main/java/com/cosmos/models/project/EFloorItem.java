@@ -11,9 +11,11 @@ import javax.persistence.ManyToOne;
 import com.cosmos.models.setups.EUsageStatus;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "project_floor_item")
+@NoArgsConstructor
 public class EFloorItem {
 	
 	@Id
@@ -21,9 +23,9 @@ public class EFloorItem {
     @Column(nullable = false, updatable = false, name = "floor_item_id")
     private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "floor_item_project_floor_id", referencedColumnName = "project_floor_id")
-    private EProjectFloor floorItemProjectFloor;
+    private EProjectFloor projectFloor;
  
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_item_item_id", referencedColumnName = "item_id")

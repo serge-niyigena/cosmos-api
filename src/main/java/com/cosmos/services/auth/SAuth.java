@@ -56,6 +56,7 @@ public class SAuth implements IAuth {
 	        claims.put("userType", new UserTypeDTO(user.getUserType()));
 	        claims.put("userGroups", userDtls.getGroups());
 	        claims.put("userRoles", userDtls.getRoles());
+	        claims.put("userName", userDtls.getUserFullName());
 	        final String token = jwtUtil.generateToken(userDetails, claims);
 
 	        return token;

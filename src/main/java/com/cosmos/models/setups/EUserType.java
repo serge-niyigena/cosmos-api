@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "user_types")
 @Data
 @NoArgsConstructor
-public class EUserType implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class EUserType {
 
 	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)

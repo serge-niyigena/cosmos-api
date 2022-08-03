@@ -39,7 +39,7 @@ public class CFloorItem {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("id","floorItemStatus.id,floorItemProjectFloor.id"));
+                Arrays.asList("id","floorItemStatus.id","projectFloor.id","projectFloor.projectFloorValue"));
 
         Page<EFloorItem> floorItemPage = sFloorItem.getPaginatedList(pageDTO, allowableFields);
         

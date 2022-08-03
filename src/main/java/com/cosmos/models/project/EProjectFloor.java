@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import com.cosmos.models.setups.EProjectStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -41,11 +43,13 @@ public class EProjectFloor implements Serializable{
   
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_floor_project_id", referencedColumnName = "project_id")
+    @JsonIgnore
     private EProject projectFloorProject;
     
   
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_floor_status", referencedColumnName = "project_status_id" )
+    @JsonIgnore
     private EProjectStatus projectFloorStatus;
 
 

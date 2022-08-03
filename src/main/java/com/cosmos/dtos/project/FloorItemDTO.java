@@ -20,7 +20,7 @@ public class FloorItemDTO {
 
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-    private ProjectFloorDTO floorItemProjFloor;
+    private ProjectFloorDTO projectFloor;
  
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
     private ItemDTO floorItemItem;
@@ -57,7 +57,7 @@ public class FloorItemDTO {
     	setFloorItemUsedQuantity(eFloorItem.getFloorItemUsedQuantity());
     	setFloorItemStatusReport(eFloorItem.getFloorItemStatusReport());
     	setFloorItemItem(new ItemDTO(eFloorItem.getFloorItemItem()));
-    	setFloorItemProjFloor(new ProjectFloorDTO(eFloorItem.getFloorItemProjectFloor()));
+    	setProjectFloor(new ProjectFloorDTO(eFloorItem.getProjectFloor()));
     	setFloorItemStatus(new UsageStatusDTO(eFloorItem.getFloorItemStatus()));
     }
 	

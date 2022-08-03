@@ -47,6 +47,7 @@ public class EProject implements Serializable{
 	    
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "project_status", referencedColumnName = "project_status_id")
+	    @JsonIgnore
 	    private EProjectStatus projectStatus;
 	    
 	  

@@ -39,7 +39,7 @@ public class CProject {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","reference","projectStatus.id", "projCategory.id","projectOrganization.id"));
+                Arrays.asList("name","reference","projectStatus.id", "projCategory.id","users.projectUserUsers.id","projectOrganization.id"));
 
         Page<EProject> projectPage = sProject.getPaginatedList(pageDTO, allowableFields);
         

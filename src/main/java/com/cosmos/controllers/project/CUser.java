@@ -51,7 +51,7 @@ public class CUser {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("userFullName","userMobile","userEmail","userOrg.id","userType.id"));
+                Arrays.asList("userFullName","userMobile","userEmail","userOrg.id","groups.eGroup.id","userType.id"));
 
         Page<EUser> userPage = sUser.getPaginatedList(pageDTO, allowableFields);
         

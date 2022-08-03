@@ -32,16 +32,23 @@ public class SpecFactory {
 
         for (String searchStr : searchQueries) {
             Pattern pattern = Pattern.compile(patternStr);
+            System.out.println("Pattern: "+pattern);
             Matcher matcher = pattern.matcher(searchStr);
             while (matcher.find()) {
                 String connector = matcher.group("connector");
                 String key = matcher.group("key");
                 Object value = matcher.group("value");
+                
+
+                System.out.println("key: "+key.split("\\.").length);
+
+                System.out.println("value: "+allowableFields.contains(key));
 
                 if (value == null|| (key.split("\\.").length > 1 && !allowableFields.contains(key))) {
                     log.info("\n[LOCATION] - SpecFactory.generateSpecification() \n[MSG] - invalid filter param: {}", searchStr);
                     break;
                 }
+                System.out.println("passed");
                 specBuilder.with(connector, key, matcher.group("op"), value);
             }
         }

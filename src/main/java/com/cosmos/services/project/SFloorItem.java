@@ -82,7 +82,7 @@ public class SFloorItem implements IFloorItem {
 			floorItem.setFloorItemNormalQuantity(floorItemDTO.getFloorItemNormalQuantity());
 			floorItem.setFloorItemUsedQuantity(floorItemDTO.getFloorItemUsedQuantity());
 			floorItem.setFloorItemStatusReport(floorItemDTO.getFloorItemStatusReport());
-			floorItem.setFloorItemProjectFloor(pFloor);
+			floorItem.setProjectFloor(pFloor);
 			floorItem.setFloorItemItem(item);
 			floorItem.setFloorItemStatus(usageStatus);
 			
@@ -94,7 +94,7 @@ public class SFloorItem implements IFloorItem {
 			
 			EFloorItem floorItem = getById(id, true);
 		
-			EProjectFloor fRoom= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
+			EProjectFloor fProject= sProjectFloor.getById(floorItemDTO.getFloorItemProjectFloorId(), true);
 			EItem item=  sItem.getById(floorItemDTO.getFloorItemItemId(),true);
 			EUsageStatus usageStatus= sUsageStatus.getById(usedStatusId, true);
 			
@@ -102,7 +102,7 @@ public class SFloorItem implements IFloorItem {
 			floorItem.setFloorItemNormalQuantity(floorItemDTO.getFloorItemNormalQuantity());
 			floorItem.setFloorItemUsedQuantity(floorItemDTO.getFloorItemUsedQuantity());
 			floorItem.setFloorItemStatusReport(floorItemDTO.getFloorItemStatusReport());
-			floorItem.setFloorItemProjectFloor(fRoom);
+			floorItem.setProjectFloor(fProject);
 			floorItem.setFloorItemItem(item);
 			floorItem.setFloorItemStatus(usageStatus);
 			
