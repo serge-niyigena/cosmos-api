@@ -11,6 +11,7 @@ import com.cosmos.models.setups.EGroupUsers;
 import com.cosmos.models.setups.ERoleGroup;
 import com.cosmos.models.setups.EUser;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class UserDTO {
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
@@ -93,7 +95,9 @@ public class UserDTO {
 	public void addRoles(List<EGroupUsers> roleGroups) {
 		for(EGroupUsers gu: roleGroups) {
 			for(ERoleGroup rg: gu.getEGroup().getRoles()) {
+				if(!this.roles.contains(new RoleDTO(rg.getRole(),false,false))) {
 			this.roles.add(new RoleDTO(rg.getRole(),false,false));
+				}
 			}
         
 		}

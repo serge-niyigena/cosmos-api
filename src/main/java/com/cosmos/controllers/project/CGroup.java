@@ -40,7 +40,7 @@ public class CGroup {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","id"));
+                Arrays.asList("name","id","users.eUsers.userOrg.id"));
 
         Page<EGroup> groupPage = sGroup.getPaginatedList(pageDTO, allowableFields);
         

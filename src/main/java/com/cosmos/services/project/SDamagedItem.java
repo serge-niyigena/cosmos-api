@@ -58,8 +58,8 @@ public class SDamagedItem implements IDamagedItem{
 			
 			damagedItem.setDamagedDesc(damagedItemDTO.getDamagedDesc());
 			damagedItem.setDamagedDate(damagedItemDTO.getDamagedDate());
-			damagedItem.setDamagedQuantity(damagedItem.getDamagedQuantity());
-			damagedItem.setProjectFloorItemId(floorItem);
+			damagedItem.setDamagedQuantity(damagedItemDTO.getDamagedQuantity());
+			damagedItem.setFloorItem(floorItem);
 			
 			return damagedItemDAO.save(damagedItem);
 		}
@@ -67,14 +67,14 @@ public class SDamagedItem implements IDamagedItem{
 		@Override
 		public EDamagedItem update(Integer id,DamagedItemDTO damagedItemDTO) {
 			
-			EDamagedItem damagedItem = getById(damagedItemDTO.getDamagedId(), true);
+			EDamagedItem damagedItem = getById(id, true);
 		
 			EFloorItem floorItem = sFloorItem.getById(damagedItemDTO.getDamagedFloorItemId(), true);
 			
 			damagedItem.setDamagedDesc(damagedItemDTO.getDamagedDesc());
 			damagedItem.setDamagedDate(damagedItemDTO.getDamagedDate());
-			damagedItem.setDamagedQuantity(damagedItem.getDamagedQuantity());
-			damagedItem.setProjectFloorItemId(floorItem);
+			damagedItem.setDamagedQuantity(damagedItemDTO.getDamagedQuantity());
+			damagedItem.setFloorItem(floorItem);
 			
 			return damagedItemDAO.save(damagedItem);
 		}

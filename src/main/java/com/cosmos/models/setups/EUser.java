@@ -13,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import com.cosmos.models.project.EProjectUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
 @Data
 @Entity(name = "users")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class EUser {
 	
 	@Id

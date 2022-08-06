@@ -23,7 +23,7 @@ public class DamagedItemDTO {
 	private String damagedDesc;
 	
 	@ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
-	private FloorItemDTO damagedFloorItem;
+	private FloorItemDTO floorItem;
 	
 	private Integer damagedQuantity;
 	
@@ -31,10 +31,11 @@ public class DamagedItemDTO {
 	private Integer damagedFloorItemId;
 	
 	public DamagedItemDTO(EDamagedItem eDamagedItem) {
+		setDamagedId(eDamagedItem.getId());
 		setDamagedDesc(eDamagedItem.getDamagedDesc());
 		setDamagedDate(eDamagedItem.getDamagedDate());
 		setDamagedQuantity(eDamagedItem.getDamagedQuantity());
-		setDamagedFloorItem(new FloorItemDTO(eDamagedItem.getProjectFloorItemId()));
+		setFloorItem(new FloorItemDTO(eDamagedItem.getFloorItem()));
 	}
 
 }

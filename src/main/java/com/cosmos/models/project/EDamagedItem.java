@@ -32,7 +32,7 @@ public class EDamagedItem {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "damaged_floor_item_id", referencedColumnName = "floor_item_id")
-	private EFloorItem projectFloorItemId;
+	private EFloorItem floorItem;
 	
 	private Integer DamagedQuantity;
 	

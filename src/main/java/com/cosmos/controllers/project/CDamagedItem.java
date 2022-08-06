@@ -39,7 +39,8 @@ public class CDamagedItem {
         PageDTO pageDTO = new PageDTO(params);
 
         List<String> allowableFields = new ArrayList<String>(
-                Arrays.asList("name","status.id", "RoomProjectFloor.id"));
+                Arrays.asList("name","damagedDate", "floorItem.id","floorItem.projectFloor.id",
+                		"floorItem.projectFloor.projectFloorProject.id"));
 
         Page<EDamagedItem> damagedItemPage = sDamagedItem.getPaginatedList(pageDTO, allowableFields);
         

@@ -32,7 +32,7 @@ public class SpecFactory {
 
         for (String searchStr : searchQueries) {
             Pattern pattern = Pattern.compile(patternStr);
-            System.out.println("Pattern: "+pattern);
+    
             Matcher matcher = pattern.matcher(searchStr);
             while (matcher.find()) {
                 String connector = matcher.group("connector");
