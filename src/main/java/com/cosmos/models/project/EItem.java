@@ -1,6 +1,5 @@
 package com.cosmos.models.project;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

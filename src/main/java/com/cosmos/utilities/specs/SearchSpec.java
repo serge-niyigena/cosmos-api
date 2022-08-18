@@ -48,7 +48,7 @@ public class SearchSpec<T> implements Specification<T> {
                 keyVal = fieldJoin.get(keys[i + 1]);
                 keyType = keyVal.getJavaType();
             }
-            System.out.println(fieldJoin+"======"+keyType);
+           
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

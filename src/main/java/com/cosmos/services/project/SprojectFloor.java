@@ -57,7 +57,7 @@ public class SprojectFloor implements IProjectFloor {
 	  
 		@Override
 		public EProjectFloor create(ProjectFloorDTO projectFloorDTO) {
-			System.out.println(projectFloorDTO);
+			
 			EProjectFloor project = new EProjectFloor();
 			
 			EProject proj= sProjectFloorProject.getById(projectFloorDTO.getProjectId(),true);
@@ -69,8 +69,6 @@ public class SprojectFloor implements IProjectFloor {
 			project.setProjectFloorMeasurement(projectFloorDTO.getFloorMeasurement());
 			project.setProjectFloorProject(proj);
 			project.setProjectFloorStatus(pStat);
-			
-			System.out.println(project.getProjectFloorRef());
 			
 			return pFloorDAO.save(project);
 		}

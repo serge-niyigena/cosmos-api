@@ -15,7 +15,6 @@ import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.project.EProjectUser;
 import com.cosmos.models.setups.EGroupUsers;
 import com.cosmos.models.setups.EOrganization;
-import com.cosmos.models.setups.ERole;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.models.setups.EUserType;
 import com.cosmos.repositories.UserDAO;
@@ -55,7 +54,7 @@ public class SUser implements IUser {
 	    	  String searchQuery = pageDTO.getSearch();
 
 	          PageRequest pageRequest = globalFunction.getPageRequest(pageDTO);
-	          System.out.println(buildFilterSpec(searchQuery, allowedFields));
+	         
 	          return userDAO.findAll(buildFilterSpec(searchQuery, allowedFields), pageRequest);
 	    }
 
@@ -122,7 +121,6 @@ public class SUser implements IUser {
 		
 		@Override
 		public void delete(UserDTO userDTO) {
-			System.out.println(userDTO.getId());
 			EUser user = getById(userDTO.getId(), true);
 			
 		
@@ -133,7 +131,7 @@ public class SUser implements IUser {
 		    public Specification<EUser> buildFilterSpec(String searchQuery, List<String> allowedFields) {
 
 		        SpecBuilder<EUser> specBuilder = new SpecBuilder<>();
-System.out.println(searchQuery);
+
 		        specBuilder = (SpecBuilder<EUser>) specFactory.generateSpecification(searchQuery, specBuilder, allowedFields);
 
 		        return specBuilder.build();

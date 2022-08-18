@@ -21,7 +21,6 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ItemDTO;
 import com.cosmos.exceptions.NotFoundException;
 import com.cosmos.models.project.EItem;
-import com.cosmos.models.setups.EGroup;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.items.IItem;

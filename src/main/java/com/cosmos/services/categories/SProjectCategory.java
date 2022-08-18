@@ -7,11 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.ProjectCategoryDTO;
 import com.cosmos.exceptions.InvalidInputException;
-import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EProjectCategory;
 import com.cosmos.repositories.ProjectCategoryDAO;
 import com.cosmos.utilities.specs.SpecBuilder;

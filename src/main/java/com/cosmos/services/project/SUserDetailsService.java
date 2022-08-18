@@ -28,14 +28,12 @@ public class SUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userContact) throws UsernameNotFoundException {
 
         Optional<EUser> user = sUser.getByMobileOrEmail(userContact);
-        UserDTO userDtls= new UserDTO(user.get(),true,true);
-
-       // ERoleGroup roleGroup= roleGroupDAO.findUserGroupRoles(user.get().getId());
+      
         if (!user.isPresent()) {
-            // TODO: fix response for user not found
+           
             throw new InvalidInputException("invalid credentials provided", "user/password");
         }
-
+        UserDTO userDtls= new UserDTO(user.get(),true,true);
       
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         for (RoleDTO role: userDtls.getRoles()) {

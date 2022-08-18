@@ -6,9 +6,6 @@ import java.util.List;
 import com.cosmos.models.setups.ERole;
 import com.cosmos.models.setups.ERoleGroup;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModelProperty.AccessMode;
 import lombok.Data;

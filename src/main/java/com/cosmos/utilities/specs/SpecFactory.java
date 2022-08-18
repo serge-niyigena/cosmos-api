@@ -24,7 +24,7 @@ public class SpecFactory {
      */
     public SpecBuilder<?> generateSpecification(String searchQuery, SpecBuilder<?> specBuilder,
             List<String> allowableFields) {
-    	 System.out.println(searchQuery);
+    	
 
         searchQuery = searchQuery != null ? searchQuery : "";
         String[] searchQueries = searchQuery.split(",");
@@ -38,17 +38,13 @@ public class SpecFactory {
                 String connector = matcher.group("connector");
                 String key = matcher.group("key");
                 Object value = matcher.group("value");
-                
-
-                System.out.println("key: "+key.split("\\.").length);
-
-                System.out.println("value: "+allowableFields.contains(key));
+          
 
                 if (value == null|| (key.split("\\.").length > 1 && !allowableFields.contains(key))) {
                     log.info("\n[LOCATION] - SpecFactory.generateSpecification() \n[MSG] - invalid filter param: {}", searchStr);
                     break;
                 }
-                System.out.println("passed");
+               
                 specBuilder.with(connector, key, matcher.group("op"), value);
             }
         }

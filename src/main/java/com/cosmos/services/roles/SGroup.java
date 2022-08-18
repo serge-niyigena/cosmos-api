@@ -119,7 +119,6 @@ public class SGroup implements IGroup {
 	@Override
 	public void delete(GroupDTO groupDTO) {
 		EGroup grp=getById(groupDTO.getId(), true);
-		System.out.println("IN IN IN IN IN");
 		groupDAO.delete(grp);
 		
 	}

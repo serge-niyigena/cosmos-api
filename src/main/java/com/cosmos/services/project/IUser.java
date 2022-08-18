@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
+import com.cosmos.models.setups.EGroupUsers;
 import com.cosmos.models.setups.EUser;
 public interface IUser {
 
@@ -23,5 +24,7 @@ public interface IUser {
     Optional<EUser> getByMobileOrEmail(String contact);
 
     EUser getById(Integer userId,Boolean throwException);
+    
+    List<EGroupUsers> assignGroups(List<Integer> groupsIds, boolean update,EUser user);
 	
 }

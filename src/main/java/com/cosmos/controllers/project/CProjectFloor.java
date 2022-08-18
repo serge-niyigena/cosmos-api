@@ -54,7 +54,7 @@ public class CProjectFloor {
     @PostMapping(path = "/projectFloor/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<SuccessResponse> createProjectFloor(@RequestBody ProjectFloorDTO projectFloorDTO) 
             throws URISyntaxException {
-//System.out.println("floor: "+projectFloorDTO);
+
         EProjectFloor projFloor = sProjectFloor.create(projectFloorDTO);
 
         return ResponseEntity

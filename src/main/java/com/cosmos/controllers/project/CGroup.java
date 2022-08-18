@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.GroupDTO;
 import com.cosmos.models.setups.EGroup;
-import com.cosmos.models.setups.ERole;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
 import com.cosmos.services.roles.IGroup;

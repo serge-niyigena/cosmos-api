@@ -11,7 +11,6 @@ import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.ItemDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.project.EItem;
-import com.cosmos.models.project.EProject;
 import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EItemType;
 import com.cosmos.models.setups.EUnitType;

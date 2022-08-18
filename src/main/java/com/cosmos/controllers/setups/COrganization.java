@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.setups.OrganizationDTO;
 import com.cosmos.exceptions.NotFoundException;
-import com.cosmos.models.setups.EItemCategory;
 import com.cosmos.models.setups.EOrganization;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;

@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import com.cosmos.dtos.general.AuthDTO;
 import com.cosmos.dtos.project.UserDTO;
-import com.cosmos.dtos.setups.UserTypeDTO;
 import com.cosmos.exceptions.InvalidInputException;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.services.project.IUser;
@@ -49,10 +48,10 @@ public class SAuth implements IAuth {
 
 	        UserDetails userDetails = sUserDetails.loadUserByUsername(authDTO.getUserContact());
 
-	        EUser user = sUser.getByMobileOrEmail(authDTO.getUserContact()).get();
-	        UserDTO userDtls= new UserDTO(user,true,true);
+	        Optional<EUser> user = sUser.getByMobileOrEmail(authDTO.getUserContact());
+	        UserDTO userDtls= new UserDTO(user.get(),true,true);
 	        Map<String, Object> claims = new HashMap<>();
-	        claims.put("userId", user.getId());
+	        claims.put("userId", user.get().getId());
 	        claims.put("userOrg",userDtls.getUserOrg());
 	        claims.put("userType", userDtls.getUserType());
 	        claims.put("userGroups", userDtls.getGroups());

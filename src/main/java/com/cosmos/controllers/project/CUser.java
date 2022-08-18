@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cosmos.dtos.general.PageDTO;
 import com.cosmos.dtos.project.UserDTO;
-import com.cosmos.models.setups.ERole;
 import com.cosmos.models.setups.EUser;
 import com.cosmos.responses.SuccessPaginatedResponse;
 import com.cosmos.responses.SuccessResponse;
