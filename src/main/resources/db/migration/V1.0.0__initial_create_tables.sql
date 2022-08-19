@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS users (
     "user_email" VARCHAR(30) NULL UNIQUE,
     "user_type" SMALLINT NOT NULL REFERENCES user_types("user_type_id") ON DELETE SET NULL,
     "user_active" VARCHAR(3) DEFAULT 'N',
+    "user_org_id" SMALLINT  REFERENCES organization("org_id") ON DELETE SET NULL,
     "user_reset" VARCHAR(3) DEFAULT 'N');
 
     -- Create project_category table
@@ -54,8 +55,9 @@ CREATE TABLE IF NOT EXISTS unit_type (
     -- Create items table
 CREATE TABLE IF NOT EXISTS items (
     "item_id" SERIAL PRIMARY KEY ,
-    "item_name" VARCHAR(120) NULL,
-    "item_desc" VARCHAR(50) NOT NULL,
+    "item_name" VARCHAR(50) NULL,
+    "item_desc" VARCHAR(120) NOT NULL,
+    "item_make" VARCHAR(40) not NULL,
     "item_item_category_id" SMALLINT NOT NULL REFERENCES item_categories("item_category_id") ON DELETE SET NULL,
     "item_item_type_id" SMALLINT NOT NULL REFERENCES item_types("item_type_id") ON DELETE SET NULL,
     "item_unit_id" SMALLINT REFERENCES unit_type("unit_id") ON DELETE SET NULL);
@@ -63,7 +65,7 @@ CREATE TABLE IF NOT EXISTS items (
     --create table project_status
 CREATE TABLE IF NOT EXISTS project_status(
 "project_status_id" SERIAL PRIMARY KEY,
-"project_status_name" VARCHAR(10) NOT NULL,
+"project_status_name" VARCHAR(15) NOT NULL,
 "project_status_desc" VARCHAR(50) NULL);
 
     -- Create project table
@@ -95,7 +97,7 @@ CREATE TABLE IF NOT EXISTS project_floors (
     "project_floor_project_id" SMALLINT REFERENCES project("project_id") ON DELETE CASCADE,
     "project_floor_value" VARCHAR(35),
     "project_floor_ref" VARCHAR(20) NULL,
-    "project_floor_measurement" NUMERIC(5,2) NULL,
+    "project_floor_measurement" numeric(20,3) NULL,
     "project_floor_description" VARCHAR(50) NULL,
     "project_floor_status" SMALLINT REFERENCES project_status("project_status_id") ON DELETE SET NULL);
 
@@ -149,11 +151,10 @@ CREATE TABLE IF NOT EXISTS role_groups(
 );
 
 --creat table project_users
-CREATE TABLE IF NOT EXISTS PROJECT_USERS(
+CREATE TABLE IF NOT EXISTS project_users(
 "project_user_id" SERIAL PRIMARY KEY,
 "project_user_project_id" SMALLINT REFERENCES project("project_id") ON DELETE CASCADE,
 "project_user_user_id" SMALLINT REFERENCES users("user_id") ON DELETE CASCADE);
 
-  
 
 

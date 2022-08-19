@@ -133,8 +133,18 @@ public class SFloorItem implements IFloorItem {
 		public EFloorItem updateUsedItem(Integer id, FloorItemDTO used) {
 			
 			EFloorItem floorItem = getById(id, true);
+			
 			floorItem.setFloorItemUsedQuantity(floorItem.getFloorItemUsedQuantity()+used.getFloorItemUsedQuantity());
-			return floorItemDAO.save(floorItem);
+			
+			EFloorItem res=  floorItemDAO.save(floorItem);
+			if(res.getFloorItemUsedQuantity()>res.getFloorItemMaximumQuantity()) {
+				EUsageStatus status= new EUsageStatus();
+				status.setId(overUsedStatusId);
+				res.setFloorItemStatus(status);
+				floorItemDAO.save(res);
+			}
+			
+			return res;
 		}
 
 }

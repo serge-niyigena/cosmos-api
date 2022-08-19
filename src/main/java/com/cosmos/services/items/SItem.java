@@ -71,6 +71,7 @@ public class SItem implements IItem {
 			
 			item.setDesc(itemDTO.getDesc());
 			item.setName(itemDTO.getName());
+			item.setMake(itemDTO.getMake());
 			item.setItemCategory(iCat);
 			item.setItemType(iType);
 			item.setItemUnitType(uType);
@@ -89,6 +90,7 @@ public class SItem implements IItem {
 			
 			item.setDesc(itemDTO.getDesc());
 			item.setName(itemDTO.getName());
+			item.setMake(itemDTO.getMake());
 			item.setItemCategory(iCat);
 			item.setItemType(iType);
 			item.setItemUnitType(uType);

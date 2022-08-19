@@ -22,6 +22,7 @@ public class ItemDTO {
  
     private String desc;
     
+    private String make;
     
     @ApiModelProperty(accessMode = AccessMode.READ_ONLY, hidden = true)
     private ItemCategoryDTO itemCategory;
@@ -45,6 +46,7 @@ public class ItemDTO {
     	setId(eItem.getId());
     	setName(eItem.getName());
     	setDesc(eItem.getDesc());
+    	setMake(eItem.getMake());
 		setItemCategory(new ItemCategoryDTO(eItem.getItemCategory()));
 	    setItemType(new ItemTypeDTO(eItem.getItemType()));
 		setItemUnitType(new UnitTypeDTO(eItem.getItemUnitType()));
